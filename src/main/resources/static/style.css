@@ -1,0 +1,66 @@
+/* GENERAL */
+:root {
+    --black: #000;
+    --darkgrey: #b3b3b3;
+    --lightgrey: #d9d9d9;
+    --white: #f2f2f2;
+    --red: #ef2037;
+}
+html {
+    font-family: 'Inter', sans-serif;
+}
+.header {
+    font-family: 'Playfair Display', serif;
+}
+/* NAVBAR */
+.navbar {
+    background-color: var(--lightgrey);
+}
+.title {
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: 32px;
+    letter-spacing: 1px;
+    padding: 0;
+}
+#nav-links {
+    width: 230px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#nav-links>a>i {
+    scale: 200%;
+}
+.btn-danger {
+    background-color: var(--red);
+    color: var(--white);
+    font-weight: 500;
+}
+.fa-bars {
+    scale: 200%;
+}
+.navbar-toggler {
+    border: none;
+    padding-left: 10px;
+}
+.cb-brand {
+    background-color: var(--red);
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    padding-bottom: 0;
+}
+.offcanvas-body a:any-link {
+    color: var(--white);
+    text-align: center;
+}
+.offcanvas-body a:hover {
+    color: var(--darkgrey);
+}
+#search-addon {
+    background: none;
+    scale: 150%;
+}
