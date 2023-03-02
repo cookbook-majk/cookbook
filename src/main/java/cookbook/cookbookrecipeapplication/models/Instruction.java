@@ -12,7 +12,7 @@ public class Instruction {
     private long id;
 
     @Column(nullable = false)
-    private int order;
+    private int order_num;
 
     @Column(nullable = false, length = 150)
     private String content;
@@ -25,18 +25,18 @@ public class Instruction {
     public Instruction() {
     }
 
-    public Instruction(int order, String content, Custom_recipe custom_recipe) {
-        this.order = order;
+    public Instruction(int order_num, String content, Custom_recipe custom_recipe) {
+        this.order_num = order_num;
         this.content = content;
         this.custom_recipe = custom_recipe;
     }
 
     public int getOrder() {
-        return order;
+        return order_num;
     }
 
     public void setOrder(int order) {
-        this.order = order;
+        this.order_num = order;
     }
 
     public String getContent() {
