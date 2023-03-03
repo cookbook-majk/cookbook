@@ -59,13 +59,13 @@ public class User {
     // Constructors
     public User(){}
 
-    public User(String username, String password, String email, String firstName, String lastName, Date userCreated, String profilePicture) {
+    public User(String username, String password, String email, String firstName, String lastName, String profilePicture) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userCreated = userCreated;
+        this.userCreated = new Date();
         this.profilePicture = profilePicture;
     }
 
