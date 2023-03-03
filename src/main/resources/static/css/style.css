@@ -19,7 +19,7 @@ html {
     font-family: 'Inter', sans-serif;
 }
 body {
-    padding-top: 64px;
+    padding-top: 73px;
 }
 .header {
     font-family: 'Playfair Display', serif;
@@ -35,7 +35,7 @@ body {
 .title {
     font-family: 'Playfair Display', serif;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 38px;
     letter-spacing: 1px;
     padding: 0;
 }
@@ -109,6 +109,19 @@ body {
     border-top-right-radius: 25px;
     z-index: 1;
 }
+/* REGISTRATION & LOG IN */
 .side-img {
     max-height: 600px;
+}
+/* PROFILE PAGE */
+.profile-img {
+    border-radius: 25%;
+    /*width: 350px;*/
+    /*height: 350px;*/
+    box-shadow: var(--lightgrey) 0 0 30px;
+    /*clear: none;*/
+}
+#user-details {
+    margin-left: 0;
+    padding-left: 0;
 }
