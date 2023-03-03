@@ -7,7 +7,51 @@
 <body>
 <nav th:replace="partials :: navbar"></nav>
 
-// content here
+<section class="vh-100" style="background-color: #fff;">
+    <div class="container h-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 header fw-bold mb-4 mx-1 mx-md-4 mt-4 mt-md-2">Log In</p>
+                <form th:action="@{/login}" th:method="post" class="mx-1 mx-md-4">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label class="visually-hidden" for="username">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user fa-lg fa-fw"></i>
+                                </div>
+                                <input type="text" class="form-control" id="username" placeholder="Username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label class="visually-hidden" for="password">Password</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-key fa-lg fa-fw"></i>
+                                </div>
+                                <input type="password" class="form-control" id="password" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
+                        <button type="submit" class="btn btn-danger btn-lg">Log In</button>
+                    </div>
+                    <div class="d-flex justify-content-center mb-4">
+                        <span class="form-check-label" for="form2Example3">
+                            Don't have an account? <a href="/register" style="color: var(--red);">Register</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-5 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="../static/images/chef.jpg" th:src="@{images/chef.jpg}" class="img-fluid side-img"
+                     alt="Person cooking in the kitchen"/>
+            </div>
+        </div>
+    </div>
+</section>
 
 <div th:replace="partials :: script"></div>
 </body>
