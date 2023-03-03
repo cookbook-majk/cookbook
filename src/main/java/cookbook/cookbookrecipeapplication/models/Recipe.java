@@ -33,9 +33,15 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private List<RecentActivity> recentActivities;
 
-//    @ManyToMany
-//    Set<Chapter> chaptersWithRecipes;
+    @ManyToMany(mappedBy = "savedRecipes")
+    Set<Chapter> chapters;
 
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_types",
+            joinColumns = @JoinColumn(name = "recipes"),
+            inverseJoinColumns = @JoinColumn(name = "dish_types"))
+    Set<DishType> dishTypes;
 
     public Recipe() {
     }

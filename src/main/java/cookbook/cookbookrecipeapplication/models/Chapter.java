@@ -20,7 +20,7 @@ public class Chapter {
     private String description;
 
     @ManyToOne
-    @JoinColumn (name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column
@@ -29,8 +29,8 @@ public class Chapter {
     @ManyToMany
     @JoinTable(
             name = "recipe_chapter",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "chapter_id"))
+            joinColumns = @JoinColumn(name = "recipes"),
+            inverseJoinColumns = @JoinColumn(name = "chapters"))
     Set<Recipe> savedRecipes;
 
     public Chapter() {
