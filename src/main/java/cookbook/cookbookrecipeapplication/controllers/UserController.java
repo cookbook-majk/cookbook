@@ -46,4 +46,16 @@ public class UserController {
         return "redirect:/login";
     }
 
+    //* USER PROFILE *//
+    @GetMapping("/profile")
+    public String showProfile() {
+        return "/profile";
+    }
+
+    //* ACTIVITY FEED *//
+    @GetMapping("/feed")
+    public String showActivityFeed() {
+        return "/feed";
+    }
+
 }

@@ -16,7 +16,7 @@ public class GeneralController {
 
     // Browse All Recipes
     @GetMapping("/home")
-    public String discoverRecipes(){
+    public String showHome(){
         return "/home";
     }
 
