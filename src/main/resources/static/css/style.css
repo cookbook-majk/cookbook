@@ -1,9 +1,14 @@
 /* GENERAL */
+* {
+    box-sizing: border-box;
+}
 :root {
-    --black: #000;
+    --black: #070707;
     --darkgrey: #b3b3b3;
     --lightgrey: #d9d9d9;
     --white: #f2f2f2;
+    --blue: #0666ff;
+    --yellow: #fdc628;
     --red: #ef2037;
 }
 html {
@@ -11,6 +16,10 @@ html {
 }
 .header {
     font-family: 'Playfair Display', serif;
+}
+.container {
+    margin: 0;
+    padding: 25px 50px;
 }
 /* NAVBAR */
 .navbar {
@@ -21,6 +30,7 @@ html {
     font-weight: bold;
     font-size: 32px;
     letter-spacing: 1px;
+    margin-left: -55px;
     padding: 0;
 }
 #nav-links {
@@ -35,6 +45,7 @@ html {
 .btn-danger {
     background-color: var(--red);
     color: var(--white);
+    font-size: 20px;
     font-weight: 500;
 }
 .fa-bars {
@@ -63,4 +74,32 @@ html {
 #search-addon {
     background: none;
     scale: 150%;
+}
+/* CALL TO ACTION */
+#call-to-action>div {
+    position: fixed;
+    top: 150px;
+    width: 650px;
+    z-index: 0;
+}
+#call-to-action .header {
+    color: var(--black);
+    text-align: center;
+    text-shadow: var(--white) 0 0 10px, var(--white) 0 0 10px, var(--white) 0 0 30px;
+    font-weight: 800;
+    font-size: 56px;
+}
+#call-to-action>img {
+    position: fixed;
+    width: 100%;
+    top: 50px;
+}
+#page-body {
+    position: relative;
+    background-color: var(--white);
+    top: 600px;
+    height: 725px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    z-index: 1;
 }
