@@ -2,8 +2,6 @@ package cookbook.cookbookrecipeapplication.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 
 @Entity
 @Table(name = "ingredients")
@@ -24,13 +22,13 @@ public class Ingredient {
 
     @ManyToOne
     @JoinColumn (name = "custom_recipe_id")
-    private Custom_recipe custom_recipe;
+    private CustomRecipe custom_recipe;
 
 
     public Ingredient() {
     }
 
-    public Ingredient(String name, String unit, double amount, Custom_recipe custom_recipe) {
+    public Ingredient(String name, String unit, double amount, CustomRecipe custom_recipe) {
         this.name = name;
         this.unit = unit;
         this.amount = amount;
@@ -61,11 +59,11 @@ public class Ingredient {
         this.amount = amount;
     }
 
-    public Custom_recipe getCustom_recipe() {
+    public CustomRecipe getCustom_recipe() {
         return custom_recipe;
     }
 
-    public void setCustom_recipe(Custom_recipe custom_recipe) {
+    public void setCustom_recipe(CustomRecipe custom_recipe) {
         this.custom_recipe = custom_recipe;
     }
 }

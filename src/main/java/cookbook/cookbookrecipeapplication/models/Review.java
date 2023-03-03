@@ -25,25 +25,26 @@ public class Review {
     @Column
     private int rating;
 
-//    @ManyToOne
-//    @JoinColumn (name = "user_id")
-//    private User creator_id;
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn (name = "recipe_id")
     private Recipe recipe;
 
 
+
     public Review() {
     }
 
 
-    public Review(Date createdAt, String comment, Date editedAt, int rating, Recipe recipe) {
+    public Review(Date createdAt, String comment, Date editedAt, int rating, User user, Recipe recipe) {
         this.createdAt = createdAt;
         this.comment = comment;
         this.editedAt = editedAt;
         this.rating = rating;
-//        this.creator_id = creator_id;
+        this.user = user;
         this.recipe = recipe;
     }
 
@@ -79,13 +80,13 @@ public class Review {
         this.rating = rating;
     }
 
-//    public User getCreator_id() {
-//        return creator_id;
-//    }
+    public User getCreator_id() {
+        return user;
+    }
 
-//    public void setCreator_id(User creator_id) {
-//        this.creator_id = creator_id;
-//    }
+    public void setCreator_id(User creator_id) {
+        this.user = user;
+    }
 
     public Recipe getRecipe_id() {
         return recipe;

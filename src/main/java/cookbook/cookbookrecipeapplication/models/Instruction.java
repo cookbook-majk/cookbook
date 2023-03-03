@@ -19,13 +19,13 @@ public class Instruction {
 
     @ManyToOne
     @JoinColumn (name = "custom_recipe_id")
-    private Custom_recipe custom_recipe;
+    private CustomRecipe custom_recipe;
 
 
     public Instruction() {
     }
 
-    public Instruction(int order_num, String content, Custom_recipe custom_recipe) {
+    public Instruction(int order_num, String content, CustomRecipe custom_recipe) {
         this.order_num = order_num;
         this.content = content;
         this.custom_recipe = custom_recipe;
@@ -47,11 +47,11 @@ public class Instruction {
         this.content = content;
     }
 
-    public Custom_recipe getCustom_recipe() {
+    public CustomRecipe getCustom_recipe() {
         return custom_recipe;
     }
 
-    public void setCustom_recipe(Custom_recipe custom_recipe) {
+    public void setCustom_recipe(CustomRecipe custom_recipe) {
         this.custom_recipe = custom_recipe;
     }
 }
