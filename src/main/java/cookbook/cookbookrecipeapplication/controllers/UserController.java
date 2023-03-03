@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
     private UserDaoService userDao;
-    public UserController(UserDaoService userDao){
+    public UserController(UserDaoService userDao) {
         this.userDao = userDao;
     }
 
@@ -22,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user){
+    public String saveUser(@ModelAttribute User user) {
         // userDao.registerUser(user);
         return "redirect:/login";
     }

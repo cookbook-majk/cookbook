@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "recipes")
@@ -23,12 +24,17 @@ public class Recipe {
     @Column(nullable = false, columnDefinition="TEXT")
     private String summary;
 
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "custom_recipe")
-//    @JoinColumn(nullable = true)
-//    private Custom_recipe custom_recipe;
+    @OneToOne(cascade = CascadeType.ALL)
+    private CustomRecipe custom_recipe;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private List<Review> reviews;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private List<RecentActivity> recentActivities;
+
+//    @ManyToMany
+//    Set<Chapter> chaptersWithRecipes;
 
 
     public Recipe() {

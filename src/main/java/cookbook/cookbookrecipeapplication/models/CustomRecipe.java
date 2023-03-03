@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "custom_recipes")
-public class Custom_recipe {
+public class CustomRecipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,19 +34,18 @@ public class Custom_recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "custom_recipe")
     private List<Instruction> instructions;
 
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "custom_recipe")
-//    @JoinColumn(nullable = true)
-//    private Recipe recipe;
+    @OneToOne(mappedBy = "custom_recipe")
+    private Recipe recipe;
 
-//    @ManyToOne
-//    @JoinColumn (name = "user_id")
-//    private User creator_id;
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private User user;
 
 
-    public Custom_recipe() {
+    public CustomRecipe() {
     }
 
-    public Custom_recipe(String title, String image, String image_type, int servings, long readyInMinutes, List<Ingredient> ingredients, List<Instruction> instructions) {
+    public CustomRecipe(String title, String image, String image_type, int servings, long readyInMinutes, List<Ingredient> ingredients, List<Instruction> instructions, User user) {
         this.title = title;
         this.image = image;
         this.image_type = image_type;
@@ -54,7 +53,7 @@ public class Custom_recipe {
         this.readyInMinutes = readyInMinutes;
         this.ingredients = ingredients;
         this.instructions = instructions;
-//        this.creator_id = creator_id;
+        this.user = user;
     }
 
     public String getTitle() {
@@ -113,11 +112,11 @@ public class Custom_recipe {
         this.instructions = instructions;
     }
 
-//    public User getCreator_id() {
-//        return creator_id;
-//    }
+    public User getCreator_id() {
+        return user;
+    }
 
-//    public void setCreator_id(User creator_id) {
-//        this.creator_id = creator_id;
-//    }
+    public void setCreator_id(User user) {
+        this.user = user;
+    }
 }

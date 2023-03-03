@@ -4,9 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     // Columns
@@ -37,7 +38,23 @@ public class User {
     @Column(nullable = false)
     private String profilePicture;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<CustomRecipe> custom_recipes;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Review> reviews;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private  List<Chapter> chapters;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private  List<RecentActivity> recentActivities;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private  List<Follower> userFollows;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "follower")
+    private  List<Follower> following;
 
     // Constructors
     public User(){}
