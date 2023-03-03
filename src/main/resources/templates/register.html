@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="partials :: head">
+    <title>Registration</title>
+</head>
+<body>
+<nav th:replace="partials :: navbar"></nav>
+
+<section class="vh-100" style="background-color: #fff;">
+    <div class="container h-100">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 header fw-bold mb-5 mx-1 mx-md-4 mt-4 mt-md-2">Registration</p>
+
+                <form th:action="@{/register}" th:method="post" th:object="${user}" class="mx-1 mx-md-4">
+
+                    <div class="row mb-4">
+                        <div class="col">
+                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label class="visually-hidden" for="username">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-user fa-lg fa-fw"></i>
+                                </div>
+                                <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label class="visually-hidden" for="email">Email</label>
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <i class="fas fa-envelope fa-lg fa-fw"></i>
+                                </div>
+                                <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <input type="text" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
+                        <button type="submit" class="btn btn-danger btn-lg">Register</button>
+                    </div>
+                    <div class="d-flex justify-content-center mb-4">
+                        <span class="form-check-label" for="form2Example3">
+                            Already have an account? <a href="/login" style="color: var(--red);">Log In</a>
+                        </span>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="col-md-9 col-lg-5 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="../static/images/cooking.jpg" th:src="@{images/cooking.jpg}" class="img-fluid side-img"
+                     alt="Person cooking in the kitchen"/>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!--<section class="vh-100" style="background-color: #fff;">-->
+<!--    <div class="container h-100">-->
+<!--        <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--            <div class="col-lg-12 col-xl-11">-->
+<!--                <div class="card-body p-md-5 pt-md-0">-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">-->
+
+<!--                            <p class="text-center h1 header fw-bold mb-5 mx-1 mx-md-4 mt-4">Registration</p>-->
+
+<!--                            <form class="mx-1 mx-md-4">-->
+
+<!--                                <div class="d-flex flex-row align-items-center mb-4">-->
+<!--                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>-->
+<!--                                    <div class="form-outline flex-fill mb-0">-->
+<!--                                        <input type="text" id="form3Example1c" class="form-control"/>-->
+<!--                                        <label class="form-label" for="form3Example1c">Your Name</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="d-flex flex-row align-items-center mb-4">-->
+<!--                                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>-->
+<!--                                    <div class="form-outline flex-fill mb-0">-->
+<!--                                        <input type="email" id="form3Example3c" class="form-control"/>-->
+<!--                                        <label class="form-label" for="form3Example3c">Your Email</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="d-flex flex-row align-items-center mb-4">-->
+<!--                                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>-->
+<!--                                    <div class="form-outline flex-fill mb-0">-->
+<!--                                        <input type="password" id="form3Example4c" class="form-control"/>-->
+<!--                                        <label class="form-label" for="form3Example4c">Password</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="d-flex flex-row align-items-center mb-4">-->
+<!--                                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>-->
+<!--                                    <div class="form-outline flex-fill mb-0">-->
+<!--                                        <input type="password" id="form3Example4cd" class="form-control"/>-->
+<!--                                        <label class="form-label" for="form3Example4cd">Repeat your password</label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="form-check d-flex justify-content-center mb-5">-->
+<!--                                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c"/>-->
+<!--                                    <label class="form-check-label" for="form2Example3">-->
+<!--                                        I agree all statements in <a href="#!">Terms of service</a>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+
+<!--                                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">-->
+<!--                                    <button type="button" class="btn btn-primary btn-lg">Register</button>-->
+<!--                                </div>-->
+
+<!--                            </form>-->
+
+<!--                        </div>-->
+<!--                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">-->
+
+<!--                            <img src="../static/images/cooking.jpg" th:src="@{images/cooking.jpg}" class="img-fluid"-->
+<!--                                 alt="Sample image"/>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<div th:replace="partials :: script"></div>
+</body>
+</html>
