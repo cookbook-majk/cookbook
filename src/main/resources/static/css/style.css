@@ -4,22 +4,29 @@
 }
 :root {
     --black: #070707;
-    --darkgrey: #b3b3b3;
+    --darkgrey: #395a64;
+    --grey: #b3b3b3;
     --lightgrey: #d9d9d9;
     --white: #f2f2f2;
-    --blue: #0666ff;
-    --yellow: #fdc628;
+    --salmon: #fb735d;
+    --lightred: #fb4f5a;
     --red: #ef2037;
+    --yellow: #fdc801;
+    --blue: #197dff;
+
 }
 html {
     font-family: 'Inter', sans-serif;
+}
+body {
+    padding-top: 64px;
 }
 .header {
     font-family: 'Playfair Display', serif;
 }
 .container {
-    margin: 0;
     padding: 25px 50px;
+    font-family: 'Inter', sans-serif;
 }
 /* NAVBAR */
 .navbar {
@@ -30,7 +37,6 @@ html {
     font-weight: bold;
     font-size: 32px;
     letter-spacing: 1px;
-    margin-left: -55px;
     padding: 0;
 }
 #nav-links {
@@ -102,4 +108,7 @@ html {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
     z-index: 1;
+}
+.side-img {
+    max-height: 600px;
 }
