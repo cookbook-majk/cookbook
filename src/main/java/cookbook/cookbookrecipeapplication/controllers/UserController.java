@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -20,6 +21,13 @@ public class UserController {
         this.recipeDao = recipeDao;
     }
 
+    //* LOG IN *//
+    @GetMapping("/login")
+    public String showLogIn() {
+        return "/login";
+    }
+
+    //* REGISTRATION *//
     @GetMapping("/register")
     public String showRegistration(Model model) {
         model.addAttribute("user", new User());
@@ -28,8 +36,9 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user) {
+    public String createUser(@ModelAttribute User user) {
 //         userDao.registerUser(user);
         return "redirect:/login";
     }
+
 }
