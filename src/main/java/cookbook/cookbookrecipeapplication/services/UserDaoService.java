@@ -12,24 +12,18 @@ import java.util.Date;
 @Service
 public class UserDaoService {
     private final UserRepository userDao;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final ChapterRepository chapterDao;
-//
-//    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao) {
-//        this.userDao = userDao;
-//        this.passwordEncoder = passwordEncoder;
-//        this.chapterDao = chapterDao;
-//    }
 
-
-    public UserDaoService(UserRepository userDao, ChapterRepository chapterDao) {
+    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
         this.chapterDao = chapterDao;
     }
 
     public void registerUser(User user){
-//        String hash = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(hash);
+        String hash = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hash);
         user.setProfilePicture("example.jpg");
         user.setUserCreated(new Date());
         userDao.save(user);
