@@ -1,28 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials :: head">
-    <title>User Profile</title>
-</head>
+<head th:replace="partials :: head"></head>
+<title>User Profile</title>
+<link rel="icon" href="../static/images/stir-fry.png" th:href="@{images/stir-fry.png}">
 <body style="background-color: #f2f2f2;">
 <nav th:replace="partials :: navbar"></nav>
 
-<section class="" style="background-color: #f2f2f2;">
+<section style="background-color: #f2f2f2;">
     <div class="h-100 ps-5 pe-5 pt-4 pb-4">
-        <div class="row">
+        <!-- Profile Header Section -->
+        <div class="row vh-25">
             <div class="col-md-5 col-lg-4">
-                <img src="../static/images/pizzaman.jpg" th:src="@{images/pizzaman.jpg}" class="img-fluid profile-img"
+                <img src="../static/images/pizzaman.jpg" th:src="@{images/pizzaman.jpg}" id="user-img" class="img-fluid"
                      alt="Person tossing pizza dough"/>
             </div>
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
+
                 <h1 id="fullname" class="header">Gustav Pizzamani</h1>
+                <a href="/follow"><img src="../static/images/add-friend.png" th:src="@{images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
                 <h2 id="username" class="header">@pizzaguy</h2>
-                <p id="user-bio" class="pt-2 pb-2">Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                <p id="user-bio" class="pt-2 pb-2 h-50">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,.
+                </p>
+                <ul id="user-stats" class="nav justify-content-between">
+                    <li class="nav-item">
+                        <span id="num-followers">100</span> Followers
+                    </li>
+                    <li class="nav-item">
+                        <span id="num-following">100</span> Following
+                    </li>
+                    <li class="nav-item">
+                        <span id="num-recipes">34</span> Recipes
+                    </li>
+                </ul>
             </div>
         </div>
 
+        <!-- Profile Tabs -->
+        <div class="row mt-4 mb-3" role="tablist">
+            <div class="col-4 pe-1">
+                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="true">Activity</button>
+            </div>
+            <div class="col-4">
+                <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="false">Recipes</button>
+            </div>
+            <div class="col-4 ps-1">
+                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Chapters</button>
+            </div>
+        </div>
 
+        <!-- Profile Body Section -->
+        <div class="row tab-content">
+            <div id="user-activity" class="tab-pane fade" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
+                <h1 class="header">Recent Activity</h1>
+                <hr>
+                <!-- Content Here -->
+            </div>
+            <div id="user-recipes" class="tab-pane fade" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
+                <h1 class="header">Recipes</h1>
+                <hr>
+                <!-- Content Here -->
+            </div>
+            <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
+                <h1 class="header">Chapters</h1>
+                <hr>
+                <!-- Content Here -->
+            </div>
+        </div>
     </div>
 </section>
 

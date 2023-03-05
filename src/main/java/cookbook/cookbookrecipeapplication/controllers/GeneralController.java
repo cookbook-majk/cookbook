@@ -20,35 +20,10 @@ public class GeneralController {
         return "/home";
     }
 
-//    // View a Recipe
-//    @GetMapping("/posts/{id}")
-//    public String viewPost(@PathVariable long id, Model model){
-//        model.addAttribute("post", postService.getPostById(id));
-//        return "posts/show";
-//    }
-//
-//    // Draft a Recipe
-//    @GetMapping("/posts/create")
-//    public String draftPost(Model model){
-//        model.addAttribute("post", new Post());
-//        return "posts/create";
-//    }
-//
-//    // Create a Recipe
-//    @PostMapping("/posts/create")
-//    public String createPost(@ModelAttribute Post post) {
-//        postService.savePost(post);
-//        emailService.sendTextEmail(post);
-//        return "redirect:/posts/" + post.getId();
-//    }
-//
-//    // Edit a Recipe
-//    @GetMapping("/posts/{id}/edit")
-//    public String editPost(@PathVariable long id, Model model){
-//        model.addAttribute("post", postService.getPostById(id));
-//        return "posts/edit";
-//    }
-//
+    // Draft a Recipe
+    @GetMapping("/recipe/create")
+    public String draftRecipe() { return "/create"; }
+
 //    // Submit an Edit
 //    @PostMapping("/posts/edit")
 //    public String updatePost(@ModelAttribute Post post) {
