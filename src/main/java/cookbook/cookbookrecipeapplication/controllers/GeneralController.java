@@ -1,7 +1,9 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -9,7 +11,6 @@ public class GeneralController {
 
     // Service Injection
     private final RecipeDaoService recipeService;
-
     public GeneralController(RecipeDaoService recipeService) {
         this.recipeService = recipeService;
     }
@@ -22,7 +23,17 @@ public class GeneralController {
 
     // Draft a Recipe
     @GetMapping("/recipe/create")
-    public String draftRecipe() { return "/create"; }
+    public String draftRecipe(Model model) {
+        model.addAttribute("recipe", new Recipe());
+        return "/create";
+    }
+
+    // Create a Recipe
+//    @PostMapping("/register")
+//    public String createUser(@ModelAttribute Recipe recipe) {
+//        recipeService.
+//        return "redirect:/login";
+//    }
 
 //    // Submit an Edit
 //    @PostMapping("/posts/edit")
