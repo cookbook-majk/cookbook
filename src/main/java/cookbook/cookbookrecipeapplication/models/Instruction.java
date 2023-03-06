@@ -2,10 +2,12 @@ package cookbook.cookbookrecipeapplication.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 
 @Entity
 @Table(name = "instructions")
-public class Instruction {
+public class Instruction implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

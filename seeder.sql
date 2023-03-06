@@ -1,4 +1,4 @@
-drop database cookbook_db;
+# drop database cookbook_db;
 
 use cookbook_db;
 
@@ -30,11 +30,11 @@ VALUES ('Spoonacular saved recipes', false, 'SpoonacularSaved', 1),
 
 #        ('mulldawgydawg saved recipes', false, 'mulldawgydawgSaved', 4);
 
-INSERT INTO custom_recipes (image, image_type, ready_in_minutes, servings, title, user_id)
-VALUES ('example.jpg', 'jpg', 2, 1, 'joshs delicious cereal', 4);
+INSERT INTO custom_recipes (ready_in_minutes, servings, summary, user_id)
+VALUES (2, 1,'delicious cereal recipe! try now',4);
 
-INSERT INTO recipes (created_at, spoonacular_id, summary, custom_recipe_id)
-VALUES (now(), null, 'delicious cereal recipe! try now', 1 );
+INSERT INTO recipes (created_at, image, image_type, spoonacular_id, title, custom_recipe_id)
+VALUES (now(), 'example.jpg', 'jpg', null, 'joshs delicious cereal', 1);
 
 INSERT INTO ingredients (amount, name, unit, custom_recipe_id)
 VALUES (1, 'milk', 'cup', 1),
@@ -53,9 +53,9 @@ INSERT INTO followers (follower_id, user_id) VALUES (4, 2);
 INSERT INTO followers (follower_id, user_id) VALUES (4, 3);
 
 INSERT INTO recent_activity (activity_type, created_at, recipe_id, user_id)
-VALUES (1, now(), 1, 4);
+VALUES (1, now(), 2, 4);
 
 INSERT INTO reviews (comment, created_at, edited_at, rating, recipe_id, user_id)
-VALUES ('so simple, yet so satisfying! thanks for sharing.', now(), null, 5, 1, 2),
-       ('why share this? we all know how to make cereal...', now(), null, 2, 1, 3),
-       ('trash.', now(), now(), 1, 1, 2);
+VALUES ('so simple, yet so satisfying! thanks for sharing.', now(), null, 5, 2, 2),
+       ('why share this? we all know how to make cereal...', now(), null, 2, 2, 3),
+       ('trash.', now(), now(), 1, 2, 2);

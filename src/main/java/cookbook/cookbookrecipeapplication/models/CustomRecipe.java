@@ -3,24 +3,21 @@ package cookbook.cookbookrecipeapplication.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "custom_recipes")
-public class CustomRecipe {
+public class CustomRecipe implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 100)
-    private String title;
 
-    @Column(nullable = false, length = 250)
-    private String image;
 
-    @Column(nullable = false, length = 9)
-    private String image_type;
+    @Column(nullable = false, columnDefinition="TEXT")
+    private String summary;
 
     @Column(nullable = false)
     private int servings;
@@ -45,40 +42,16 @@ public class CustomRecipe {
     public CustomRecipe() {
     }
 
-    public CustomRecipe(String title, String image, String image_type, int servings, long readyInMinutes, List<Ingredient> ingredients, List<Instruction> instructions, User user) {
-        this.title = title;
-        this.image = image;
-        this.image_type = image_type;
+    public CustomRecipe(int servings, long readyInMinutes, List<Ingredient> ingredients, List<Instruction> instructions, User user, String summary) {
         this.servings = servings;
         this.readyInMinutes = readyInMinutes;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.user = user;
+        this.summary = summary;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getImage_type() {
-        return image_type;
-    }
-
-    public void setImage_type(String image_type) {
-        this.image_type = image_type;
-    }
 
     public int getServings() {
         return servings;
@@ -118,5 +91,13 @@ public class CustomRecipe {
 
     public void setCreator_id(User user) {
         this.user = user;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

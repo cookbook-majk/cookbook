@@ -74,4 +74,12 @@ public class Chapter {
     public void setFeatured(boolean featured) {
         this.featured = featured;
     }
+
+    public Set<Recipe> getSavedRecipes() {
+        return savedRecipes;
+    }
+
+    public void setSavedRecipes(Set<Recipe> savedRecipes) {
+        this.savedRecipes = savedRecipes;
+    }
 }
