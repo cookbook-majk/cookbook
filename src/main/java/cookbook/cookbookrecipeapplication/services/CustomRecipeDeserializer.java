@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import cookbook.cookbookrecipeapplication.models.CustomRecipe;
 import cookbook.cookbookrecipeapplication.models.Ingredient;
+import cookbook.cookbookrecipeapplication.models.Instruction;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +47,20 @@ public class CustomRecipeDeserializer extends StdDeserializer<CustomRecipe> {
             ingredients.add(ingredient);
         });
         customRecipe.setIngredients(ingredients);
+
+        List<Instruction> instructions = new ArrayList<>();
+        JsonNode instructionsNode = node.get("analyzedInstructions");
+        JsonNode firstIndexNode = instructionsNode.get(0);
+        JsonNode stepsNode = firstIndexNode.get("steps");
+
+        stepsNode.forEach(recipeNode -> {
+            Instruction instruction = new Instruction(
+                    recipeNode.get("number").asInt(),
+                    recipeNode.get("step").asText()
+            );
+            instructions.add(instruction);
+        });
+        customRecipe.setInstructions(instructions);
 
         return customRecipe;
     }

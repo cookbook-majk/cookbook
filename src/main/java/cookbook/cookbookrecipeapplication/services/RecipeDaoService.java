@@ -3,12 +3,19 @@ package cookbook.cookbookrecipeapplication.services;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @Service
@@ -19,6 +26,8 @@ public class RecipeDaoService {
     private final IngredientRepository ingredientDao;
     private final InstructionRepository instructionDao;
     private final ReviewRepository reviewDao;
+
+    private static String apiKey;
 
 
     public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository) {
@@ -41,10 +50,15 @@ public class RecipeDaoService {
         return reviewDao.findAllByRecipe_id(id);
     }
 
-    public static CustomRecipe getCustomRecipeSpoonacular() throws IOException {
-        String uri = "https://4f305d33-68e6-4896-a493-63bcf82396c8.mock.pstmn.io/recipe-test";
-        RestTemplate restTemplate = new RestTemplate();
-        String json = restTemplate.getForObject(uri, String.class);
+    public static CustomRecipe getCustomRecipeSpoonacular(long spoontacular_id) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + spoontacular_id + "/information?includeNutrition=false"))
+                .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
+                .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
 
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
@@ -52,7 +66,24 @@ public class RecipeDaoService {
         module.addDeserializer(CustomRecipe.class, new CustomRecipeDeserializer());
         mapper.registerModule(module);
 
-        return mapper.readValue(json, CustomRecipe.class);
+        CustomRecipe test = mapper.readValue(response.body(), CustomRecipe.class);
+
+        System.out.println(response.body());
+        List<Ingredient> testIngredients = test.getIngredients();
+
+        for (Ingredient testIngredient : testIngredients){
+            System.out.println(testIngredient.getName());
+            System.out.println(testIngredient.getAmount());
+            System.out.println(testIngredient.getUnit());
+        }
+
+        List<Instruction> instructionResults = test.getInstructions();
+        for (Instruction instruction : instructionResults) {
+            System.out.println(instruction.getOrder());
+            System.out.println(instruction.getContent());
+        }
+
+        return mapper.readValue(response.body(), CustomRecipe.class);
     }
 
     public static Recipe getRecipeSpoonacular() throws IOException {
@@ -68,26 +99,39 @@ public class RecipeDaoService {
         return mapper.readValue(json, Recipe.class);
     }
 
-    public static SearchResults getSearchResultsSpoonacular() throws IOException {
-        String uri = "https://184dbb6d-9815-4abd-bfbb-e31ffccf495b.mock.pstmn.io/multipe-recipes";
-        RestTemplate restTemplate = new RestTemplate();
-        String json = restTemplate.getForObject(uri, String.class);
+    public static SearchResults getSearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
+        String updatedSearchParam = searchParam.replaceAll(" ", "%20");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + updatedSearchParam + "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&sort=popularity&sortDirection=asc&number=5"))
+                .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
+                .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
                 new SimpleModule("SearchResultsDeserializer", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(SearchResults.class, new SearchResultsDeserializer());
         mapper.registerModule(module);
-        SearchResults searchResults = mapper.readValue(json, SearchResults.class);
+        SearchResults searchResults = mapper.readValue(response.body(), SearchResults.class);
 
+        List<Recipe> recipeResults = searchResults.getResults();
+        for (Recipe recipe : recipeResults) {
+            System.out.println(recipe.getTitle());
+        }
         return searchResults;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-//        getCustomRecipeSpoonacular();
+//        System.out.println(getCustomRecipeSpoonacular(126987));
 //        getRecipeSpoonacular();
 //        getMultipleRecipesSpoonacular();
-//        System.out.println(getSearchResultsSpoonacular());
+//        System.out.println(getSearchResultsSpoonacular("blueberry muffin"));
+
+
 
     }
 }

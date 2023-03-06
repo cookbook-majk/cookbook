@@ -1,9 +1,11 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.models.Follower;
 import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,8 +56,8 @@ public class UserController {
     public String showProfile(@PathVariable String username, Model model) {
         User user = userDao.findUserByUsername(username);
         model.addAttribute("user", user);
-        model.addAttribute("recipes", recipeDao.findAllCustomRecipesByUser(user));
-        model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
+        model.addAttribute("recipes", user.getCustom_recipes());
+//        model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
         return "/profile";
     }
 
@@ -63,6 +65,22 @@ public class UserController {
     @GetMapping("/feed")
     public String showActivityFeed() {
         return "/feed";
+    }
+
+    //* FOLLOW *//
+    @GetMapping("/follow/{user_id}")
+    public String followUser(@PathVariable long user_id) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Follower follower = new Follower(loggedInUser, userDao.findUserById(user_id));
+            userDao.followUser(follower);
+        return "redirect:/profile/" + userDao.findUserById(user_id).getUsername();
+    }
+
+    @GetMapping("/unfollow/{user_id}")
+    public String unfollowUser(@PathVariable long user_id) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userDao.unfollowUser(loggedInUser, userDao.findUserById(user_id));
+        return "redirect:/profile/" + userDao.findUserById(user_id).getUsername();
     }
 
 }

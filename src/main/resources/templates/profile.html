@@ -18,20 +18,20 @@
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav Pizzamani</h1>
-                <a href="/follow"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p id="user-bio" class="pt-2 pb-2 h-50">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,.
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
                     <li class="nav-item">
-                        <span id="num-followers">100</span> Followers
+                        <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
                     </li>
                     <li class="nav-item">
-                        <span id="num-following">100</span> Following
+                        <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
                     </li>
                     <li class="nav-item">
-                        <span id="num-recipes">34</span> Recipes
+                        <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                     </li>
                 </ul>
             </div>
