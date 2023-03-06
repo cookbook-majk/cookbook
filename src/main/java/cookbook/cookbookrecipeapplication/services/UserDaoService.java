@@ -53,7 +53,7 @@ public class UserDaoService {
         }
         userDao.deleteById(userId);
     }
-}
+
 
     public void followUser(Follower follower){
         followerDao.save(follower);
