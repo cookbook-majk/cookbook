@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="partials :: head"></head>
-<title>User Profile</title>
+<title th:text="${user.getFirstName} + '\'s Profile'"></title>
 <link rel="icon" href="../static/images/stir-fry.png" th:href="@{../images/stir-fry.png}">
 <body style="background-color: #f2f2f2;">
 <nav th:replace="partials :: navbar"></nav>
 
-<section style="background-color: #f2f2f2;">
+<section style="background-color: #f2f2f2;" class="vh-100">
     <div class="h-100 ps-5 pe-5 pt-4 pb-4">
         <!-- Profile Header Section -->
         <div class="row vh-25">
@@ -18,29 +18,29 @@
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav Pizzamani</h1>
-                <a href="/follow"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p id="user-bio" class="pt-2 pb-2 h-50">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,.
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
                     <li class="nav-item">
-                        <span id="num-followers">100</span> Followers
+                        <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
                     </li>
                     <li class="nav-item">
-                        <span id="num-following">100</span> Following
+                        <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
                     </li>
                     <li class="nav-item">
-                        <span id="num-recipes">34</span> Recipes
+                        <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                     </li>
                 </ul>
             </div>
         </div>
 
         <!-- Profile Tabs -->
-        <div class="row mt-4 mb-3" role="tablist">
+        <div id="profile-tabs" class="row mt-4 mb-3" role="tablist">
             <div class="col-4 pe-1">
-                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="true">Activity</button>
+                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="true">Activity</button>
             </div>
             <div class="col-4">
                 <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="false">Recipes</button>
@@ -52,7 +52,7 @@
 
         <!-- Profile Body Section -->
         <div class="row tab-content">
-            <div id="user-activity" class="tab-pane fade" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
+            <div id="user-activity" class="tab-pane fade show active" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
                 <h1 class="header">Recent Activity</h1>
                 <hr>
                 <!-- Content Here -->

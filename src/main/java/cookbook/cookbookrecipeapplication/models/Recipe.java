@@ -16,7 +16,7 @@ public class Recipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = true)
     private long spoonacular_id;
 
     @Column(nullable = false, length = 250)
@@ -55,6 +55,13 @@ public class Recipe implements Serializable {
 
     public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title) {
         this.spoonacular_id = spoonacular_id;
+        this.image = image;
+        this.image_type = image_type;
+        this.createdAt = createdAt;
+        this.title = title;
+    }
+
+    public Recipe(String image, String image_type, Date createdAt, String title) {
         this.image = image;
         this.image_type = image_type;
         this.createdAt = createdAt;

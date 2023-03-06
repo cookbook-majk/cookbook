@@ -1,8 +1,10 @@
 package cookbook.cookbookrecipeapplication.services;
 
 import cookbook.cookbookrecipeapplication.models.Chapter;
+import cookbook.cookbookrecipeapplication.models.Follower;
 import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.repositories.ChapterRepository;
+import cookbook.cookbookrecipeapplication.repositories.FollowerRepository;
 import cookbook.cookbookrecipeapplication.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ public class UserDaoService {
     private final UserRepository userDao;
     private final PasswordEncoder passwordEncoder;
     private final ChapterRepository chapterDao;
+    private final FollowerRepository followerDao;
 
-    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao) {
+    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao, FollowerRepository followerDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.chapterDao = chapterDao;
+        this.followerDao = followerDao;
     }
 
     public void registerUser(User user) {
@@ -50,3 +54,17 @@ public class UserDaoService {
         userDao.deleteById(userId);
     }
 }
+
+    public void followUser(Follower follower){
+        followerDao.save(follower);
+    }
+
+    public void unfollowUser(User loggedInUser, User followee){
+        Follower follower = followerDao.findFollowerByFollowerAndUser(loggedInUser, followee);
+        System.out.println(loggedInUser.getUsername());
+        System.out.println(followee.getUsername());
+        followerDao.delete(follower);
+    }
+
+}
+

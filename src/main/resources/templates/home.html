@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials :: head">
-  <title>Cookbook</title>
-</head>
+<head th:replace="partials :: head"></head>
+<title>Cookbook Home</title>
 <body>
 <nav th:replace="partials :: navbar"></nav>
 
   <!-- CALL TO ACTION -->
+  <!-- TODO: Improve call to action statement -->
   <div id="call-to-action" class="d-flex justify-content-center">
     <img src="../static/images/cover-image.jpg" width="4960" th:src="@{images/cover-image.jpg}" style="opacity: 0.65"/>
     <div class="d-flex flex-column justify-content-center align-content-center">
