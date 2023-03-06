@@ -1,90 +1,166 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials :: head">
-    <title>Cookbook</title>
-</head>
-<body>
+<head th:replace="partials :: head"></head>
+<title>Create Recipe</title>
+<body style="background-color: #f2f2f2;">
 <nav th:replace="partials :: navbar"></nav>
 
-<!--<div class="container">-->
-<!--    <form th:action="@{/create-recipe}" th:method="post" th:object="${recipe}">-->
-
-<!--    <div class="recipe-details">-->
-<!--        <h1>Recipe Details</h1>-->
-
-<!--            <h3>Recipe Name</h3>-->
-<!--            <input th:field="*{recipe}" placeholder="Recipe Name" style="width:70%"/>-->
-<!--            <h3>Description</h3>-->
-<!--            <input th:field="*{description}" placeholder="Description"/>-->
-<!--    </div>-->
-
-<!--    <div class="ingredientsBtn">-->
-<!--        <h1>Ingredients</h1>-->
-<!--        <button type="button" class="btn btn-danger">+ Ingredient</button>-->
-<!--    </div>-->
-<!--    <div class="ingredients">-->
-<!--        <ol>-->
-<!--            &lt;!&ndash;First ingredient&ndash;&gt;-->
-
-<!--                    <h3>Ingredient Name</h3>-->
-<!--                <li>-->
-<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
-<!--                </li>-->
-
-<!--                <h3>Quantity</h3>-->
-<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
-
-<!--                <h3>Unit</h3>-->
-<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
-
-<!--            &lt;!&ndash;Second ingredient&ndash;&gt;-->
-
-<!--                    <h3>Ingredient Name</h3>-->
-<!--                <li>-->
-<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
-<!--                </li>-->
-
-<!--                <h3>Quantity</h3>-->
-<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
-
-<!--                <h3>Unit</h3>-->
-<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
-
-<!--            &lt;!&ndash;Third ingredient&ndash;&gt;-->
-
-<!--                    <h3>Ingredient Name</h3>-->
-<!--                <li>-->
-<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
-<!--                </li>-->
-
-<!--                <h3>Quantity</h3>-->
-<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
-
-<!--                <h3>Unit</h3>-->
-<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
-
-<!--        </ol>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <div class="instructionsBtn">-->
-<!--            <h1>Recipe Instructions</h1>-->
-<!--            <button type="button" class="btn btn-danger">+ Step</button>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
-<!--        <h3>Step 1:</h3>-->
-<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
-
-<!--        <h3>Step 2:</h3>-->
-<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
-
-<!--        <h3>Step 3:</h3>-->
-<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
-<!--    </form>-->
-<!--</div>-->
+<section style="background-color: #f2f2f2;">
+    <form id="create-recipe-form" th:action="@{/create}" th:method="post" th:object="${recipe}">
+        <div class="row ms-5 me-5 ps-5 pe-5 pt-4 pb-4">
+            <!-- RECIPE DETAILS -->
+            <div id="create-recipe-details" class="row mb-3">
+                <h1 class="header">Recipe Details</h1>
+                <hr>
+                <div class="col-md-8 col-12">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="create-recipe-title" placeholder="Recipe Title">
+                        <label for="create-recipe-title">Recipe Title</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <textarea class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
+                        <label for="create-recipe-description">Recipe Description</label>
+                    </div>
+                </div>
+                <div class="file-upload-placeholder col-md-4 col-sm-12">
+                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div id="img-upload">
+                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image"/>
+                    </div>
+                </div>
+            </div>
+            <!-- RECIPE INGREDIENTS -->
+            <div id="create-recipe-ingredients" class="row mb-3">
+                <div class="col">
+                    <h1 class="header">Ingredients</h1>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center">
+                    <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Ingredient</button>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-7 d-flex justify-content-center">
+                        <h5 class="">Ingredients</h5>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <h5>Quantity</h5>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <h5>Unit</h5>
+                    </div>
+                </div>
+                <ol>
+                    <li>
+                        <div class="row g-3 mb-1">
+                            <div class="col-7">
+                                <input type="text" class="form-control" id="create-recipe-ingredient" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row g-3 mb-1">
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row g-3 mb-1">
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                            </div>
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <!-- RECIPE INSTRUCTIONS -->
+            <div id="create-recipe-instructions" class="row">
+                <div class="col">
+                    <h1 class="header">Instructions</h1>
+                </div>
+                <div class="col d-flex justify-content-end align-items-center">
+                    <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Step</button>
+                </div>
+                <hr>
+                <ol>
+                    <li>
+                        <div class="form-floating mb-1">
+                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3"></textarea>
+                            <label for="create-recipe-step-1">Step One</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-floating mb-1">
+                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3"></textarea>
+                            <label for="create-recipe-step-2">Step Two</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-floating mb-1">
+                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3"></textarea>
+                            <label for="create-recipe-step-3">Step Three</label>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-lg btn-danger col-2">Submit</button>
+            </div>
+        </div>
+    </form>
+</section>
 
 <div th:replace="partials :: script"></div>
+<script>
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {                      // if input is file, files has content
+            var inputFileData = input.files[0];                     // shortcut
+            var reader = new FileReader();                          // FileReader() : init
+            reader.onload = function(e) {                           /* FileReader : set up ************** */
+                console.log('e',e)
+                $('.file-upload-image').attr('src', e.target.result); // image element : set src data.
+                $('.image-title').html(inputFileData.name);           // set image's title
+            };
+            console.log('input.files[0]',input.files[0])
+            reader.readAsDataURL(inputFileData);     // reads target inputFileData, launch `.onload` actions
+        } else { removeUpload(); }
+    }
+
+    function removeUpload() {
+        var $clone = $('.file-upload-input').val('').clone(true); // create empty clone
+        $('.file-upload-input').replaceWith($clone);              // reset input: replaced by empty clone
+        $('.file-upload-placeholder').show();                     // show placeholder
+    }
+
+    // Style when drag-over
+    $('.file-upload-placeholder').bind('dragover', function () {
+        $('.file-upload-placeholder').addClass('image-dropping');
+    });
+    $('.file-upload-placeholder').bind('dragleave', function () {
+        $('.file-upload-placeholder').removeClass('image-dropping');
+    });
+
+</script>
+
 </body>
 </html>

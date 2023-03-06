@@ -10,8 +10,7 @@
     --lightgrey: #d9d9d9;
     --white: #f2f2f2;
     /* Accent Colors */
-    --lightorange: #fb735d;
-    --orange: #f34f34;
+    --pink: #fdbbc0;
     --lightred: #fb4f5a;
     --red: #ef2037;
 
@@ -24,6 +23,7 @@ body {
 }
 .header {
     font-family: 'Playfair Display', serif;
+    font-weight: 600;
 }
 .container {
     padding: 25px 50px;
@@ -146,4 +146,48 @@ body {
 }
 #username {
     clear: left;
+}
+#profile-tabs .btn.active {
+    background-color: var(--red);
+    border-color: var(--red);
+    font-weight: 600;
+}
+/* CREATE RECIPE */
+#img-upload img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+}
+.file-upload-placeholder {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 215px;
+    border: 1px solid var(--lightgrey);
+    background-color: white;
+    border-radius: 6px;
+    position: relative;
+}
+.file-upload-placeholder:hover {
+    background-color: var(--lightgrey);
+    border: 1px solid var(--lightgrey);
+}
+.file-upload-image {
+    padding: 10px;
+    border-radius: 15px;
+}
+#create-recipe-form .btn-sm {
+    font-size: 18px;
+    background-color: var(--lightred);
+    border-color: var(--lightred);
 }
