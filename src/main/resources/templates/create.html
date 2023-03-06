@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="partials :: head">
+    <title>Cookbook</title>
+</head>
+<body>
+<nav th:replace="partials :: navbar"></nav>
+
+<!--<div class="container">-->
+<!--    <form th:action="@{/create-recipe}" th:method="post" th:object="${recipe}">-->
+
+<!--    <div class="recipe-details">-->
+<!--        <h1>Recipe Details</h1>-->
+
+<!--            <h3>Recipe Name</h3>-->
+<!--            <input th:field="*{recipe}" placeholder="Recipe Name" style="width:70%"/>-->
+<!--            <h3>Description</h3>-->
+<!--            <input th:field="*{description}" placeholder="Description"/>-->
+<!--    </div>-->
+
+<!--    <div class="ingredientsBtn">-->
+<!--        <h1>Ingredients</h1>-->
+<!--        <button type="button" class="btn btn-danger">+ Ingredient</button>-->
+<!--    </div>-->
+<!--    <div class="ingredients">-->
+<!--        <ol>-->
+<!--            &lt;!&ndash;First ingredient&ndash;&gt;-->
+
+<!--                    <h3>Ingredient Name</h3>-->
+<!--                <li>-->
+<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
+<!--                </li>-->
+
+<!--                <h3>Quantity</h3>-->
+<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
+
+<!--                <h3>Unit</h3>-->
+<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
+
+<!--            &lt;!&ndash;Second ingredient&ndash;&gt;-->
+
+<!--                    <h3>Ingredient Name</h3>-->
+<!--                <li>-->
+<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
+<!--                </li>-->
+
+<!--                <h3>Quantity</h3>-->
+<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
+
+<!--                <h3>Unit</h3>-->
+<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
+
+<!--            &lt;!&ndash;Third ingredient&ndash;&gt;-->
+
+<!--                    <h3>Ingredient Name</h3>-->
+<!--                <li>-->
+<!--                    <input th:field="*{ingredient}" placeholder="Ingredient Name"/>-->
+<!--                </li>-->
+
+<!--                <h3>Quantity</h3>-->
+<!--                <input th:field="*{quantity}" placeholder="Quantity"/>-->
+
+<!--                <h3>Unit</h3>-->
+<!--                <input th:field="*{unit}" placeholder="Unit"/>-->
+
+<!--        </ol>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <div class="instructionsBtn">-->
+<!--            <h1>Recipe Instructions</h1>-->
+<!--            <button type="button" class="btn btn-danger">+ Step</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+<!--        <h3>Step 1:</h3>-->
+<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
+
+<!--        <h3>Step 2:</h3>-->
+<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
+
+<!--        <h3>Step 3:</h3>-->
+<!--        <input th:field="*{instructions}" placeholder="Instructions"/>-->
+<!--    </form>-->
+<!--</div>-->
+
+<div th:replace="partials :: script"></div>
+</body>
+</html>

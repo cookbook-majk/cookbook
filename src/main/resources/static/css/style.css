@@ -3,16 +3,17 @@
     box-sizing: border-box;
 }
 :root {
+    /* Base Colors */
     --black: #070707;
-    --darkgrey: #395a64;
-    --grey: #b3b3b3;
+    --darkgrey: #1a1f21;
+    --grey: #676767;
     --lightgrey: #d9d9d9;
     --white: #f2f2f2;
-    --salmon: #fb735d;
+    /* Accent Colors */
+    --lightorange: #fb735d;
+    --orange: #f34f34;
     --lightred: #fb4f5a;
     --red: #ef2037;
-    --yellow: #fdc801;
-    --blue: #197dff;
 
 }
 html {
@@ -81,7 +82,7 @@ body {
     background: none;
     scale: 150%;
 }
-/* CALL TO ACTION */
+/* HOMEPAGE */
 #call-to-action>div {
     position: fixed;
     top: 150px;
@@ -114,14 +115,35 @@ body {
     max-height: 600px;
 }
 /* PROFILE PAGE */
-.profile-img {
+#user-img {
     border-radius: 25%;
-    /*width: 350px;*/
-    /*height: 350px;*/
     box-shadow: var(--lightgrey) 0 0 30px;
-    /*clear: none;*/
 }
 #user-details {
     margin-left: 0;
     padding-left: 0;
+}
+#user-details p {
+    margin: 16px 0;
+}
+#user-details li {
+    font-weight: 400;
+    font-size: 24px;
+}
+#user-details li span {
+    color: var(--grey);
+}
+#user-bio {
+    font-size: 20px;
+}
+#add-friend {
+    height: 45px;
+    width: 45px;
+}
+#fullname {
+    font-weight: 700;
+    float: left;
+}
+#username {
+    clear: left;
 }
