@@ -47,13 +47,13 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers( // anyone can see these pages
-                        "/", "/home", "/about", "/browse", "/profile/{username}", "/recipe/{id}", "/search", "/register", "/css/**", "/images/**", "/js/**")
+                        "/", "/home", "/about", "/browse", "/profile/{username}", "/recipe/{id}", "/search", "/register", "/css/**", "/images/**", "/js/**", "/static/**")
                 .permitAll()
                 /* Pages that require authentication */
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers( // only authenticated users can visit these pages
-                        "/profile", "/profile/{username}/edit", "/logout", "/feed", "/recipe/create", "/recipe/{id}/edit", "/recipe/{id}/delete"
+                        "/profile/{username}/edit", "/logout", "/feed", "/recipe/create", "/recipe/{id}/edit", "/recipe/{id}/delete"
                 )
                 .authenticated()
         ;

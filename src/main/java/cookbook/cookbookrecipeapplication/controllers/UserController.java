@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping ("/login")
     public String loginUser(Model model) {
         model.addAttribute("user", new User());
-        return "redirect:/profile";
+        return "redirect:/feed";
     }
 
     //* REGISTRATION *//
