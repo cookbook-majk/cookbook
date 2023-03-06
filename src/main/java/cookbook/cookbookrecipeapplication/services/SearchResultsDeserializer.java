@@ -27,7 +27,6 @@ public class SearchResultsDeserializer extends StdDeserializer<SearchResults> {
 
     @Override
     public SearchResults deserialize(JsonParser parser, DeserializationContext deserializer) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
         SearchResults searchResults = new SearchResults();
         ObjectCodec codec = parser.getCodec();
         JsonNode node = codec.readTree(parser);
@@ -54,17 +53,6 @@ public class SearchResultsDeserializer extends StdDeserializer<SearchResults> {
             recipes.add(recipe);
         });
 
-
-//        for (int i = 0; i < resultsNode.size(); i++){
-//            Recipe recipe = new Recipe(
-//                    recipeNodes[i].get("id").asLong(),
-//                    node.get("image").asText(),
-//                    node.get("imageType").asText(),
-//                    new Date(),
-//                    node.get("title").asText()
-//            );
-//            recipes.add(recipe);
-//        }
         searchResults.setResults(recipes);
 
         JsonNode totalResultsNode = node.get("totalResults");

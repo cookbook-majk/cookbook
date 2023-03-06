@@ -33,6 +33,11 @@ public class Instruction implements Serializable {
         this.custom_recipe = custom_recipe;
     }
 
+    public Instruction(int order_num, String content) {
+        this.order_num = order_num;
+        this.content = content;
+    }
+
     public int getOrder() {
         return order_num;
     }

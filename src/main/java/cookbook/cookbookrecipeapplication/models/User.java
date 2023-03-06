@@ -100,5 +100,61 @@ public class User {
 
     public String getProfilePicture() { return profilePicture; }
     public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
+
+    public String getUserBio() {
+        return userBio;
+    }
+
+    public void setUserBio(String userBio) {
+        this.userBio = userBio;
+    }
+
+    public List<CustomRecipe> getCustom_recipes() {
+        return custom_recipes;
+    }
+
+    public void setCustom_recipes(List<CustomRecipe> custom_recipes) {
+        this.custom_recipes = custom_recipes;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public List<RecentActivity> getRecentActivities() {
+        return recentActivities;
+    }
+
+    public void setRecentActivities(List<RecentActivity> recentActivities) {
+        this.recentActivities = recentActivities;
+    }
+
+    public List<Follower> getUserFollows() {
+        return userFollows;
+    }
+
+    public void setUserFollows(List<Follower> userFollows) {
+        this.userFollows = userFollows;
+    }
+
+    public List<Follower> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Follower> following) {
+        this.following = following;
+    }
 }
 
