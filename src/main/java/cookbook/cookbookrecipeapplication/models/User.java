@@ -33,7 +33,7 @@ public class User {
     @Column(nullable = false)
     private Date userCreated;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String userBio;
     @Column(nullable = false)
     private String profilePicture;

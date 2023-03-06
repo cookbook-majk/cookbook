@@ -1,11 +1,14 @@
 package cookbook.cookbookrecipeapplication.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "ingredients")
-public class Ingredient {
+public class Ingredient implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +31,18 @@ public class Ingredient {
     public Ingredient() {
     }
 
+
     public Ingredient(String name, String unit, double amount, CustomRecipe custom_recipe) {
         this.name = name;
         this.unit = unit;
         this.amount = amount;
         this.custom_recipe = custom_recipe;
+    }
+
+    public Ingredient(String name, String unit, double amount) {
+        this.name = name;
+        this.unit = unit;
+        this.amount = amount;
     }
 
     public String getName() {

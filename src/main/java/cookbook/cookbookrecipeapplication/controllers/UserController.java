@@ -1,6 +1,7 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
 import cookbook.cookbookrecipeapplication.models.User;
+import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private UserDaoService userDao;
     private RecipeDaoService recipeDao;
+    private ChapterDaoService chapterDao;
 
-    public UserController(UserDaoService userDao, RecipeDaoService recipeDao) {
+    public UserController(UserDaoService userDao, RecipeDaoService recipeDao, ChapterDaoService chapterDao) {
         this.userDao = userDao;
         this.recipeDao = recipeDao;
+        this.chapterDao = chapterDao;
     }
 
     //* LOG IN *//
@@ -47,8 +50,12 @@ public class UserController {
     }
 
     //* USER PROFILE *//
-    @GetMapping("/profile")
-    public String showProfile() {
+    @GetMapping("/profile/{username}")
+    public String showProfile(@PathVariable String username, Model model) {
+        User user = userDao.findUserByUsername(username);
+        model.addAttribute("user", user);
+        model.addAttribute("recipes", recipeDao.findAllCustomRecipesByUser(user));
+        model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
         return "/profile";
     }
 

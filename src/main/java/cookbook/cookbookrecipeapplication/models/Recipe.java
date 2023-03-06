@@ -3,13 +3,14 @@ package cookbook.cookbookrecipeapplication.models;
 import jakarta.persistence.*;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "recipes")
-public class Recipe {
+public class Recipe implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +19,17 @@ public class Recipe {
     @Column
     private long spoonacular_id;
 
+    @Column(nullable = false, length = 250)
+    private String image;
+
+    @Column(nullable = false, length = 9)
+    private String image_type;
+
     @Column(nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false, columnDefinition="TEXT")
-    private String summary;
+    @Column(nullable = false, length = 100)
+    private String title;
 
     @OneToOne(cascade = CascadeType.ALL)
     private CustomRecipe custom_recipe;
@@ -46,11 +53,12 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(long spoonacular_id, Date createdAt, String summary) {
+    public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title) {
         this.spoonacular_id = spoonacular_id;
+        this.image = image;
+        this.image_type = image_type;
         this.createdAt = createdAt;
-        this.summary = summary;
-//        this.custom_recipe = custom_recipe;
+        this.title = title;
     }
 
     public long getSpoonacular_id() {
@@ -69,21 +77,29 @@ public class Recipe {
         this.createdAt = createdAt;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getImage() {
+        return image;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-//    public Custom_recipe getCustom_recipe() {
-//        return custom_recipe;
-//    }
+    public String getImage_type() {
+        return image_type;
+    }
 
-//    public void setCustom_recipe(Custom_recipe custom_recipe) {
-//        this.custom_recipe = custom_recipe;
-//    }
+    public void setImage_type(String image_type) {
+        this.image_type = image_type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public List<Review> getReviews() {
         return reviews;

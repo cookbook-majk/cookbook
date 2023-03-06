@@ -35,4 +35,8 @@ public class UserDaoService {
         return userDao.findById(id).get();
     }
 
+    public User findUserByUsername(String username){
+        return userDao.findByUsername(username);
+    }
+
 }

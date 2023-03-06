@@ -44,5 +44,4 @@ public class RecipeController {
 //        model.addAttribute("post", postService.getPostById(id));
 //        return "posts/edit";
 //    }
-
 }
