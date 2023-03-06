@@ -5,14 +5,13 @@ import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -67,6 +66,17 @@ public class UserController {
         return "/feed";
     }
 
+
+    // UPDATE USER
+
+    // DELETE USER
+    @DeleteMapping(path = "{id}")
+    public void deleteUser(@PathVariable("id")Long id){
+        userDao.deleteUser(id);
+    }
+
+}
+
     //* FOLLOW *//
     @GetMapping("/follow/{user_id}")
     public String followUser(@PathVariable long user_id) {
@@ -84,3 +94,4 @@ public class UserController {
     }
 
 }
+

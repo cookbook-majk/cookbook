@@ -19,8 +19,7 @@ public class Follower {
     @JoinColumn (name = "follower_id")
     private User follower;
 
-    public Follower() {
-    }
+    public Follower() {}
 
     public Follower(User user, User follower) {
         this.user = user;
