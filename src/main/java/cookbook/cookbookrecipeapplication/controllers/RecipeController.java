@@ -107,4 +107,22 @@ public class RecipeController {
 //        }
 //        return "redirect:/feed";
 //    }
+    // RENDER RECIPES FOR PROFILE
+
+
+//    @GetMapping("/recipe-cards")
+//    public String getRecipeCards(Model model) {
+//        List<RecipeCard> recipeCards = new ArrayList<>();
+//        List<CustomRecipe> customRecipes = customRecipeService.getAllCustomRecipes();
+//        for (CustomRecipe customRecipe : customRecipes) {
+//            User user = userDao.getUserById(customRecipe.getUserId());
+//            Recipe recipe = recipeDao.getRecipeById(customRecipe.getRecipeId());
+//            RecipeCard recipeCard = new RecipeCard(user.getFirstName(), user.getLastName(),
+//                    recipe.getTitle(), recipe.getCreatedAt(),
+//                    recipe.getImage());
+//            recipeCards.add(recipeCard);
+//        }
+//        model.addAttribute("recipeCards", recipeCards);
+//        return "recipeCards";
+//    }
 }
