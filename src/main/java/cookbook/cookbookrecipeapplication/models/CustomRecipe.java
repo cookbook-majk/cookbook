@@ -14,8 +14,6 @@ public class CustomRecipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
-
     @Column(nullable = false, columnDefinition="TEXT")
     private String summary;
 
@@ -51,7 +49,17 @@ public class CustomRecipe implements Serializable {
         this.summary = summary;
     }
 
+    public CustomRecipe(int servings, long readyInMinutes, User user, String summary) {
+        this.servings = servings;
+        this.readyInMinutes = readyInMinutes;
+        this.user = user;
+        this.summary = summary;
+    }
 
+
+    public long getId() {
+        return id;
+    }
 
     public int getServings() {
         return servings;
