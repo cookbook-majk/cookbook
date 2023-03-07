@@ -7,7 +7,7 @@
 <nav th:replace="partials :: navbar"></nav>
 
 <section style="background-color: #f2f2f2;">
-    <form id="create-recipe-form" th:action="@{/create}" th:method="post" th:object="${recipe}">
+    <form id="create-recipe-form" th:action="@{/recipe/create}" th:method="post">
         <div class="row ms-5 me-5 ps-5 pe-5 pt-4 pb-4">
             <!-- RECIPE DETAILS -->
             <div id="create-recipe-details" class="row mb-3">
@@ -15,39 +15,39 @@
                 <hr>
                 <div class="col-md-8 col-12">
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="create-recipe-title" placeholder="Recipe Title">
+                        <input type="text" th:name="title" class="form-control" id="create-recipe-title" placeholder="Recipe Title">
                         <label for="create-recipe-title">Recipe Title</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <textarea class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
+                        <textarea th:name="description" class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
                         <label for="create-recipe-description">Recipe Description</label>
                     </div>
                     <div class="row">
                         <div class="col-4 pe-1">
                             <div class="form-floating mb-2">
-                                <input type="number" class="form-control" id="create-recipe-time" placeholder="Prep Time">
+                                <input th:name="time" type="number" class="form-control" id="create-recipe-time" placeholder="Prep Time">
                                 <label for="create-recipe-time">Prep Time (minutes)</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-floating mb-2">
-                                <input type="number" class="form-control" id="create-recipe-servings" placeholder="Servings">
+                                <input th:name="servings" type="number" class="form-control" id="create-recipe-servings" placeholder="Servings">
                                 <label for="create-recipe-servings">Servings</label>
                             </div>
                         </div>
                         <div class="col-4 ps-1">
                             <div class="mb-2">
-                                <select class="form-select" id="create-recipe-category" aria-label="Category" style="height: 58px;">
-                                    <option selected>Main Course</option>
-                                    <option>Side Dish</option>
-                                    <option>Appetizer</option>
-                                    <option>Bread</option>
-                                    <option>Soup</option>
-                                    <option>Salad</option>
-                                    <option>Breakfast</option>
-                                    <option>Dessert</option>
-                                    <option>Sauce</option>
-                                    <option>Beverage</option>
+                                <select th:name="category" class="form-select" id="create-recipe-category" aria-label="Category" style="height: 58px;">
+                                    <option value="1" selected>Main Course</option>
+                                    <option value="2">Side Dish</option>
+                                    <option value="4">Appetizer</option>
+                                    <option value="6">Bread</option>
+                                    <option value="8">Soup</option>
+                                    <option value="5">Salad</option>
+                                    <option value="7">Breakfast</option>
+                                    <option value="3">Dessert</option>
+                                    <option value="10">Sauce</option>
+                                    <option value="9">Beverage</option>
                                 </select>
                             </div>
                         </div>
@@ -61,6 +61,7 @@
                 </div>
             </div>
             <!-- RECIPE INGREDIENTS -->
+            <th:block>
             <div id="create-recipe-ingredients" class="row mb-3">
                 <div class="col">
                     <h1 class="header">Ingredients</h1>
@@ -80,24 +81,24 @@
                         <h5>Unit</h5>
                     </div>
                 </div>
-                <ol>
+                <ol th:object="${ingredients}">
                     <li id="ingredient-field">
                         <div class="row g-3 mb-1">
                             <div class="col-7">
-                                <input type="text" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[0].name}" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
                             <div id="unit-select" class="col-sm">
-                                <select class="form-select" aria-label="Unit">
-                                    <option selected>--</option>
-                                    <option>cups</option>
-                                    <option>tsp</option>
-                                    <option>tbsp</option>
-                                    <option>quarts</option>
-                                    <option>fl oz</option>
-                                    <option>handful</option>
+                                <select th:field="*{ingredients[0].unit}" class="form-select" aria-label="Unit">
+                                    <option value="null" selected>--</option>
+                                    <option value="cups">cups</option>
+                                    <option value="tsp">tsp</option>
+                                    <option value="tbsp">tbsp</option>
+                                    <option value="quarts">quarts</option>
+                                    <option value="floz">fl oz</option>
+                                    <option value="handful">handful</option>
                                 </select>
                             </div>
                         </div>
@@ -105,28 +106,50 @@
                     <li>
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[1].name}" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
-                            <div class="col-sm unit-select"></div>
+                            <div class="col-sm">
+                                <select th:field="*{ingredients[1].unit}" class="form-select" aria-label="Unit">
+                                    <option value="null" selected>--</option>
+                                    <option value="cups">cups</option>
+                                    <option value="tsp">tsp</option>
+                                    <option value="tbsp">tbsp</option>
+                                    <option value="quarts">quarts</option>
+                                    <option value="floz">fl oz</option>
+                                    <option value="handful">handful</option>
+                                </select>
+                            </div>
                         </div>
                     </li>
                     <li>
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[2].name}" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
-                            <div class="col-sm unit-select"></div>
+                            <div class="col-sm">
+                                <select th:field="*{ingredients[2].unit}" class="form-select" aria-label="Unit">
+                                    <option value="null" selected>--</option>
+                                    <option value="cups">cups</option>
+                                    <option value="tsp">tsp</option>
+                                    <option value="tbsp">tbsp</option>
+                                    <option value="quarts">quarts</option>
+                                    <option value="floz">fl oz</option>
+                                    <option value="handful">handful</option>
+                                </select>
+                            </div>
                         </div>
                     </li>
                 <!--<li class="ingredient-field"></li>-->
                 </ol>
             </div>
+            </th:block>
+            <th:block>
             <!-- RECIPE INSTRUCTIONS -->
             <div id="create-recipe-instructions" class="row">
                 <div class="col">
@@ -136,27 +159,31 @@
                     <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Step</button>
                 </div>
                 <hr>
-                <ol>
+                <ol th:object="${instructions}">
                     <li>
                         <div class="form-floating mb-1">
-                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3"></textarea>
+                            <input type="hidden" value="0" th:field="*{instructions[0].order}">
+                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3"></textarea>
                             <label for="create-recipe-step-1">Step One</label>
                         </div>
                     </li>
                     <li>
                         <div class="form-floating mb-1">
-                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3"></textarea>
+                            <input type="hidden" value="1" th:field="*{instructions[1].order}">
+                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3"></textarea>
                             <label for="create-recipe-step-2">Step Two</label>
                         </div>
                     </li>
                     <li>
                         <div class="form-floating mb-1">
-                            <textarea class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3"></textarea>
+                            <input type="hidden" value="2" th:field="*{instructions[2].order}">
+                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3"></textarea>
                             <label for="create-recipe-step-3">Step Three</label>
                         </div>
                     </li>
                 </ol>
             </div>
+            </th:block>
             <div class="d-flex justify-content-center align-items-center">
                 <button type="submit" class="btn btn-lg btn-danger col-2">Submit</button>
             </div>
