@@ -22,10 +22,10 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <div class="input-group rounded ms-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
-                </div>
+                <form th:action="@{/search}" th:method="get" class="input-group rounded ms-3">
+                    <input type="search" class="form-control rounded" placeholder="Search" name="param" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></button>
+                </form>
             </div>
             <a class="navbar-brand title" href="/home" style="margin-left: -55px;">cook<span style="color: var(--red);">book</span></a>
             <div class="d-flex align-items-center" id="nav-links">
@@ -46,13 +46,13 @@
                     ><h1 class="title" style="font-size: 64px;">cb</h1></a>
                     <ul class="navbar-nav flex-grow-1 pe-3 pt-4">
                         <li class="nav-item">
-                            <a class="nav-link header" href="/discover"><h5>Browse Recipes</h5></a>
+                            <a class="nav-link header" href="/browse"><h5>Browse Recipes</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link header" href="/activity"><h5>Activity Feed</h5></a>
+                            <a class="nav-link header" href="/feed"><h5>Activity Feed</h5></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link header" href="/about"><h5>Search Recipes</h5></a>
+                            <a class="nav-link header" href="/search"><h5>Search Recipes</h5></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link header" href="/recipe/create"><h5>Create a Recipe</h5></a>

@@ -99,7 +99,7 @@ public class RecipeDaoService {
         return mapper.readValue(json, Recipe.class);
     }
 
-    public static SearchResults getSearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
+    public SearchResults getSearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
         String updatedSearchParam = searchParam.replaceAll(" ", "%20");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=" + updatedSearchParam + "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&sort=popularity&sortDirection=asc&number=5"))
