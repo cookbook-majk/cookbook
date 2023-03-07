@@ -18,10 +18,16 @@ VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI
 #         'dont mess with the big dag', now(), 'mulldawgydawg');
 
 INSERT INTO dish_types (type)
-VALUES ('breakfast'),
-       ('lunch'),
-       ('snack'),
-       ('dinner');
+VALUES ('main course'),
+       ('side dish'),
+       ('dessert'),
+       ('appetizer'),
+       ('salad'),
+       ('bread'),
+       ('breakfast'),
+       ('soup'),
+       ('beverage'),
+       ('sauce');
 
 INSERT INTO chapters (description, featured, name, user_id)
 VALUES ('Spoonacular saved recipes', false, 'SpoonacularSaved', 1),

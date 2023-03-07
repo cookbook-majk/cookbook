@@ -60,6 +60,15 @@ public class UserController {
         return "/profile";
     }
 
+    @GetMapping("/profile")
+    public String showUserProfileOrRedirect() {
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null){
+            return "redirect:/profile/" + ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        } else {
+            return "redirect:/login";
+        }
+    }
+
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed() {
@@ -75,7 +84,7 @@ public class UserController {
         userDao.deleteUser(id);
     }
 
-}
+
 
     //* FOLLOW *//
     @GetMapping("/follow/{user_id}")

@@ -45,6 +45,11 @@ public class RecipeController {
         recipeDao.saveCustomRecipe(customRecipe);
         Recipe recipe = new Recipe(0, "image url", ".jpg", new Date(), title, customRecipe);
         recipeDao.saveRecipe(recipe);
+
+//        for (Ingredient ingredient : Ingredients){
+//
+//        }
+
         return "/recipe" + customRecipe.getId();
     }
 //
