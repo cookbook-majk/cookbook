@@ -117,4 +117,7 @@ public class Recipe implements Serializable {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public long getId() { return id;}
+    public void setId(long id) { this.id = id; }
 }
