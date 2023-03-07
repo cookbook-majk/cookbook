@@ -84,8 +84,6 @@ public class UserController {
         userDao.deleteUser(id);
     }
 
-
-
     //* FOLLOW *//
     @GetMapping("/follow/{user_id}")
     public String followUser(@PathVariable long user_id) {

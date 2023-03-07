@@ -22,6 +22,36 @@
                         <textarea class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
                         <label for="create-recipe-description">Recipe Description</label>
                     </div>
+                    <div class="row">
+                        <div class="col-4 pe-1">
+                            <div class="form-floating mb-2">
+                                <input type="number" class="form-control" id="create-recipe-time" placeholder="Prep Time">
+                                <label for="create-recipe-time">Prep Time (minutes)</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-floating mb-2">
+                                <input type="number" class="form-control" id="create-recipe-servings" placeholder="Servings">
+                                <label for="create-recipe-servings">Servings</label>
+                            </div>
+                        </div>
+                        <div class="col-4 ps-1">
+                            <div class="mb-2">
+                                <select class="form-select" id="create-recipe-category" aria-label="Category" style="height: 58px;">
+                                    <option selected>Main Course</option>
+                                    <option>Side Dish</option>
+                                    <option>Appetizer</option>
+                                    <option>Bread</option>
+                                    <option>Soup</option>
+                                    <option>Salad</option>
+                                    <option>Breakfast</option>
+                                    <option>Dessert</option>
+                                    <option>Sauce</option>
+                                    <option>Beverage</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="file-upload-placeholder col-md-4 col-sm-12">
                     <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
@@ -36,7 +66,7 @@
                     <h1 class="header">Ingredients</h1>
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
-                    <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Ingredient</button>
+                    <button type="button" id="add-ing-btn" class="btn btn-sm btn-danger justify-self-end">Add Ingredient</button>
                 </div>
                 <hr>
                 <div class="row">
@@ -51,45 +81,50 @@
                     </div>
                 </div>
                 <ol>
-                    <li>
+                    <li id="ingredient-field">
                         <div class="row g-3 mb-1">
                             <div class="col-7">
-                                <input type="text" class="form-control" id="create-recipe-ingredient" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                                <input type="text" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
-                            <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
+                            <div id="unit-select" class="col-sm">
+                                <select class="form-select" aria-label="Unit">
+                                    <option selected>--</option>
+                                    <option>cups</option>
+                                    <option>tsp</option>
+                                    <option>tbsp</option>
+                                    <option>quarts</option>
+                                    <option>fl oz</option>
+                                    <option>handful</option>
+                                </select>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                                <input type="text" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
-                            <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
-                            </div>
+                            <div class="col-sm unit-select"></div>
                         </div>
                     </li>
                     <li>
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="Ingredient Name" aria-label="Ingredient Name">
+                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" step="0.25" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
-                            <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Unit" aria-label="Unit">
-                            </div>
+                            <div class="col-sm unit-select"></div>
                         </div>
                     </li>
+                <!--<li class="ingredient-field"></li>-->
                 </ol>
             </div>
             <!-- RECIPE INSTRUCTIONS -->
@@ -158,6 +193,14 @@
     });
     $('.file-upload-placeholder').bind('dragleave', function () {
         $('.file-upload-placeholder').removeClass('image-dropping');
+    });
+
+    $(document).ready(function(){
+        $(".unit-select").html($("#unit-select").html());
+    });
+
+    $("#add-ing-btn").click(function(){
+        $(".ingredient-field").html($("#ingredient-field").html());
     });
 
 </script>
