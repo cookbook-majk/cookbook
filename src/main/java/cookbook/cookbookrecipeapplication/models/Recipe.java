@@ -118,6 +118,15 @@ public class Recipe implements Serializable {
         this.reviews = reviews;
     }
 
+    public Set<DishType> getDishTypes() {
+        return dishTypes;
+    }
+
+    public void setDishTypes(Set<DishType> dishTypes) {
+        this.dishTypes = dishTypes;
+    }
+
     public long getId() { return id;}
     public void setId(long id) { this.id = id; }
+
 }

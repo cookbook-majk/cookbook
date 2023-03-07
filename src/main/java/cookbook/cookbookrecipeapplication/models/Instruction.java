@@ -38,12 +38,12 @@ public class Instruction implements Serializable {
         this.content = content;
     }
 
-    public int getOrder() {
+    public int getOrder_num() {
         return order_num;
     }
 
-    public void setOrder(int order) {
-        this.order_num = order;
+    public void setOrder_num(int order_num) {
+        this.order_num = order_num;
     }
 
     public String getContent() {
