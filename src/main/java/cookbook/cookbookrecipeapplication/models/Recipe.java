@@ -61,11 +61,13 @@ public class Recipe implements Serializable {
         this.title = title;
     }
 
-    public Recipe(String image, String image_type, Date createdAt, String title) {
+    public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title, CustomRecipe custom_recipe) {
+        this.spoonacular_id = spoonacular_id;
         this.image = image;
         this.image_type = image_type;
         this.createdAt = createdAt;
         this.title = title;
+        this.custom_recipe = custom_recipe;
     }
 
     public long getSpoonacular_id() {

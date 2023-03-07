@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,8 +27,6 @@ public class RecipeDaoService {
     private final IngredientRepository ingredientDao;
     private final InstructionRepository instructionDao;
     private final ReviewRepository reviewDao;
-
-    private static String apiKey;
 
 
     public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository) {
@@ -50,7 +49,7 @@ public class RecipeDaoService {
         return reviewDao.findAllByRecipe_id(id);
     }
 
-    public static CustomRecipe getCustomRecipeSpoonacular(long spoontacular_id) throws IOException, InterruptedException {
+    public CustomRecipe getCustomRecipeSpoonacular(long spoontacular_id) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + spoontacular_id + "/information?includeNutrition=false"))
                 .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
@@ -65,28 +64,12 @@ public class RecipeDaoService {
                 new SimpleModule("CustomRecipeDeserializer", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(CustomRecipe.class, new CustomRecipeDeserializer());
         mapper.registerModule(module);
-
-        CustomRecipe test = mapper.readValue(response.body(), CustomRecipe.class);
-
         System.out.println(response.body());
-        List<Ingredient> testIngredients = test.getIngredients();
-
-        for (Ingredient testIngredient : testIngredients){
-            System.out.println(testIngredient.getName());
-            System.out.println(testIngredient.getAmount());
-            System.out.println(testIngredient.getUnit());
-        }
-
-        List<Instruction> instructionResults = test.getInstructions();
-        for (Instruction instruction : instructionResults) {
-            System.out.println(instruction.getOrder());
-            System.out.println(instruction.getContent());
-        }
 
         return mapper.readValue(response.body(), CustomRecipe.class);
     }
 
-    public static Recipe getRecipeSpoonacular() throws IOException {
+    public Recipe getRecipeSpoonacular() throws IOException {
         String uri = "https://4f305d33-68e6-4896-a493-63bcf82396c8.mock.pstmn.io/recipe-test";
         RestTemplate restTemplate = new RestTemplate();
         String json = restTemplate.getForObject(uri, String.class);
@@ -123,6 +106,20 @@ public class RecipeDaoService {
         }
         return searchResults;
     }
+    public void saveCustomRecipe(CustomRecipe customRecipe){
+        customRecipeDao.save(customRecipe);
+    }
+    public void saveRecipe(Recipe recipe){
+        recipeDao.save(recipe);
+    }
+
+    public void saveIngredient(Ingredient ingredient){
+        ingredientDao.save(ingredient);
+    }
+
+    public void saveInstruction(Instruction instruction){
+        instructionDao.save(instruction);
+    }
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -130,8 +127,6 @@ public class RecipeDaoService {
 //        getRecipeSpoonacular();
 //        getMultipleRecipesSpoonacular();
 //        System.out.println(getSearchResultsSpoonacular("blueberry muffin"));
-
-
 
     }
 }
