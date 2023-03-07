@@ -55,13 +55,13 @@ summary{
 summary::-webkit-details-marker{
     display: none;
 }
-.expandBtn{
-    border-color: #ef2037;
-    box-sizing: border-box;
-    position: relative;
+#expandBtn, #collapseBtn{
+    border-style: solid;
+    border-color: grey;
+    color: gray;
+    width: fit-content;
     display: flex;
-    height: auto;
-    width: auto;
+    align-self: center;
 }
 .rateCommentSave{
     display: flex;
@@ -70,12 +70,17 @@ summary::-webkit-details-marker{
     font-size: xx-large;
 }
 .card-comment, .card-bookmark{
-    justify-items: flex-end;
     color: black;
     text-decoration: none;
 }
-#home-tab, #profile-tab, #contact-tab{
-    background-color: #ef2037;
-    box-sizing: border-box;
+.col-md-2{
     display: flex;
+    justify-content: flex-end;
+}
+#ingredients-btn, #recipe-btn, #reviews-btn{
+    border-style: none;
+    background-color: grey;
+}
+#ingredients-btn.active, #recipe-btn.active, #reviews-btn.active{
+    background-color: #ef2037;
 }
