@@ -25,32 +25,43 @@ public class RecipeController {
         this.recipeDao = recipeDao;
     }
 
-    //    // View a Recipe
-//    @GetMapping("/posts/{id}")
-//    public String viewPost(@PathVariable long id, Model model){
-//        model.addAttribute("post", postService.getPostById(id));
-//        return "posts/show";
-//    }
-//
-//    // Draft a Recipe
-//    @GetMapping("/recipe/create")
-//    public String draftRecipe(){
-//        return "/create-recipe";
-//    }
-//
     // Create a Recipe
     @PostMapping("/recipe/create")
-    public String createRecipe(@RequestParam(name = "title") String title, @RequestParam(name = "summary") String summary, @RequestParam(name = "servings") int servings, @RequestParam(name = "readyInMinutes") int readyInMinutes, Model model) {
-        CustomRecipe customRecipe = new CustomRecipe(servings, readyInMinutes, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), summary);
+    public String createRecipe(
+            // Recipe Details
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String summary,
+            @RequestParam(name = "time") int readyInMinutes,
+            @RequestParam(name = "servings") int servings,
+            @RequestParam(name = "category") String category,
+            // Models
+            Model model,
+            @ModelAttribute IngredientList ingredients,
+            @ModelAttribute InstructionList instructions
+    ) {
+        // Custom Recipe:
+        CustomRecipe customRecipe = new CustomRecipe(
+                servings,
+                readyInMinutes,
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                summary
+        );
         recipeDao.saveCustomRecipe(customRecipe);
-        Recipe recipe = new Recipe(0, "image url", ".jpg", new Date(), title, customRecipe);
+        // Recipe:
+        Recipe recipe = new Recipe(0, "images/default-recipe.jpg", ".jpg", new Date(), title, customRecipe);
         recipeDao.saveRecipe(recipe);
 
-//        for (Ingredient ingredient : Ingredients){
-//
-//        }
+        // Saves ingredients & instructions to Recipe & CustomRecipe:
+        for (Ingredient ingredient : ingredients.getIngredients()) {
+            ingredient.setCustom_recipe(customRecipe);
+            recipeDao.saveIngredient(ingredient);
+        }
+        for (Instruction instruction : instructions.getInstructions()) {
+            instruction.setCustom_recipe(customRecipe);
+            recipeDao.saveInstruction(instruction);
+        }
 
-        return "/recipe" + customRecipe.getId();
+        return "/recipe/" + customRecipe.getId();
     }
 //
 //    // Edit a Recipe

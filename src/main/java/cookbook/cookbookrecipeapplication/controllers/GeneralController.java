@@ -1,5 +1,7 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.models.IngredientList;
+import cookbook.cookbookrecipeapplication.models.InstructionList;
 import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import org.springframework.stereotype.Controller;
@@ -49,8 +51,16 @@ public class GeneralController {
     // Draft a Recipe
     @GetMapping("/recipe/create")
     public String draftRecipe(Model model) {
-        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("ingredients", new IngredientList());
+        model.addAttribute("instructions", new InstructionList());
         return "/create";
+    }
+
+    // View Recipe
+    @GetMapping("/recipe/{id}")
+    public String showRecipe(@PathVariable long id) {
+        recipeService.findRecipeById(id);
+        return "/recipe";
     }
 
     // Create a Recipe
