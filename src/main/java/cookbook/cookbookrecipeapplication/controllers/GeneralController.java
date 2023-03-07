@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @Controller
 public class GeneralController {
 
@@ -15,10 +17,33 @@ public class GeneralController {
         this.recipeService = recipeService;
     }
 
-    // Browse All Recipes
+    // Homepage
     @GetMapping("/home")
     public String showHome(){
         return "/home";
+    }
+
+    // About Us
+    @GetMapping("/about")
+    public String aboutUs(){
+        return "/about";
+    }
+
+    // Browse & Discover
+    @GetMapping("/browse")
+    public String browseRecipes(){
+        return "/browse";
+    }
+
+    // Search Recipes
+    @GetMapping("/search")
+    public String searchRecipes() { return "/search"; }
+
+    // Get Results
+    @GetMapping("/search/{param}")
+    public String searchResults(@PathVariable String param, Model model) throws IOException, InterruptedException {
+        recipeService.getSearchResultsSpoonacular(param);
+        return "/search";
     }
 
     // Draft a Recipe
