@@ -162,21 +162,21 @@
                 <ol th:object="${instructions}">
                     <li>
                         <div class="form-floating mb-1">
-                            <input type="hidden" value="0" th:field="*{instructions[0].order}">
+                            <input type="hidden" value="1" th:field="*{instructions[0].order_num}">
                             <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3"></textarea>
                             <label for="create-recipe-step-1">Step One</label>
                         </div>
                     </li>
                     <li>
                         <div class="form-floating mb-1">
-                            <input type="hidden" value="1" th:field="*{instructions[1].order}">
+                            <input type="hidden" value="2" th:field="*{instructions[1].order_num}">
                             <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3"></textarea>
                             <label for="create-recipe-step-2">Step Two</label>
                         </div>
                     </li>
                     <li>
                         <div class="form-floating mb-1">
-                            <input type="hidden" value="2" th:field="*{instructions[2].order}">
+                            <input type="hidden" value="3" th:field="*{instructions[2].order_num}">
                             <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3"></textarea>
                             <label for="create-recipe-step-3">Step Three</label>
                         </div>

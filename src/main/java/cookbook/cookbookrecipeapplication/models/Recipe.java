@@ -117,4 +117,12 @@ public class Recipe implements Serializable {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public Set<DishType> getDishTypes() {
+        return dishTypes;
+    }
+
+    public void setDishTypes(Set<DishType> dishTypes) {
+        this.dishTypes = dishTypes;
+    }
 }

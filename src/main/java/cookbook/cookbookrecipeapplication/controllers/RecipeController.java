@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class RecipeController {
@@ -48,7 +49,14 @@ public class RecipeController {
         );
         recipeDao.saveCustomRecipe(customRecipe);
         // Recipe:
-        Recipe recipe = new Recipe(0, "images/default-recipe.jpg", ".jpg", new Date(), title, customRecipe);
+
+        Recipe recipe = new Recipe(0,
+                "images/default-recipe.jpg",
+                ".jpg",
+                new Date(),
+                title,
+                customRecipe
+                );
         recipeDao.saveRecipe(recipe);
 
         // Saves ingredients & instructions to Recipe & CustomRecipe:
