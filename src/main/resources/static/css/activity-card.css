@@ -1,0 +1,42 @@
+.image_placeholder{
+    background-position: center;
+    background-image: url('../images/food-placeholder.jpeg');
+    width:100%;
+    height:250px;
+}
+.fa-circle-user{
+    font-size: 25px;
+    color: salmon;
+}
+.card{
+    width: 22rem;
+    margin: 15px 4px 4px;
+    padding: 0px;
+}
+.card-header, .card-body{
+    background: lightgray;
+}
+.sidebar-box{
+    max-height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+.sidebar-box .read-more{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0; padding: 20px 0;
+    background-image: linear-gradient(to bottom, transparent, lightgray);
+}
+.button{
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #7a7878;
+    background-color: #7a7878;
+    border-width: thick;
+    color: white;
+    text-decoration: none;
+}
