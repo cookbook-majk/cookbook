@@ -50,26 +50,23 @@ public class GeneralController {
         return "/search";
     }
 
+    // Draft a Recipe
+    @GetMapping("/recipe/create")
+    public String draftRecipe(Model model) {
+        model.addAttribute("ingredients", new IngredientList());
+        model.addAttribute("instructions", new InstructionList());
+        return "/create";
+    }
 
-    // Create a Recipe
-//    @PostMapping("/register")
-//    public String createUser(@ModelAttribute Recipe recipe) {
-//        recipeService.
-//        return "redirect:/login";
-//    }
-
-//    // Submit an Edit
-//    @PostMapping("/posts/edit")
-//    public String updatePost(@ModelAttribute Post post) {
-//        postService.savePost(post);
-//        return "redirect:/posts/" + post.getId();
-//    }
-
-//    // Delete a Recipe
-//    @GetMapping("/posts/{id}/delete")
-//    public String deletePost(@PathVariable long id) {
-//        postService.deletePostById(id);
-//        return "redirect:/posts";
-//    }
+    // View Recipe
+    @GetMapping("/recipe/{id}")
+    public String showRecipe(@PathVariable long id) {
+        recipeService.findRecipeById(id);
+        return "/recipe";
+    }
+    @GetMapping("/recipe")
+    public String oneRecipe() {
+        return "/recipe";
+    }
 
 }
