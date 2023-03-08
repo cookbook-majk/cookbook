@@ -1,29 +1,37 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.*;
+import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 public class RecipeController {
     private UserDaoService userDao;
     private RecipeDaoService recipeDao;
+    private ChapterDaoService chapterDao;
 
-    public RecipeController(UserDaoService userDao, RecipeDaoService recipeDao) {
+    public RecipeController(UserDaoService userDao, RecipeDaoService recipeDao, ChapterDaoService chapterDao) {
         this.userDao = userDao;
         this.recipeDao = recipeDao;
+        this.chapterDao = chapterDao;
+    }
+
+    // Draft a Recipe
+    @GetMapping("/recipe/create")
+    public String draftRecipe(Model model) {
+        model.addAttribute("ingredients", new IngredientList());
+        model.addAttribute("instructions", new InstructionList());
+        model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
+        return "/create";
     }
 
     // Create a Recipe
@@ -35,6 +43,7 @@ public class RecipeController {
             @RequestParam(name = "time") int readyInMinutes,
             @RequestParam(name = "servings") int servings,
             @RequestParam(name = "category") String category,
+            @RequestParam(name = "imageURL") String imageURL,
             // Models
             Model model,
             @ModelAttribute IngredientList ingredients,
@@ -50,13 +59,19 @@ public class RecipeController {
         recipeDao.saveCustomRecipe(customRecipe);
         // Recipe:
 
+        if (imageURL.equals("0")) {
+            imageURL = "/images/default-recipe.jpg";
+        }
         Recipe recipe = new Recipe(0,
-                "images/default-recipe.jpg",
+                imageURL,
                 ".jpg",
                 new Date(),
                 title,
                 customRecipe
                 );
+        Set<DishType> categories = new HashSet<>();
+        categories.add(recipeDao.getDishTypeById(Long.parseLong(category)));
+        recipe.setDishTypes(categories);
         recipeDao.saveRecipe(recipe);
 
         // Saves ingredients & instructions to Recipe & CustomRecipe:
@@ -66,11 +81,36 @@ public class RecipeController {
         }
         for (Instruction instruction : instructions.getInstructions()) {
             instruction.setCustom_recipe(customRecipe);
+            instruction.setOrder_num(instruction.getOrder_num());
             recipeDao.saveInstruction(instruction);
         }
-
+        // Creates recent activity entry
+        RecentActivity recentActivity = new RecentActivity(
+                1,
+                new Date(),
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                recipe
+        );
+        userDao.saveRecentActivity(recentActivity);
         return "/recipe/" + customRecipe.getId();
     }
+
+    // View Recipe
+    @GetMapping("/recipe/{id}")
+    public String showRecipe(@PathVariable long id, Model model) {
+        model.addAttribute("recipe", recipeDao.findRecipeById(id));
+        return "/recipe";
+    }
+
+    // View recipe from spoonacular
+    @GetMapping("/recipe/sp/{spoonacularId}")
+    public String showSpoonacularRecipe(@PathVariable long spoonacularId, Model model) throws IOException, InterruptedException {
+        model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
+        return "/recipe";
+    }
+
+
+
 //
 //    // Edit a Recipe
 //    @GetMapping("/posts/{id}/edit")
@@ -79,37 +119,7 @@ public class RecipeController {
 //        return "posts/edit";
 //    }
 
-
-//    create recipe testing
-//    @GetMapping("/createtest")
-//    public String draftRecipe() {
-//        CustomRecipe test = new CustomRecipe(
-//                12, 32, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(), "one more recipe"
-//        );
-//
-//        recipeDao.createCustomRecipe(test);
-//
-//        List<Ingredient> testIngre = new ArrayList<>();
-//        testIngre.add(new Ingredient("banana", "banana", 2, test));
-//        testIngre.add(new Ingredient("oats", "cup", 5, test));
-//        testIngre.add(new Ingredient("vanilla extract", "ounce", 4.2, test));
-//
-//        List<Instruction> testInstr = new ArrayList<>();
-//        testInstr.add(new Instruction(1, "peel bananas", test));
-//        testInstr.add(new Instruction(2, "combine bananas and oats", test));
-//        testInstr.add(new Instruction(3, "mix in vanilla", test));
-//
-//        for (Instruction instr : testInstr) {
-//            recipeDao.saveInstruction(instr);
-//        }
-//        for (Ingredient ingr : testIngre) {
-//            recipeDao.saveIngredient(ingr);
-//        }
-//        return "redirect:/feed";
-//    }
     // RENDER RECIPES FOR PROFILE
-
-
 //    @GetMapping("/recipe-cards")
 //    public String getRecipeCards(Model model) {
 //        List<RecipeCard> recipeCards = new ArrayList<>();

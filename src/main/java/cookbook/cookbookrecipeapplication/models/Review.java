@@ -4,6 +4,7 @@ package cookbook.cookbookrecipeapplication.models;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "reviews")
@@ -33,7 +34,8 @@ public class Review {
     @JoinColumn (name = "recipe_id")
     private Recipe recipe;
 
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
+    private List<RecentActivity> recentActivities;
 
     public Review() {
     }

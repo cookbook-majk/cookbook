@@ -2,9 +2,11 @@ package cookbook.cookbookrecipeapplication.services;
 
 import cookbook.cookbookrecipeapplication.models.Chapter;
 import cookbook.cookbookrecipeapplication.models.Follower;
+import cookbook.cookbookrecipeapplication.models.RecentActivity;
 import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.repositories.ChapterRepository;
 import cookbook.cookbookrecipeapplication.repositories.FollowerRepository;
+import cookbook.cookbookrecipeapplication.repositories.RecentActivityRepository;
 import cookbook.cookbookrecipeapplication.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,14 @@ public class UserDaoService {
     private final PasswordEncoder passwordEncoder;
     private final ChapterRepository chapterDao;
     private final FollowerRepository followerDao;
+    private final RecentActivityRepository recentActivityDao;
 
-    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao, FollowerRepository followerDao) {
+    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao, FollowerRepository followerDao, RecentActivityRepository recentActivityDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.chapterDao = chapterDao;
         this.followerDao = followerDao;
+        this.recentActivityDao = recentActivityDao;
     }
 
     public void registerUser(User user) {
@@ -54,6 +58,9 @@ public class UserDaoService {
         userDao.deleteById(userId);
     }
 
+    public void saveRecentActivity(RecentActivity recentActivity){
+        recentActivityDao.save(recentActivity);
+    }
 
     public void followUser(Follower follower){
         followerDao.save(follower);
