@@ -1,5 +1,6 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.IngredientList;
 import cookbook.cookbookrecipeapplication.models.InstructionList;
 import cookbook.cookbookrecipeapplication.models.Recipe;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Properties;
 
 @Controller
 public class GeneralController {
@@ -44,7 +46,7 @@ public class GeneralController {
     // Get Results
     @GetMapping("/search/{param}")
     public String searchResults(@PathVariable String param, Model model) throws IOException, InterruptedException {
-        recipeService.getSearchResultsSpoonacular(param);
+        model.addAttribute("searchResults", recipeService.getSearchResultsSpoonacular(param).getResults());
         return "/search";
     }
 
@@ -66,26 +68,5 @@ public class GeneralController {
     public String oneRecipe() {
         return "/recipe";
     }
-
-    // Create a Recipe
-//    @PostMapping("/register")
-//    public String createUser(@ModelAttribute Recipe recipe) {
-//        recipeService.
-//        return "redirect:/login";
-//    }
-
-//    // Submit an Edit
-//    @PostMapping("/posts/edit")
-//    public String updatePost(@ModelAttribute Post post) {
-//        postService.savePost(post);
-//        return "redirect:/posts/" + post.getId();
-//    }
-//
-//    // Delete a Recipe
-//    @GetMapping("/posts/{id}/delete")
-//    public String deletePost(@PathVariable long id) {
-//        postService.deletePostById(id);
-//        return "redirect:/posts";
-//    }
 
 }
