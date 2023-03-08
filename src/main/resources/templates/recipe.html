@@ -5,7 +5,7 @@
 <title>Create Recipe</title>
 
 <body style="background-color: #f2f2f2;">
-<nav th:replace="partials :: navbar"></nav>
+<nav th:insert="partials :: navbar"></nav>
 
 <section style="background-color: #f2f2f2;">
     <!-- Recipe Banner w/ User & Bookmark -->
@@ -87,7 +87,6 @@
                 <h1 class="header">Reviews</h1>
                 <hr>
                 <!-- Content Here -->
-                <div th:replace="partials :: recipe-card"></div>
             </div>
         </div>
     </div>

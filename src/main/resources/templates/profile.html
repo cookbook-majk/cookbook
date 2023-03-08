@@ -40,10 +40,10 @@
         <!-- Profile Tabs -->
         <div id="profile-tabs" class="row mt-4 mb-3" role="tablist">
             <div class="col-4 pe-1">
-                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="true">Activity</button>
+                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="false">Activity</button>
             </div>
             <div class="col-4">
-                <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="false">Recipes</button>
+                <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="true">Recipes</button>
             </div>
             <div class="col-4 ps-1">
                 <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Chapters</button>
@@ -52,85 +52,24 @@
 
         <!-- Profile Body Section -->
         <div class="row tab-content">
-            <div id="user-activity" class="tab-pane fade show active" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
+            <div id="user-activity" class="tab-pane fade" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
                 <h1 class="header">Recent Activity</h1>
                 <hr>
                 <!-- Content Here -->
             </div>
-            <div id="user-recipes" class="tab-pane fade" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
+            <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
                 <h1 class="header">Recipes</h1>
                 <hr>
                 <!-- Content Here -->
-                <div class="card col-md-6">
-                    <!--    <img src="..." class="card-img-top" alt="...">-->
-                    <img class="image_placeholder"/>
-                    <div class="top-right"><a href="#" class="bookmark-icon"><i class="fa-regular fa-bookmark"></i></a>
-                    </div>
-                    <div class="username">
-                        <a href="#" class="user">
-                            <i class="fa-regular fa-circle-user"></i> Andre Salinas
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
-                        <h5 class="card-title">Mighty Cream Cheese Gator Poppers</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-foot">
-                            <a href="#" class="card-calender"><i class="fa-regular fa-calendar-days"></i> Yesterday</a>
-                            <a href="#" class="card-comment"><i class="fa-regular fa-message"></i> 124</a>
-                            <a href="#" class="card-bookmark"><i class="fa-solid fa-bookmark"></i> 124</a>
+                <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
+                    <div th:each="recipe : ${recipes}" class="m-0 p-0">
+                        <div th:replace="partials :: recipe-card(
+                    image=${recipe.getRecipe().getImage()}, title=${recipe.getRecipe().getTitle()}, user=${user.getFirstName()}, date=${recipe.getRecipe().getCreatedAt()})">
                         </div>
                     </div>
                 </div>
-                <div class="card col-md-6">
-                    <!--    <img src="..." class="card-img-top" alt="...">-->
-                    <img class="image_placeholder"/>
-                    <div class="top-right"><a href="#" class="bookmark-icon"><i class="fa-regular fa-bookmark"></i></a>
-                    </div>
-                    <div class="username">
-                        <a href="#" class="user">
-                            <i class="fa-regular fa-circle-user"></i> Andre Salinas
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
-                        <h5 class="card-title">Mighty Cream Cheese Gator Poppers</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-foot">
-                            <a href="#" class="card-calender"><i class="fa-regular fa-calendar-days"></i> Yesterday</a>
-                            <a href="#" class="card-comment"><i class="fa-regular fa-message"></i> 124</a>
-                            <a href="#" class="card-bookmark"><i class="fa-solid fa-bookmark"></i> 124</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-md-6">
-                    <!--    <img src="..." class="card-img-top" alt="...">-->
-                    <img class="image_placeholder"/>
-                    <div class="top-right"><a href="#" class="bookmark-icon"><i class="fa-regular fa-bookmark"></i></a>
-                    </div>
-                    <div class="username">
-                        <a href="#" class="user">
-                            <i class="fa-regular fa-circle-user"></i> Andre Salinas
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
-                        <h5 class="card-title">Mighty Cream Cheese Gator Poppers</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-foot">
-                            <a href="#" class="card-calender"><i class="fa-regular fa-calendar-days"></i> Yesterday</a>
-                            <a href="#" class="card-comment"><i class="fa-regular fa-message"></i> 124</a>
-                            <a href="#" class="card-bookmark"><i class="fa-solid fa-bookmark"></i> 124</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
             <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <h1 class="header">Chapters</h1>
                 <hr>
