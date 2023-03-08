@@ -5,8 +5,47 @@
 <title>Search Results</title>
 <body>
 <nav th:replace="partials :: navbar"></nav>
+<div id="banner-image">
+    <div class="search-bar-container">
+        <form action="#" method="get">
+            <input type="search" id="searchHTML" name="searchHTML" placeholder="Search...">
+        </form>
+    </div>
+</div>
+<div class="search-container">
+    <div id="profile-tabs" class="row mt-4 mb-4" role="tablist">
+        <div class="col-6 pe-1">
+            <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"
+                    data-bs-toggle="pill" data-bs-target="#recipes" aria-controls="recipes"
+                    aria-selected="true">Recipes
+            </button>
+        </div>
+        <div class="col-6 pe-1">
+            <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab"
+                    data-bs-toggle="pill" data-bs-target="#chapters" aria-controls="chapters" aria-selected="false">
+                Chapters
+            </button>
+        </div>
+        <!-- SearchBar Content -->
+        <div class="row tab-content">
+            <!-- Recipes -->
+            <div id="recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn"
+                 tabindex="0">
+                <br>
+                <h1 class="header">10 recipes found for "Gator"...</h1>
+                <!-- Content Here -->
+                <div th:replace="partials :: recipe-card"></div>
+            </div>
+            <!-- Chapters -->
+            <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
+                <br>
+                <h1 class="header">6 chapters found for "Gator"...</h1>
+                <!-- Content Here -->
+            </div>
+        </div>
+    </div>
 
-// content here
+</div>
 
 <div th:replace="partials :: script"></div>
 </body>
