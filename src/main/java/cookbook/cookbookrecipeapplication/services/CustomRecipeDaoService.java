@@ -4,8 +4,11 @@ import cookbook.cookbookrecipeapplication.models.CustomRecipe;
 import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.repositories.CustomRecipeRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class CustomRecipeDaoService {
     private final CustomRecipeRepository customRecipeRepository;
 

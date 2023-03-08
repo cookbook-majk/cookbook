@@ -47,7 +47,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers( // anyone can see these pages
-                        "/", "/home", "/about", "/browse", "/profile/{username}", "/recipe/{id}", "/search", "/search/**", "/register", "/css/**", "/images/**", "/js/**", "/static/**", "/profile")
+                        "/", "/home", "/about", "/browse", "/profile/{username}", "/recipe", "/recipe/{id}", "/search", "/search/**", "/register", "/css/**", "/images/**", "/js/**", "/static/**", "/profile")
                 .permitAll()
                 /* Pages that require authentication */
                 .and()

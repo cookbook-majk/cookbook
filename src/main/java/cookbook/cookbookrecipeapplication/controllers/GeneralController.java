@@ -62,6 +62,10 @@ public class GeneralController {
         recipeService.findRecipeById(id);
         return "/recipe";
     }
+    @GetMapping("/recipe")
+    public String oneRecipe() {
+        return "/recipe";
+    }
 
     // Create a Recipe
 //    @PostMapping("/register")
