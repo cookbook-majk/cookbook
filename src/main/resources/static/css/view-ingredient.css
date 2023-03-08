@@ -1,27 +1,26 @@
-
-details{
-    user-select: none;
+.sidebar-box{
+    max-height: 100px;
+    position: relative;
+    overflow: hidden;
 }
-details>summary span.icon{
-    width: 24px;
-    height: 24px;
-    transition: all 0.3s;
-    margin-left: auto;
+.sidebar-box .read-more{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0; padding: 20px 0;
+    background-image: linear-gradient(to bottom, transparent, white);
 }
-summary{
-    display: flex;
-    cursor: pointer;
-}
-summary::-webkit-details-marker{
-    display: none;
-}
-#expandBtn, #collapseBtn{
+.button{
+    box-sizing: border-box;
+    border-radius: 5px;
     border-style: solid;
-    border-color: grey;
-    color: gray;
-    width: fit-content;
-    display: flex;
-    align-self: center;
+    border-color: #7a7878;
+    background-color: #7a7878;
+    border-width: thick;
+    color: white;
+    text-decoration: none;
 }
 .recipe-page-rating .fa-star{
     font-size: xx-large;

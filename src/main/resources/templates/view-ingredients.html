@@ -13,45 +13,41 @@
 <body style="background-color: #f2f2f2;">
 
 <nav th:replace="partials :: navbar"></nav>
-    <!--Recipe Image w/ user and bookmark-->
-    <div class="banner">
-        <a href="#"><i class="fa-regular fa-bookmark"></i></a>
-        <div class="username">
-            <a href="#" class="user">
-                <i class="fa-regular fa-circle-user"></i> Andre Salinas</a>
-        </div>
+<!--Recipe Image w/ user and bookmark-->
+<div class="banner">
+    <a href="#"><i class="fa-regular fa-bookmark"></i></a>
+    <div class="username">
+        <a href="#" class="user">
+            <i class="fa-regular fa-circle-user"></i> Andre Salinas</a>
     </div>
-    <!--Profile recipe card-->
-    <div class="card">
-        <div class="card-body">
-            <div class="rateCommentSave row">
-                <div class="col-md-8">
-                    <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" class="card-comment"><i class="fa-regular fa-message"></i> 124</a>
-                </div>
-                <div class="col-md-2">
-                    <a href="#" class="card-bookmark"><i class="fa-solid fa-bookmark"></i> 124</a>
-                </div>
+</div>
+<!--Profile recipe card-->
+<div class="card">
+    <div class="card-body">
+        <div class="rateCommentSave row">
+            <div class="col-md-8">
+                <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
             </div>
-            <div class="card-title">
-                <h5 class="card-title">Mighty Cream Cheese Gator Poppers</h5>
+            <div class="col-md-2">
+                <a href="#" class="card-comment"><i class="fa-regular fa-message"></i> 124</a>
             </div>
-            <!--Collapsable description-->
-            <details>
-                <summary class="d-flex flex-column">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolore doloremque doloribus, eveniet
-                    hic ipsa nemo officiis repellendus tempore unde?
-                    <span id="expandBtn">Read More?</span>
-                </summary>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda illo ipsum, labore nobis
-                    non, nostrum optio porro reiciendis sequi vel vitae voluptas voluptatem. A at blanditiis,
-                    consequatur dolore doloremque, eius explicabo ipsum iusto nesciunt non nostrum obcaecati odio
-                    officiis quia, rem totam vitae. Facere facilis iusto officiis sit tempora.</p>
-            </details>
+            <div class="col-md-2">
+                <a href="#" class="card-bookmark"><i class="fa-solid fa-bookmark"></i> 124</a>
+            </div>
         </div>
+        <h5 class="card-title">Mighty Cream Cheese Gator Poppers</h5>
+
+        <div class="sidebar-box">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fugiat, incidunt magni qui quia
+                vitae. Accusamus animi atque commodi consectetur delectus dolor doloremque earum error, est et ex
+                excepturi hic in inventore labore laboriosam laudantium magni minima neque nesciunt nihil officiis
+                perferendis quae rem sequi unde vel voluptas! Commodi cum doloremque explicabo, facere iste iure labore
+                libero, nesciunt optio possimus quae quidem voluptates? Asperiores consectetur eaque incidunt labore
+                numquam pariatur quam soluta voluptates! Adipisci, distinctio.</p>
+            <p class="read-more"><a href="#" class="button">Read More?</a></p>
+        </div>
+
         <div id="profile-tabs" class="row mt-4 mb-3" role="tablist">
             <div class="col-4 pe-1">
                 <button type="button" id="ingredients-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"
@@ -72,42 +68,68 @@
                 </button>
             </div>
         </div>
-        <!-- Recipe Section -->
-        <div class="row tab-content">
-            <div id="ingredients" class="tab-pane fade show active" role="tabpanel" aria-labelledby="ingredients-btn"
-                 tabindex="0">
-                <h1 class="header">Ingredients</h1>
-                <hr>
-                <!-- Content Here -->
-            </div>
-            <div id="recipe" class="tab-pane fade" role="tabpanel" aria-labelledby="recipe-btn" tabindex="0">
-                <hr>
-                <h3>Step 1:</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, necessitatibus?</p>
-                <h3>Step 2:</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, incidunt.</p>
-                <h3>Step 3:</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, voluptates.</p>
-            </div>
-            <div id="reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="reviews-btn" tabindex="0">
-                <h1 class="header">Reviews</h1>
-                <hr>
-                <!-- Content Here -->
-            </div>
-        </div>
-
-
     </div>
+    <!-- Recipe Section -->
+    <div class="row tab-content">
+        <div id="ingredients" class="tab-pane fade show active" role="tabpanel" aria-labelledby="ingredients-btn"
+             tabindex="0">
+            <h1 class="header">Ingredients</h1>
+            <hr>
+            <!-- Content Here -->
+        </div>
+        <div id="recipe" class="tab-pane fade" role="tabpanel" aria-labelledby="recipe-btn" tabindex="0">
+            <hr>
+            <h3>Step 1:</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, necessitatibus?</p>
+            <h3>Step 2:</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, incidunt.</p>
+            <h3>Step 3:</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, voluptates.</p>
+        </div>
+        <div id="reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="reviews-btn" tabindex="0">
+            <h1 class="header">Reviews</h1>
+            <hr>
+            <!-- Content Here -->
+        </div>
+    </div>
+
+
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous">
 </script>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
-    const showMore = document.getElementById("expandBtn")
-    showMore.addEventListener("click", () => {
-        showMore.style.display = "none";
+    let $el, $ps, $up, totalHeight;
+    $(".sidebar-box .button").click(function () {
+        totalHeight = 0;
+
+        $el = $(this);
+        $p = $el.parent();
+        $up = $p.parent();
+        $ps = $up.find("p:not('.read-more')");
+
+        $ps.each(function () {
+            totalHeight += $(this).outerHeight();
+        });
+        $up
+            .css({
+                "height": $up.height(),
+                "max-height": 9999
+            })
+            .animate({
+                "height": totalHeight
+            });
+
+        $p.fadeOut();
+
+        return false;
     });
 </script>
 </body>
