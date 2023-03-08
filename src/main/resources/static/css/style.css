@@ -335,6 +335,7 @@ body {
 }
 #searchHTML{
     width: 550px;
+    height: 40px;
     border-color: 1px solid var(--grey);
     box-sizing: border-box;
     border-radius: 7px;
