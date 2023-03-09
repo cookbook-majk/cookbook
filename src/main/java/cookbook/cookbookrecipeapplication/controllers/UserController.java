@@ -54,10 +54,26 @@ public class UserController {
     @GetMapping("/profile/{username}")
     public String showProfile(@PathVariable String username, Model model) {
         User user = userDao.findUserByUsername(username);
+        // Checks if user is logged in
+        if ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null){
+            // Checks if user is on own page / if so, shows edit profile button
+            if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId() == (user).getId()){
+                model.addAttribute("showEditProfile", true);
+                // Checks if logged in user is following page user
+            } else if (userDao.isUserFollowingUser(user, ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()))){
+                System.out.println("is following");
+                model.addAttribute("isFollowing", true);
+            } else {
+                System.out.println("is not following");
+                model.addAttribute("isNotFollowing", true);
+            }
+        }
+
         model.addAttribute("user", user);
         model.addAttribute("recipes", user.getCustom_recipes());
         model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
         model.addAttribute("recentActivity", user.getRecentActivities());
+        model.addAttribute("recipeDao", recipeDao);
         return "/profile";
     }
 
@@ -109,7 +125,7 @@ public class UserController {
     @GetMapping("/unfollow/{user_id}")
     public String unfollowUser(@PathVariable long user_id) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userDao.unfollowUser(loggedInUser, userDao.findUserById(user_id));
+        userDao.unfollowUser(userDao.findUserById(user_id), loggedInUser);
         return "redirect:/profile/" + userDao.findUserById(user_id).getUsername();
     }
 

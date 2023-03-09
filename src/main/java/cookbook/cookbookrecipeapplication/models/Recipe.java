@@ -136,4 +136,12 @@ public class Recipe implements Serializable {
     public void setCustom_recipe(CustomRecipe custom_recipe) {
         this.custom_recipe = custom_recipe;
     }
+
+    public Set<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(Set<Chapter> chapters) {
+        this.chapters = chapters;
+    }
 }

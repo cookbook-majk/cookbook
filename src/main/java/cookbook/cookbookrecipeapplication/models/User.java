@@ -35,6 +35,7 @@ public class User {
 
     @Column
     private String userBio;
+
     @Column(nullable = false)
     private String profilePicture;
 

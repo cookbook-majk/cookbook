@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="partials :: head"></head>
 <title th:text="${user.getFirstName} + '\'s Profile'"></title>
@@ -19,7 +19,17 @@
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav Pizzamani</h1>
                 <!-- TODO: Dynamic follow / unfollow button -->
-                <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block th:if="${isNotFollowing}">
+                    <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                    </th:block>
+                    <th:block th:if="${isFollowing}">
+                        <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                    </th:block>
+                    <th:block th:if="${showEditProfile}">
+                        <button class="btn btn-secondary">Edit Profile</button>
+                    </th:block>
+                </th:block>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p id="user-bio" class="pt-2 pb-2 h-50">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,.
@@ -47,7 +57,7 @@
                 <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="true">Recipes</button>
             </div>
             <div class="col-4 ps-1">
-                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Chapters</button>
+                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Saved</button>
             </div>
         </div>
 
@@ -60,29 +70,49 @@
             </div>
 
             <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
-                <h1 class="header">Recipes</h1>
+                <h1 class="header">User Recipes</h1>
                 <hr>
-                <!-- Content Here -->
+                <!-- User Recipe Cards -->
                 <!-- TODO: Fix card spacing -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <div th:each="recipe : ${recipes}" class="m-0 p-0">
                         <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getRecipe().getId()},
                             image = ${recipe.getRecipe().getImage()},
                             title = ${recipe.getRecipe().getTitle()},
+                            username = ${user.getUsername()},
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
                             date = ${recipe.getRecipe().getCreatedAt()},
-                            reviews = ${recipe.getRecipe().getReviews().size})">
+                            reviews = ${recipe.getRecipe().getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getRecipe().getId())})">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
-                <h1 class="header">Chapters</h1>
+                <h1 class="header">Saved Recipes</h1>
                 <hr>
-                <!-- Content Here -->
+                <!-- Saved Recipe Cards -->
+                <!-- TODO: Fix card spacing -->
+                <div id="saved-content" class="d-flex flex-wrap flex-row justify-content-between">
+                    <div th:each="recipe : ${savedRecipes}" class="m-0 p-0">
+                        <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
+                            image = ${recipe.getImage()},
+                            title = ${recipe.getTitle()},
+                            username = ${user.getUsername()},
+                            userimg = ${user.getProfilePicture()},
+                            firstname = ${user.getFirstName()},
+                            lastname = ${user.getLastName()},
+                            date = ${recipe.getCreatedAt()},
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getId())})">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

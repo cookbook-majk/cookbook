@@ -1,6 +1,7 @@
 USE cookbook_db;
 
 INSERT INTO users (email, first_name, last_name, password, profile_picture, user_bio, user_created, username)
+
 VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc','https://spoonacular.com/images/spoonacular-logo-b.svg', 'Fantastic Recipe API', now(), 'Spoonacular'),
        ('dingobat@email.com', 'Johnathan', 'Smallhorn', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://blog.lehmans.com/wp-content/uploads/2019/07/kentrollins.jpg', 'fastest grill in the west', now(), 'one-and-only-smallhorn'),
        ('bigcat@email.com', 'Cathy', 'Pigeon', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-9/184562842_2989037661423479_2797047519422511758_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=SYYSSCit9LkAX-M4PYJ&_nc_ht=scontent-hou1-1.xx&oh=00_AfDBHYs6KC6RfGppWKeU4r8p2ul_qA-Job1LyvSRTF129A&oe=6428DDD1', 'im a realtor', now(), 'cathypigeonrealty'),
@@ -11,7 +12,6 @@ VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI
        ('daughternatasha@email.com', 'Natasha', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://i0.wp.com/prescriptiveoptimization.com/wp-content/uploads/2019/08/diet-4364283_1920.jpg?fit=1920%2C1375&ssl=1', 'Moms Vegan Prodigy', now(), 'natasha'),
        ('sonviktor@email.com', 'Viktor', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://nypost.com/wp-content/uploads/sites/2/2021/07/men-eat-meat-01.jpg?quality=75&strip=all', 'Moms Carnivore Prodigy', now(), 'viktor'),
        ('ronaldmcdonald@email.com', 'Ronald', 'McDonald', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://api.time.com/wp-content/uploads/2014/04/74432_wavingronald.jpg?quality=85&w=2596', 'Im Lovin It', now(), 'mcdonalds');
-
 
 INSERT INTO dish_types (type)
 VALUES ('main course'),
