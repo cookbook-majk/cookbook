@@ -21,9 +21,6 @@
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav
                     Pizzamani</h1>
-                <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png"
-                                                                  th:src="@{../images/add-friend.png}" id="add-friend"
-                                                                  class="ms-3" alt="Add friend button"/></a>
                 <!-- TODO: Dynamic follow / unfollow button -->
                 <th:block sec:authorize="isAuthenticated()">
                     <th:block th:if="${isNotFollowing}">
@@ -41,7 +38,7 @@
                     <div class="modal-content">
                             <span class="close">&times;</span>
                             <h2 class="editYourProfile">Edit your profile!</h2>
-                        <form id="edit-profile-form" th:action="@{/profile}" th:method="post" th:object="${user}"
+                        <form id="edit-profile-form" th:action="'/profile/edit/' + ${user.getUsername()}" th:method="post"
                               class="mx-1 mx-md-4">
                             <div class="modal-container mt-3">
                                 <div class="row mb-4">
@@ -50,26 +47,26 @@
                                                accept="image/*"/>
                                         <div id="img-upload">
                                             <img src="../static/images/photo.png" th:src="@{../images/photo.png}"
-                                                 class="img-fluid file-upload-image" alt="Photo upload image"/>
+                                                 class="img-fluid file-upload-image" alt="Photo upload image" id="userImage"/>
                                         </div>
+                                        <input type="hidden" value="0" id="fileStackResponse" th:name="imageURL">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="col-md-12">
                                             <label class="firstName" for="first-name">First Name:</label>
-                                            <input type="text" id="first-name" class="form-control"
-                                                   th:field="*{firstName}"
+                                            <input type="text" th:value="${user.getFirstName()}" id="first-name" class="form-control"
+                                                   th:name="firstName"
                                                    placeholder="First name" aria-label="First name">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="lastName" for="last-name">Last Name:</label>
-                                            <input type="text" id="last-name" class="form-control"
-                                                   th:field="*{lastName}"
+                                            <input type="text" th:value="${user.getLastName()}" id="last-name" class="form-control"
+                                                   th:name="lastName"
                                                    placeholder="Last name" aria-label="Last name">
                                         </div>
                                         <div class="col-md-12">
                                             <label class="bio" for="bio">Bio:</label>
-                                            <textarea id="bio" class="form-control" name="bio"
-                                                      placeholder="Tell us about yourself!" aria-label="Bio"></textarea>
+                                            <textarea id="bio" class="form-control" th:name="userBio" name="bio" placeholder="Tell us about yourself!" aria-label="Bio"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -174,6 +171,7 @@
 </section>
 
 <div th:replace="partials :: script"></div>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script>
     const editProfileButton = document.getElementById('edit-profile-button');
     const modal = document.getElementById('edit-profile-modal');
@@ -198,6 +196,18 @@
     saveChanges.addEventListener('click', (event) => {
         modal.style.display = 'none';
     });
+
+    // const client = filestack.init([[${filestack}]]);
+    // const options = {
+    //     onFileUploadFinished(file) {
+    //         console.log(file);
+    //         $('#fileStackResponse').val(file.url)
+    //         $('#userImage').attr('src', file.url).removeData('th:src')
+    //     }
+    // }
+    // client.picker(options).open();
+
+
 </script>
 </body>
 </html>

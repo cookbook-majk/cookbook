@@ -37,13 +37,16 @@
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <div th:each="recipe : ${searchResults.getResults()}" class="m-0 p-0">
                         <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
                             image = ${recipe.getImage()},
                             title = ${recipe.getTitle()},
+                            username = ${user.getUsername},
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
                             date = ${recipe.getCreatedAt()},
-                            reviews = ${recipe.getReviews().size})">
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipe.getReviews().size})">
                         </div>
                     </div>
                 </div>
