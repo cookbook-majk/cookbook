@@ -47,7 +47,7 @@
                 <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="true">Recipes</button>
             </div>
             <div class="col-4 ps-1">
-                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Chapters</button>
+                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Saved</button>
             </div>
         </div>
 
@@ -60,29 +60,49 @@
             </div>
 
             <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
-                <h1 class="header">Recipes</h1>
+                <h1 class="header">User Recipes</h1>
                 <hr>
-                <!-- Content Here -->
+                <!-- User Recipe Cards -->
                 <!-- TODO: Fix card spacing -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <div th:each="recipe : ${recipes}" class="m-0 p-0">
                         <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getRecipe().getId()},
                             image = ${recipe.getRecipe().getImage()},
                             title = ${recipe.getRecipe().getTitle()},
+                            username = ${user.getUsername()},
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
                             date = ${recipe.getRecipe().getCreatedAt()},
-                            reviews = ${recipe.getRecipe().getReviews().size})">
+                            reviews = ${recipe.getRecipe().getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getRecipe().getId())})">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
-                <h1 class="header">Chapters</h1>
+                <h1 class="header">Saved Recipes</h1>
                 <hr>
-                <!-- Content Here -->
+                <!-- Saved Recipe Cards -->
+                <!-- TODO: Fix card spacing -->
+                <div id="saved-content" class="d-flex flex-wrap flex-row justify-content-between">
+                    <div th:each="recipe : ${savedRecipes}" class="m-0 p-0">
+                        <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
+                            image = ${recipe.getImage()},
+                            title = ${recipe.getTitle()},
+                            username = ${user.getUsername()},
+                            userimg = ${user.getProfilePicture()},
+                            firstname = ${user.getFirstName()},
+                            lastname = ${user.getLastName()},
+                            date = ${recipe.getCreatedAt()},
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getId())})">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

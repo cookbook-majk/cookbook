@@ -58,6 +58,7 @@ public class UserController {
         model.addAttribute("recipes", user.getCustom_recipes());
         model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
         model.addAttribute("recentActivity", user.getRecentActivities());
+        model.addAttribute("recipeDao", recipeDao);
         return "/profile";
     }
 
@@ -73,7 +74,11 @@ public class UserController {
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed(Model model) {
-        model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFollowing() == null){
+            model.addAttribute("noResults", true);
+        } else {
+            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+        }
         return "/feed";
     }
 

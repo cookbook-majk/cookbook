@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Security;
 import java.util.*;
 
 @Controller
@@ -99,6 +100,8 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     public String showRecipe(@PathVariable long id, Model model) {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
+        model.addAttribute("saves", recipeDao.getNumberOfSavesByRecipeId(id));
+        model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         return "/recipe";
     }
 
