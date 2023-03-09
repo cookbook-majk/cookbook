@@ -12,12 +12,13 @@
         <!-- Profile Header Section -->
         <div class="row vh-25">
             <div class="col-md-5 col-lg-4">
-                <img src="../static/images/pizzaman.jpg" th:src="@{../images/pizzaman.jpg}" id="user-img" class="img-fluid"
-                     alt="Person tossing pizza dough"/>
+                <!-- TODO: Dynamic user profile image -->
+                <img src="../static/images/pizzaman.jpg" th:src="${user.getProfilePicture()}" id="user-img" class="img-fluid" alt="Person tossing pizza dough"/>
             </div>
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav Pizzamani</h1>
+                <!-- TODO: Dynamic follow / unfollow button -->
                 <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png" th:src="@{../images/add-friend.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p id="user-bio" class="pt-2 pb-2 h-50">
@@ -57,18 +58,26 @@
                 <hr>
                 <!-- Content Here -->
             </div>
+
             <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
                 <h1 class="header">Recipes</h1>
                 <hr>
                 <!-- Content Here -->
+                <!-- TODO: Fix card spacing -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <div th:each="recipe : ${recipes}" class="m-0 p-0">
                         <div th:replace="partials :: recipe-card(
-                    image=${recipe.getRecipe().getImage()}, title=${recipe.getRecipe().getTitle()}, user=${user.getFirstName()}, date=${recipe.getRecipe().getCreatedAt()})">
+                            image = ${recipe.getRecipe().getImage()},
+                            title = ${recipe.getRecipe().getTitle()},
+                            userimg = ${user.getProfilePicture()},
+                            firstname = ${user.getFirstName()},
+                            lastname = ${user.getLastName()},
+                            date = ${recipe.getRecipe().getCreatedAt()},
+                            reviews = ${recipe.getRecipe().getReviews().size})">
                         </div>
                     </div>
                 </div>
-
+            </div>
 
             <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <h1 class="header">Chapters</h1>
@@ -78,8 +87,6 @@
         </div>
     </div>
 </section>
-
-
 
 <div th:replace="partials :: script"></div>
 </body>
