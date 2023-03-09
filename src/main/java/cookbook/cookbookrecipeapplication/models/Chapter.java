@@ -29,8 +29,8 @@ public class Chapter {
     @ManyToMany
     @JoinTable(
             name = "recipe_chapter",
-            joinColumns = @JoinColumn(name = "recipes"),
-            inverseJoinColumns = @JoinColumn(name = "chapters"))
+            joinColumns = @JoinColumn(name = "chapters"),
+            inverseJoinColumns = @JoinColumn(name = "recipes"))
     Set<Recipe> savedRecipes;
 
     public Chapter() {

@@ -83,6 +83,10 @@ public class UserDaoService {
         return recentActivityList;
     }
 
+    public boolean isUserFollowingUser(User user1, User user2){
+        return (followerDao.findFollowerByFollowerAndUser(user1, user2)) != null;
+    }
+
 
 
 }

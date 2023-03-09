@@ -5,7 +5,8 @@ use cookbook_db;
 INSERT INTO users (email, first_name, last_name, password, profile_picture, user_bio, user_created, username)
 VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc',
         'https://spoonacular.com/images/spoonacular-logo-b.svg',
-        'Fantastic Recipe API', now(), 'Spoonacular'),
+        'Fantastic Recipe API', now(), 'Spoonacular');
+
        ('dingobat@email.com', 'Johnathan', 'Smallhorn', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc',
         'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj',
         'big guy, small horn', now(), 'one-and-only-smallhorn'),
