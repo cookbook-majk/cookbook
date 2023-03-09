@@ -73,7 +73,11 @@ public class UserController {
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed(Model model) {
-        model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFollowing() == null){
+            model.addAttribute("noResults", true);
+        } else {
+            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+        }
         return "/feed";
     }
 
