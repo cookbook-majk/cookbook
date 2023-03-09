@@ -11,14 +11,19 @@
     <!-- Recipe Banner w/ User & Bookmark -->
     <div id="recipe-banner">
         <div id="recipe-page-cover">
-            <img src="/images/flank-steak.webp" alt="recipe cover image" id="recipe-cover-image">
+            <img th:src="${recipe.image}" src="/images/flank-steak.webp" alt="recipe cover image" id="recipe-cover-image">
         </div>
         <div id="recipe-cover-buttons">
             <div id="recipe-page-save" class="d-flex justify-content-end">
                 <a href="#"><i class="fa-regular fa-bookmark"></i></a>
             </div>
+            <!-- TODO: Add link to user profile -->
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
-                <a href="#"><img src="/images/pizzaman.jpg" alt="user profile image" class="mb-1"> <span class="ms-2">Andre Salinas</span> </a>
+                <a href="#">
+                    <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}" src="/images/pizzaman.jpg" alt="user profile image">
+                    <span class="ms-2 me-1" th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()}">User First Name</span>
+                    <span th:text="${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Last Name</span>
+                </a>
             </div>
         </div>
     </div>
@@ -27,20 +32,20 @@
         <div id="recipe-details">
             <div class="row justify-content-between">
                 <div id="recipe-rating" class="col">
-                    <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
+                    <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">
-                        <a href="#"><i class="fa-solid fa-comment"></i> 124</a>
-                        <a href="#"><i class="fa-solid fa-bookmark"></i> 124</a>
+                        <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${recipe.getReviews().size()}">#</span></a>
+                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span>#</span></a>
                     </div>
                 </div>
             </div>
-            <h5>Mighty Cream Cheese Gator Poppers</h5>
+            <h5 th:text="${recipe.title}">Recipe Title</h5>
             <!-- Collapsable description -->
             <div id="recipe-description">
-                <p>
+                <!-- TODO: Toggle Read More / Show Less button -->
+                <p th:text="${recipe.getCustom_recipe().summary}">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fugiat, incidunt magni qui quia vitae. Accusamus animi atque commodi consectetur delectus dolor doloremque earum error, est et ex excepturi hic in inventore labore laboriosam laudantium magni minima neque nesciunt nihil officiis perferendis quae rem sequi unde vel voluptas! Commodi cum doloremque explicabo, facere iste iure labore libero, nesciunt optio possimus quae quidem voluptates? Asperiores consectetur eaque incidunt labore numquam pariatur quam soluta voluptates! Adipisci, distinctio.
                 </p>
                 <p class="read-more"><a href="#" class="button">Read More</a></p>
@@ -75,18 +80,33 @@
                 <h1 class="header">Ingredients</h1>
                 <hr>
                 <!-- Content Here -->
+                <ul th:each="ingredient : ${recipe.getCustom_recipe().ingredients}">
+                    <li>
+                        <!-- TODO: Round whole ingredient amounts -->
+                        <!-- TODO: Sentence-case -->
+                        <!-- TODO: Remove nulls -->
+                        <span th:text="${ingredient.amount}"></span> <span th:text="${ingredient.unit}"></span> <span th:text="${ingredient.name}"></span>
+                    </li>
+                </ul>
             </div>
             <!-- Recipe Instructions -->
             <div id="recipe" class="tab-pane fade" role="tabpanel" aria-labelledby="recipe-btn" tabindex="0">
                 <h1 class="header">Instructions</h1>
                 <hr>
                 <!-- Content Here -->
+                <ol>
+                    <li th:each="instruction : ${recipe.getCustom_recipe().instructions}">
+                        <!-- TODO: Formatting -->
+                        <span th:text="${instruction.content}"></span>
+                    </li>
+                </ol>
             </div>
             <!-- Recipe Reviews -->
             <div id="reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="reviews-btn" tabindex="0">
                 <h1 class="header">Reviews</h1>
                 <hr>
                 <!-- Content Here -->
+                <div th:replace="partials :: review-card"></div>
             </div>
         </div>
     </div>

@@ -50,23 +50,4 @@ public class GeneralController {
         return "/search";
     }
 
-    // Draft a Recipe
-    @GetMapping("/recipe/create")
-    public String draftRecipe(Model model) {
-        model.addAttribute("ingredients", new IngredientList());
-        model.addAttribute("instructions", new InstructionList());
-        return "/create";
-    }
-
-    // View Recipe
-    @GetMapping("/recipe/{id}")
-    public String showRecipe(@PathVariable long id) {
-        recipeService.findRecipeById(id);
-        return "/recipe";
-    }
-    @GetMapping("/recipe")
-    public String oneRecipe() {
-        return "/recipe";
-    }
-
 }

@@ -16,7 +16,7 @@ public class Instruction implements Serializable {
     @Column(nullable = false)
     private int order_num;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false)
     private String content;
 
     @ManyToOne

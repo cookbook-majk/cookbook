@@ -147,6 +147,9 @@ body {
 #username {
     clear: left;
 }
+#profile-tabs .btn {
+    font-size: 24px;
+}
 #profile-tabs .btn.active {
     background-color: var(--red);
     border-color: var(--red);
@@ -213,16 +216,18 @@ body {
 }
 .recipe-card-user {
     position: absolute;
-    top: 165px;
+    top: 160px;
     left: 10px;
 }
 .recipe-card-user a {
-    color: black;
+    color: var(--black);
+    font-weight: 600;
+    font-size: 17px;
     text-decoration: none;
 }
 .recipe-card-user img {
     border-radius: 50%;
-    height: 30px;
+    height: 35px;
 }
 .recipe-card .card-body {
     height: 175px;
@@ -265,7 +270,7 @@ body {
 #recipe-page-user a {
     color: var(--white);
     text-decoration: none;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -295,9 +300,10 @@ body {
     font-weight: 600;
 }
 #recipe-description {
-    max-height: 75px;
+    max-height: 100px;
     position: relative;
     overflow: hidden;
+    font-size: 22px;
 }
 #recipe-description .read-more {
     position: absolute;
@@ -307,6 +313,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 20px 0;
+    font-size: 21px;
     background-image: linear-gradient(to bottom, transparent, var(--white));
 }
 #recipe-description .button {
@@ -317,8 +324,37 @@ body {
     text-decoration: none;
     padding: 5px;
 }
-/*KM*/
-/*search.html CSS below*/
+#ingredients, #recipe {
+    font-size: 22px;
+}
+/* REVIEW CARD */
+.review-card {
+    background-color: var(--lightgrey);
+}
+.review-card img {
+    border-radius: 50%;
+    height: 40px;
+}
+.review-title .card-title {
+    font-size: 28px;
+    font-weight: 600;
+}
+.review-info {
+    color: var(--black);
+    font-size: 22px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.review-info a {
+    color: var(--black);
+    font-size: 22px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.review-details .fa-star {
+    font-size: 28px;
+}
+/* SEARCH PAGE */
 #banner-image{
     background-image: url('../images/food-placeholder.jpeg');
     background-size: cover;
@@ -350,3 +386,4 @@ body {
     font-family: 'Inter', sans-serif;
 }
 /*MS*/
+

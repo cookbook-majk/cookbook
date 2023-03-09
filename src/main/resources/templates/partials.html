@@ -75,24 +75,61 @@
 </nav>
 
 <!-- RECIPE CARD -->
-<!-- TODO: Add name / form model binding for variable population -->
-<div >
-    <div class="recipe-card card col-2" th:fragment="recipe-card (image, title, user, date)">
-        <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
-        <a href="#"><i class="fa-regular fa-bookmark save-recipe"></i></a>
-        <div class="recipe-card-user align-items-center">
-            <a href="#"><img src="/images/pizzaman.jpg" alt="user profile image" class="mb-1"><span th:text="${user}">Full User Name</span></a>
+<!-- TODO: Add links -->
+<!-- TODO: Add saves -->
+<!-- TODO: Change date return -->
+<!-- TODO: Star rating -->
+<!-- TODO: Gradient overlay for recipe image -->
+<div class="recipe-card card" th:fragment="recipe-card (image, title, userimg, firstname, lastname, date, reviews)">
+    <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
+    <a href="#"><i class="fa-regular fa-bookmark save-recipe"></i></a>
+    <div class="recipe-card-user align-items-center">
+        <a href="#">
+            <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
+            <span th:text="${firstname}">First Name</span><span> </span><span th:text="${lastname}">Last Name</span>
+        </a>
+    </div>
+    <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+            <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
+                class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+            <h5 class="card-title" th:text="${title}">Recipe Title</h5>
         </div>
-        <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
-                        class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-                <h5 class="card-title" th:text="${title}">Recipe Title</h5>
+        <div class="card-foot d-flex justify-content-between">
+            <a href="#"><i class="fa-solid fa-calendar-days"></i> <span th:text="${date}">#</span></a>
+            <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${reviews}">#</span></a>
+            <a href="#"><i class="fa-solid fa-bookmark"></i> <span>#</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- REVIEW CARD -->
+<div th:fragment="review-card">
+    <div class="review-card card w-100 mb-3">
+        <div class="review-details card-header d-flex p-3">
+            <div class="col d-flex align-items-center me-auto">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
             </div>
-            <div class="card-foot d-flex justify-content-between">
-                <a href="#"><i class="fa-solid fa-calendar-days"></i> <span th:text="${date}">#</span></a>
-                <a href="#"><i class="fa-solid fa-comment"></i> <span>#</span></a>
-                <a href="#"><i class="fa-solid fa-bookmark"></i> <span>#</span></a>
+            <div class="review-info col d-flex justify-content-end align-items-center">
+                <a href="#" class="d-flex align-items-center">
+                    <img src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
+                    <span>Kaylee</span> <span class="ms-1 me-1">Morris</span>
+                </a>
+                <div class="d-flex align-items-center ms-2">
+                    <i class="fa-solid fa-calendar-days me-1"></i>
+                    <span>Jan 31, 2023</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4 pt-3">
+            <div class="review-title row align-items-start">
+                <h2 class="card-title">The Best Spaghetti I've Ever Had In My Whole Fucking Life!!!</h2>
+            </div>
+            <div class="review-content row">
+                <p class="card-text">
+                    Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit.
+                </p>
             </div>
         </div>
     </div>
