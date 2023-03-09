@@ -11,7 +11,7 @@ import cookbook.cookbookrecipeapplication.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class UserDaoService {
@@ -72,6 +72,18 @@ public class UserDaoService {
         System.out.println(followee.getUsername());
         followerDao.delete(follower);
     }
+
+    public List<RecentActivity> getAllFollowingRecentActivity(User user){
+        List<Follower> following = user.getFollowing();
+        List<RecentActivity> recentActivityList = new ArrayList<>();
+        for (Follower follower : following){
+            recentActivityList.addAll(follower.getUser().getRecentActivities());
+        }
+        Collections.sort(recentActivityList);
+        return recentActivityList;
+    }
+
+
 
 }
 

@@ -26,10 +26,11 @@ public class RecipeDaoService {
     private final ReviewRepository reviewDao;
     private final DishTypeRepository dishTypeDao;
     private final UserRepository userDao;
+    private final ChapterRepository chapterDao;
 
 
 
-    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository, DishTypeRepository dishTypeDao, UserRepository userDao) {
+    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository, DishTypeRepository dishTypeDao, UserRepository userDao, ChapterRepository chapterDao) {
         this.recipeDao = recipeRepository;
         this.customRecipeDao = customRecipeRepository;
         this.ingredientDao = ingredientRepository;
@@ -37,6 +38,7 @@ public class RecipeDaoService {
         this.reviewDao = reviewRepository;
         this.dishTypeDao = dishTypeDao;
         this.userDao = userDao;
+        this.chapterDao = chapterDao;
     }
 
     public Recipe findRecipeById(long id) {
@@ -130,34 +132,24 @@ public class RecipeDaoService {
         }
         return searchResults;
     }
+
     public void saveCustomRecipe(CustomRecipe customRecipe){
         customRecipeDao.save(customRecipe);
     }
     public void saveRecipe(Recipe recipe){
         recipeDao.save(recipe);
     }
-
     public void saveIngredient(Ingredient ingredient){
         ingredientDao.save(ingredient);
     }
-
     public void saveInstruction(Instruction instruction){
         instructionDao.save(instruction);
     }
-
     public DishType getDishTypeById(long id){
         return dishTypeDao.findById(id).get();
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-
-//        System.out.println(getCustomRecipeSpoonacular(126987));
-//        getRecipeSpoonacular();
-//        getMultipleRecipesSpoonacular();
-//        System.out.println(getSearchResultsSpoonacular("blueberry muffin"));
-
+    public long getNumberOfSavesByRecipeId(long recipeId){
+        return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
     }
+
 }
-
-
-

@@ -92,7 +92,7 @@ public class RecipeController {
                 recipe
         );
         userDao.saveRecentActivity(recentActivity);
-        return "/recipe/" + customRecipe.getId();
+        return "redirect:/recipe/" + recipe.getId();
     }
 
     // View Recipe
