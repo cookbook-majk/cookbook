@@ -19,4 +19,8 @@ public class ChapterDaoService {
     public Chapter findSavedChapterByUser(User user){
         return chapterDao.findByName(user.getUsername() + "Saved");
     }
+
+    public void saveChapter(Chapter chapter){
+        chapterDao.save(chapter);
+    }
 }

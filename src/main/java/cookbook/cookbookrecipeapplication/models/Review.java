@@ -4,6 +4,7 @@ package cookbook.cookbookrecipeapplication.models;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "reviews")
@@ -19,6 +20,9 @@ public class Review {
     @Column(nullable = false, length = 300)
     private String comment;
 
+    @Column(nullable = false, length = 50)
+    private String title;
+
     @Column
     private Date editedAt;
 
@@ -33,19 +37,20 @@ public class Review {
     @JoinColumn (name = "recipe_id")
     private Recipe recipe;
 
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "review")
+    private List<RecentActivity> recentActivities;
 
     public Review() {
     }
 
 
-    public Review(Date createdAt, String comment, Date editedAt, int rating, User user, Recipe recipe) {
+    public Review(Date createdAt, String comment, int rating, User user, Recipe recipe, String title) {
         this.createdAt = createdAt;
         this.comment = comment;
-        this.editedAt = editedAt;
         this.rating = rating;
         this.user = user;
         this.recipe = recipe;
+        this.title = title;
     }
 
     public Date getCreatedAt() {
@@ -95,4 +100,14 @@ public class Review {
     public void setRecipe_id(Recipe recipe_id) {
         this.recipe = recipe_id;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
 }

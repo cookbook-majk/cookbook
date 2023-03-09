@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,7 +14,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,18 +24,29 @@ public class RecipeDaoService {
     private final IngredientRepository ingredientDao;
     private final InstructionRepository instructionDao;
     private final ReviewRepository reviewDao;
+    private final DishTypeRepository dishTypeDao;
+    private final UserRepository userDao;
+    private final ChapterRepository chapterDao;
 
 
-    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository) {
+
+    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository, DishTypeRepository dishTypeDao, UserRepository userDao, ChapterRepository chapterDao) {
         this.recipeDao = recipeRepository;
         this.customRecipeDao = customRecipeRepository;
         this.ingredientDao = ingredientRepository;
         this.instructionDao = instructionRepository;
         this.reviewDao = reviewRepository;
+        this.dishTypeDao = dishTypeDao;
+        this.userDao = userDao;
+        this.chapterDao = chapterDao;
     }
 
     public Recipe findRecipeById(long id) {
         return recipeDao.findById(id).get();
+    }
+
+    public Recipe findRecipeBySpoonacularId(long spoonacularId){
+        return recipeDao.findBySpoonacularId(spoonacularId);
     }
 
     public List<CustomRecipe> findAllCustomRecipesByUser(User user) {
@@ -49,7 +57,8 @@ public class RecipeDaoService {
         return reviewDao.findAllByRecipe_id(id);
     }
 
-    public CustomRecipe getCustomRecipeSpoonacular(long spoontacular_id) throws IOException, InterruptedException {
+    public Recipe getRecipeAndCustomRecipeBySpoonacularId(long spoontacular_id) throws IOException, InterruptedException {
+        // Fetches recipe data from spoonacular from the specified spoonacular id
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + spoontacular_id + "/information?includeNutrition=false"))
                 .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
@@ -57,29 +66,46 @@ public class RecipeDaoService {
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
 
+        // Deserializes data into custom recipe object
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
                 new SimpleModule("CustomRecipeDeserializer", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(CustomRecipe.class, new CustomRecipeDeserializer());
         mapper.registerModule(module);
-        System.out.println(response.body());
+        CustomRecipe customRecipe = mapper.readValue(response.body(), CustomRecipe.class);
+        // Adds spoonacular as creator of recipe
+        customRecipe.setCreator_id(userDao.findByUsername("spoonacular"));
 
-        return mapper.readValue(response.body(), CustomRecipe.class);
+        // Deserializes data into recipe object and adds it into custom recipe object
+        ObjectMapper mapper2 = new ObjectMapper();
+        SimpleModule module2 =
+                new SimpleModule("RecipeDeserializer", new Version(1, 0, 0, null, null, null));
+        module.addDeserializer(Recipe.class, new RecipeDeserializer());
+        mapper.registerModule(module);
+        Recipe recipe = mapper.readValue(response.body(), Recipe.class);
+        recipe.setCustom_recipe(customRecipe);
+
+        return recipe;
     }
 
-    public Recipe getRecipeSpoonacular() throws IOException {
-        String uri = "https://4f305d33-68e6-4896-a493-63bcf82396c8.mock.pstmn.io/recipe-test";
-        RestTemplate restTemplate = new RestTemplate();
-        String json = restTemplate.getForObject(uri, String.class);
+    public Recipe getRecipeSpoonacular(long spoontacular_id) throws IOException, InterruptedException {
+        // Fetches recipe data from spoonacular from the specified spoonacular id
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + spoontacular_id + "/information?includeNutrition=false"))
+                .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
+                .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
                 new SimpleModule("RecipeDeserializer", new Version(1, 0, 0, null, null, null));
         module.addDeserializer(Recipe.class, new RecipeDeserializer());
         mapper.registerModule(module);
 
-        return mapper.readValue(json, Recipe.class);
+        return mapper.readValue(response.body(), Recipe.class);
     }
 
     public SearchResults getSearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
@@ -106,30 +132,24 @@ public class RecipeDaoService {
         }
         return searchResults;
     }
+
     public void saveCustomRecipe(CustomRecipe customRecipe){
         customRecipeDao.save(customRecipe);
     }
     public void saveRecipe(Recipe recipe){
         recipeDao.save(recipe);
     }
-
     public void saveIngredient(Ingredient ingredient){
         ingredientDao.save(ingredient);
     }
-
     public void saveInstruction(Instruction instruction){
         instructionDao.save(instruction);
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-
-//        System.out.println(getCustomRecipeSpoonacular(126987));
-//        getRecipeSpoonacular();
-//        getMultipleRecipesSpoonacular();
-//        System.out.println(getSearchResultsSpoonacular("blueberry muffin"));
-
+    public DishType getDishTypeById(long id){
+        return dishTypeDao.findById(id).get();
     }
+    public long getNumberOfSavesByRecipeId(long recipeId){
+        return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
+    }
+
 }
-
-
-

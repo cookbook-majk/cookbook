@@ -17,7 +17,7 @@ public class Recipe implements Serializable {
     private long id;
 
     @Column(nullable = true)
-    private long spoonacular_id;
+    private long spoonacularId;
 
     @Column(nullable = false, length = 250)
     private String image;
@@ -54,15 +54,15 @@ public class Recipe implements Serializable {
     }
 
     public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title) {
-        this.spoonacular_id = spoonacular_id;
+        this.spoonacularId = spoonacularId;
         this.image = image;
         this.image_type = image_type;
         this.createdAt = createdAt;
         this.title = title;
     }
 
-    public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title, CustomRecipe custom_recipe) {
-        this.spoonacular_id = spoonacular_id;
+    public Recipe(long spoonacularId, String image, String image_type, Date createdAt, String title, CustomRecipe custom_recipe) {
+        this.spoonacularId = spoonacularId;
         this.image = image;
         this.image_type = image_type;
         this.createdAt = createdAt;
@@ -70,12 +70,12 @@ public class Recipe implements Serializable {
         this.custom_recipe = custom_recipe;
     }
 
-    public long getSpoonacular_id() {
-        return spoonacular_id;
+    public long getSpoonacularId() {
+        return spoonacularId;
     }
 
-    public void setSpoonacular_id(long spoonacular_id) {
-        this.spoonacular_id = spoonacular_id;
+    public void setSpoonacular_id(long spoonacularId) {
+        this.spoonacularId = spoonacularId;
     }
 
     public Date getCreatedAt() {
@@ -129,4 +129,19 @@ public class Recipe implements Serializable {
     public long getId() { return id;}
     public void setId(long id) { this.id = id; }
 
+    public CustomRecipe getCustom_recipe() {
+        return custom_recipe;
+    }
+
+    public void setCustom_recipe(CustomRecipe custom_recipe) {
+        this.custom_recipe = custom_recipe;
+    }
+
+    public Set<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(Set<Chapter> chapters) {
+        this.chapters = chapters;
+    }
 }

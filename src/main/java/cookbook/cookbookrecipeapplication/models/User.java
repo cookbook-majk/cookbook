@@ -35,6 +35,7 @@ public class User {
 
     @Column
     private String userBio;
+
     @Column(nullable = false)
     private String profilePicture;
 
@@ -55,6 +56,9 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "follower")
     private  List<Follower> following;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "target_user")
+    private List<RecentActivity> targetUserRecentActivities;
 
     // Constructors
     public User(){}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="partials :: head"></head>
 <title>Create Recipe</title>
@@ -53,11 +53,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="file-upload-placeholder col-md-4 col-sm-12">
-                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+<!--                <div class="file-upload-placeholder col-md-4 col-sm-12">-->
+<!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
+<!--                    <div id="img-upload">-->
+<!--                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image"/>-->
+<!--                    </div>-->
+<!--                    <input type="hidden" value="" id="fileStackResponse" th:name="imageURL">-->
+<!--                </div>-->
+                <div class="col-md-4 col-sm-12">
+<!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
                     <div id="img-upload">
-                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image"/>
+                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image" id="recipeImage"/>
                     </div>
+                    <input type="hidden" value="0" id="fileStackResponse" th:name="imageURL">
                 </div>
             </div>
             <!-- RECIPE INGREDIENTS -->
@@ -192,7 +200,18 @@
 </section>
 
 <div th:replace="partials :: script"></div>
-<script>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script th:inline="javascript">
+
+     const client = filestack.init([[${filestack}]]);
+     const options = {
+         onFileUploadFinished(file) {
+             console.log(file);
+             $('#fileStackResponse').val(file.url)
+             $('#recipeImage').attr('src', file.url).removeData('th:src')
+         }
+     }
+     client.picker(options).open();
 
     function readURL(input) {
         if (input.files && input.files[0]) {                      // if input is file, files has content
