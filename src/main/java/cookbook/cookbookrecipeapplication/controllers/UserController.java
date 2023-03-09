@@ -73,6 +73,7 @@ public class UserController {
         model.addAttribute("recipes", user.getCustom_recipes());
         model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
         model.addAttribute("recentActivity", user.getRecentActivities());
+        model.addAttribute("recipeDao", recipeDao);
         return "/profile";
     }
 

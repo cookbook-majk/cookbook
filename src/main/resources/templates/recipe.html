@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="partials :: head"></head>
 <title>Create Recipe</title>
@@ -19,10 +20,9 @@
             </div>
             <!-- TODO: Add link to user profile -->
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
-                <a href="#">
+                <a th:href="'/profile/' + ${recipe.getCustom_recipe().getCreator_id().getUsername()}" href="#">
                     <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}" src="/images/pizzaman.jpg" alt="user profile image">
-                    <span class="ms-2 me-1" th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()}">User First Name</span>
-                    <span th:text="${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Last Name</span>
+                    <span class="ms-2" th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()} + ' ' + ${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Name</span>
                 </a>
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">
                         <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${recipe.getReviews().size()}">#</span></a>
-                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span>#</span></a>
+                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span th:text="${saves}">#</span></a>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div id="recipe-description">
                 <!-- TODO: Toggle Read More / Show Less button -->
                 <p th:text="${recipe.getCustom_recipe().summary}">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fugiat, incidunt magni qui quia vitae. Accusamus animi atque commodi consectetur delectus dolor doloremque earum error, est et ex excepturi hic in inventore labore laboriosam laudantium magni minima neque nesciunt nihil officiis perferendis quae rem sequi unde vel voluptas! Commodi cum doloremque explicabo, facere iste iure labore libero, nesciunt optio possimus quae quidem voluptates? Asperiores consectetur eaque incidunt labore numquam pariatur quam soluta voluptates! Adipisci, distinctio.
+                    Recipe Description
                 </p>
                 <p class="read-more"><a href="#" class="button">Read More</a></p>
             </div>
@@ -103,10 +103,47 @@
             </div>
             <!-- Recipe Reviews -->
             <div id="reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="reviews-btn" tabindex="0">
-                <h1 class="header">Reviews</h1>
+                <div class="d-inline-flex w-100">
+                    <div class="flex-grow-1 mb-0">
+                        <h1 class="header d-inline">Reviews</h1>
+                    </div>
+                    <button id="create-review-btn" type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#create-review" aria-expanded="false" aria-controls="create-review"><i class="fa-solid fa-pen-to-square me-1"></i>  Review</button>
+                </div>
                 <hr>
-                <!-- Content Here -->
-                <div th:replace="partials :: review-card"></div>
+                <div class="collapse" id="create-review">
+                    <div class="review-card card w-100 mb-3">
+                        <div class="review-details card-header d-flex p-3">
+                            <div class="col d-flex align-items-center me-auto">
+                                <!-- TODO: Make rating interactive -->
+                                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
+                                    class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                            </div>
+                            <div class="review-info col d-flex justify-content-end align-items-center">
+                                <a href="#" class="d-flex align-items-center">
+                                    <img th:src="${user.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
+                                    <span th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></span>
+                                </a>
+                                <div class="d-flex align-items-center ms-2">
+                                    <i class="fa-solid fa-calendar-days me-1"></i>
+                                    <span>Jan 31, 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4 pt-3">
+                            <div class="form-floating mb-2">
+                                <input type="text" th:name="title" class="form-control" id="create-review-title" placeholder="Recipe Title">
+                                <label for="create-review-title">Recipe Title</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <textarea th:name="description" class="form-control" id="create-review-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
+                                <label for="create-review-description">Recipe Description</label>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit Review</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review Cards -->
+                <!-- TODO: Populate review cards -->
             </div>
         </div>
     </div>

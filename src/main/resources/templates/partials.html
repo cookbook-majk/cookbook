@@ -100,15 +100,15 @@
 
 <!-- RECIPE CARD -->
 <!-- TODO: Add links -->
-<!-- TODO: Add saves -->
 <!-- TODO: Change date return -->
 <!-- TODO: Star rating -->
 <!-- TODO: Gradient overlay for recipe image -->
-<div class="recipe-card card" th:fragment="recipe-card (image, title, userimg, firstname, lastname, date, reviews)">
+<div class="recipe-card card" th:fragment="recipe-card (id, image, title, username, userimg, firstname, lastname, date, reviews, saves)">
+    <a class="recipe-link" th:href="'/recipe/' + ${id}" href="#"></a>
     <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
-    <a href="#"><i class="fa-regular fa-bookmark save-recipe"></i></a>
+    <a href="/recipe/1"><i class="fa-regular fa-bookmark save-recipe"></i></a>
     <div class="recipe-card-user align-items-center">
-        <a href="#">
+        <a th:href="'/profile/' + ${username}" href="#">
             <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
             <span th:text="${firstname}">First Name</span><span> </span><span th:text="${lastname}">Last Name</span>
         </a>
@@ -120,9 +120,9 @@
             <h5 class="card-title" th:text="${title}">Recipe Title</h5>
         </div>
         <div class="card-foot d-flex justify-content-between">
-            <a href="#"><i class="fa-solid fa-calendar-days"></i> <span th:text="${date}">#</span></a>
-            <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${reviews}">#</span></a>
-            <a href="#"><i class="fa-solid fa-bookmark"></i> <span>#</span></a>
+            <i class="fa-solid fa-calendar-days me-1"></i> <span th:text="${date}">#</span>
+            <i class="fa-solid fa-comment me-1"></i> <span th:text="${reviews}">#</span>
+            <i class="fa-solid fa-bookmark me-1"></i> <span th:text="${saves}">#</span>
         </div>
     </div>
 </div>
