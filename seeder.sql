@@ -1,17 +1,17 @@
-use cookbook_db;
+USE cookbook_db;
 
 INSERT INTO users (email, first_name, last_name, password, profile_picture, user_bio, user_created, username)
 
 VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc','https://spoonacular.com/images/spoonacular-logo-b.svg', 'Fantastic Recipe API', now(), 'Spoonacular'),
-       ('dingobat@email.com', 'Johnathan', 'Smallhorn', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'big guy, small horn', now(), 'one-and-only-smallhorn'),
+       ('dingobat@email.com', 'Johnathan', 'Smallhorn', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://blog.lehmans.com/wp-content/uploads/2019/07/kentrollins.jpg', 'fastest grill in the west', now(), 'one-and-only-smallhorn'),
        ('bigcat@email.com', 'Cathy', 'Pigeon', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-9/184562842_2989037661423479_2797047519422511758_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=SYYSSCit9LkAX-M4PYJ&_nc_ht=scontent-hou1-1.xx&oh=00_AfDBHYs6KC6RfGppWKeU4r8p2ul_qA-Job1LyvSRTF129A&oe=6428DDD1', 'im a realtor', now(), 'cathypigeonrealty'),
-       ('jimothy@email.com', 'Jimothy', 'Jimsworth', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://scontent-hou1-1.xx.fbcdn.net/v/t1.6435-9/184562842_2989037661423479_2797047519422511758_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=SYYSSCit9LkAX-M4PYJ&_nc_ht=scontent-hou1-1.xx&oh=00_AfDBHYs6KC6RfGppWKeU4r8p2ul_qA-Job1LyvSRTF129A&oe=6428DDD1', 'I am the great Jimothy.', now(), 'jimothy'),
-       ('joshypoo@email.com', 'Josh', 'Joshsworth', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Lord Josh of Joshington, England', now(), 'lordjosh'),
-       ('gordanramsay@email.com', 'Gordon', 'Ramsay', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Get out of my kitchen', now(), 'ramsay'),
-       ('burgerking@email.com', 'Burger', 'King', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Have it your way', now(), 'burgerking'),
-       ('daughternatasha@email.com', 'Natasha', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Moms Vegan Prodigy', now(), 'natasha'),
-       ('sonviktor@email.com', 'Viktor', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Moms Carnivore Prodigy', now(), 'viktor'),
-       ('ronaldmcdonald@email.com', 'Ronald', 'McDonald', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://yt3.googleusercontent.com/ytc/AL5GRJWTD5bssX80iVmVskHgLi7yksF0fJ9uJkkhixnWKA=s900-c-k-c0x00ffffff-no-rj', 'Im Lovin It', now(), 'mcdonalds');
+       ('jimothy@email.com', 'Jimothy', 'Jimsworth', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'http://static.demilked.com/wp-content/uploads/2019/04/5cad97a853183-father-and-sons-tight-shirt-male-model-ad-reactions-1-5cac436e6bd41__700.jpg', 'I am the great Jimothy.', now(), 'jimothy'),
+       ('joshypoo@email.com', 'Josh', 'Joshsworth', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2016/8/30/1/FN_Eddie-Jackson-Kitchen.s4x3.jpg.rend.hgtvcom.616.462.suffix/1472623392171.jpeg', 'Lord Josh of Joshington, England', now(), 'lordjosh'),
+       ('gordanramsay@email.com', 'Gordon', 'Ramsay', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkwNTc4MTE4NTMyMDE1OTk2/gordonramsay_kitchenmaster-ftr.jpg', 'Get out of my kitchen', now(), 'ramsay'),
+       ('burgerking@email.com', 'Burger', 'King', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://i.imgflip.com/6j1l38.jpg', 'Have it your way', now(), 'burgerking'),
+       ('daughternatasha@email.com', 'Natasha', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://i0.wp.com/prescriptiveoptimization.com/wp-content/uploads/2019/08/diet-4364283_1920.jpg?fit=1920%2C1375&ssl=1', 'Moms Vegan Prodigy', now(), 'natasha'),
+       ('sonviktor@email.com', 'Viktor', 'Winklenov', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://nypost.com/wp-content/uploads/sites/2/2021/07/men-eat-meat-01.jpg?quality=75&strip=all', 'Moms Carnivore Prodigy', now(), 'viktor'),
+       ('ronaldmcdonald@email.com', 'Ronald', 'McDonald', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://api.time.com/wp-content/uploads/2014/04/74432_wavingronald.jpg?quality=85&w=2596', 'Im Lovin It', now(), 'mcdonalds');
 
 INSERT INTO dish_types (type)
 VALUES ('main course'),
@@ -68,33 +68,33 @@ VALUES   (30, 2,'Vaquero Eggs and Bacon, best breakfast in the west',2),
          (15, 1,'Quick and Easy Tuna Salad',10);
 
 INSERT INTO recipes (created_at, image, image_type, spoonacular_id, title, custom_recipe_id)
-VALUES (now(), 'example.jpg', 'jpg', null, 'Vaquero Eggs and Bacon', 1),
-       (now(), 'example.jpg', 'jpg', null, 'Ranchero Steak', 2),
-       (now(), 'example.jpg', 'jpg', null, 'Cowboy Sandwich', 3),
-       (now(), 'example.jpg', 'jpg', null, 'Roasted Chicken with Lemon and Rosemary', 4),
-       (now(), 'example.jpg', 'jpg', null, 'Classic Lasagna', 5),
-       (now(), 'example.jpg', 'jpg', null, 'Shrimp Scampi', 6),
-       (now(), 'example.jpg', 'jpg', null, 'Beef Stroganoff', 7),
-       (now(), 'example.jpg', 'jpg', null, 'Caprese Salad', 8),
-       (now(), 'example.jpg', 'jpg', null, 'Spaghetti and Meatballs', 9),
-       (now(), 'example.jpg', 'jpg', null, 'Garlic Shrimp Pasta', 10),
-       (now(), 'example.jpg', 'jpg', null, 'Beef and Vegetable Stew', 11),
-       (now(), 'example.jpg', 'jpg', null, 'Caprese Skewers', 12),
-       (now(), 'example.jpg', 'jpg', null, 'Crispy Baked Chicken', 13),
-       (now(), 'example.jpg', 'jpg', null, 'Greek Salad', 14),
-       (now(), 'example.jpg', 'jpg', null, 'Beef Enchiladas', 15),
-       (now(), 'example.jpg', 'jpg', null, 'Lemon Garlic Shrimp', 16),
-       (now(), 'example.jpg', 'jpg', null, 'Beef and Broccoli Stir Fry', 17),
-       (now(), 'example.jpg', 'jpg', null, 'Caprese Toast', 18),
-       (now(), 'example.jpg', 'jpg', null, 'Baked Salmon with Lemon and Dill', 19),
-       (now(), 'example.jpg', 'jpg', null, 'Tomato and Mozzarella Panini', 20),
-       (now(), 'example.jpg', 'jpg', null, 'Beef Pot Roast', 21),
-       (now(), 'example.jpg', 'jpg', null, 'Caprese Pasta Salad', 22),
-       (now(), 'example.jpg', 'jpg', null, 'Lemon Herb Roasted Chicken', 23),
-       (now(), 'example.jpg', 'jpg', null, 'Avocado Toast with Egg', 24),
-       (now(), 'example.jpg', 'jpg', null, 'Homemade Meatball Subs', 25),
-       (now(), 'example.jpg', 'jpg', null, 'Pesto Chicken with Roasted Vegetables', 26),
-       (now(), 'example.jpg', 'jpg', null, 'Quick and Easy Tuna Salad', 27);
+VALUES (now(), 'https://www.femalefirst.co.uk/image-library/square/500/c/cowboy-breakfast.jpg', 'jpg', 0, 'Vaquero Eggs and Bacon', 1),
+       (now(), 'https://leitesculinaria.com/wp-content/uploads/2020/08/cowboy-steak-coffee-rub-fp.jpg', 'jpg', 0, 'Ranchero Steak', 2),
+       (now(), 'https://images.ctfassets.net/uw7yiu2kuigc/f3705cd2a281e55bbce2b504be3b7aaca78165b7a3fa564724543102adc5b470/ab3c81538c6899a09e5e007f78e9e016/cowboy.jpg', 'jpg', 0, 'Cowboy Sandwich', 3),
+       (now(), 'example.jpg', 'jpg', 0, 'Roasted Chicken with Lemon and Rosemary', 4),
+       (now(), 'example.jpg', 'jpg', 0, 'Classic Lasagna', 5),
+       (now(), 'example.jpg', 'jpg', 0, 'Shrimp Scampi', 6),
+       (now(), 'example.jpg', 'jpg', 0, 'Beef Stroganoff', 7),
+       (now(), 'example.jpg', 'jpg', 0, 'Caprese Salad', 8),
+       (now(), 'example.jpg', 'jpg', 0, 'Spaghetti and Meatballs', 9),
+       (now(), 'example.jpg', 'jpg', 0, 'Garlic Shrimp Pasta', 10),
+       (now(), 'example.jpg', 'jpg', 0, 'Beef and Vegetable Stew', 11),
+       (now(), 'example.jpg', 'jpg', 0, 'Caprese Skewers', 12),
+       (now(), 'example.jpg', 'jpg', 0, 'Crispy Baked Chicken', 13),
+       (now(), 'example.jpg', 'jpg', 0, 'Greek Salad', 14),
+       (now(), 'example.jpg', 'jpg', 0, 'Beef Enchiladas', 15),
+       (now(), 'example.jpg', 'jpg', 0, 'Lemon Garlic Shrimp', 16),
+       (now(), 'example.jpg', 'jpg', 0, 'Beef and Broccoli Stir Fry', 17),
+       (now(), 'example.jpg', 'jpg', 0, 'Caprese Toast', 18),
+       (now(), 'example.jpg', 'jpg', 0, 'Baked Salmon with Lemon and Dill', 19),
+       (now(), 'example.jpg', 'jpg', 0, 'Tomato and Mozzarella Panini', 20),
+       (now(), 'example.jpg', 'jpg', 0, 'Beef Pot Roast', 21),
+       (now(), 'example.jpg', 'jpg', 0, 'Caprese Pasta Salad', 22),
+       (now(), 'example.jpg', 'jpg', 0, 'Lemon Herb Roasted Chicken', 23),
+       (now(), 'example.jpg', 'jpg', 0, 'Avocado Toast with Egg', 24),
+       (now(), 'example.jpg', 'jpg', 0, 'Homemade Meatball Subs', 25),
+       (now(), 'example.jpg', 'jpg', 0, 'Pesto Chicken with Roasted Vegetables', 26),
+       (now(), 'example.jpg', 'jpg', 0, 'Quick and Easy Tuna Salad', 27);
 
 
 
@@ -355,7 +355,28 @@ VALUES (4, 2),
 INSERT INTO recent_activity (activity_type, created_at, recipe_id, user_id)
 VALUES (1, now(), 1, 4);
 
-INSERT INTO reviews (comment, created_at, edited_at, rating, recipe_id, user_id)
-VALUES ('so simple, yet so satisfying! thanks for sharing.', now(), null, 5, 1, 2),
-       ('why share this? we all know how to make cereal...', now(), null, 2, 1, 3),
-       ('trash.', now(), now(), 1, 1, 2);
+INSERT INTO reviews (comment, created_at, edited_at, rating, recipe_id, user_id, title)
+VALUES
+    ('so simple, yet so satisfying! thanks for sharing.', now(), null, 5, 1, 2,'My new go-to recipe'),
+    ('Delicious! I added some extra garlic and it turned out amazing!', now(),null, 4, 1, 1,'Great recipe!'),
+    ('This was a hit with my family! Will definitely be making this again.', now(),null, 5, 2, 1,'Amazing recipe!'),
+    ('Loved this recipe! The flavors were perfect.', now(),null, 5, 3, 1,'Delicious recipe!'),
+    ('This recipe was easy to follow and turned out great! Will be making this again soon.', now(),null, 4, 4, 2,'My new favorite recipe!'),
+    ('Fantastic recipe! Ive already made this twice this week.', now(),null, 5, 5, 2,'Easy and delicious!'),
+    ('This recipe was a hit with my friends! Will definitely be making this again.', now(),null, 5, 6, 2,'Great recipe!'),
+    ('Loved this recipe! Will be adding this to my regular rotation.', now(),null, 5, 7, 3,'Delicious and easy!'),
+    ('This recipe was a hit with my family! The flavors were perfect.', now(),null, 5, 8, 3,'Amazing recipe!'),
+    ('This recipe turned out great! I added some extra spices and it was perfect.', now(),null, 4, 9, 3,'Easy and delicious!'),
+    ('This recipe was so easy to follow and turned out amazing!', now(),null, 5, 10, 4,'Great recipe!'),
+    ('This was a hit with my family! The flavors were perfect.', now(),null, 5, 11, 4,'Amazing recipe!'),
+    ('Loved this recipe! Will be making this again soon.', now(),null, 5, 12, 4,'Delicious recipe!'),
+    ('This recipe was easy to follow and turned out great! Will be making this again.', now(),null, 4, 13, 5,'My new go-to recipe'),
+    ('Fantastic recipe! The flavors were perfect.', now(),null, 5, 14, 5,'Easy and delicious!'),
+    ('Loved this recipe! Will be adding this to my regular rotation.', now(),null, 5, 15, 5,'Great recipe!'),
+    ('This recipe turned out great! I added some extra spices and it was perfect.', now(),null, 4, 16, 6,'Delicious and easy!'),
+    ('This recipe was so easy to follow and turned out amazing!', now(),null, 5, 17, 6,'Amazing recipe!'),
+    ('This was a hit with my family! The flavors were perfect.', now(),null, 5, 18, 6,'Delicious recipe!'),
+    ('Fantastic recipe! Will definitely be making this again.', now(),null, 5, 19, 7,'My new favorite recipe!'),
+    ('Loved this recipe! The flavors were perfect.', now(),null, 5, 20, 7,'Easy and delicious!'),
+
+    ('This recipe turned out great! Will be making this again soon.', now(),null, 4, 21, 7,'Great recipe!');
