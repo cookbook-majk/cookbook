@@ -12,12 +12,18 @@
         <!-- Profile Header Section -->
         <div class="row vh-25">
             <div class="col-md-5 col-lg-4">
-                <!-- TODO: Dynamic user profile image -->
-                <img src="../static/images/pizzaman.jpg" th:src="${user.getProfilePicture()}" id="user-img" class="img-fluid" alt="Person tossing pizza dough"/>
+
+                <img src="../static/images/pizzaman.jpg" th:src="@{../images/pizzaman.jpg}" id="user-img"
+                     class="img-fluid"
+                     alt="Person tossing pizza dough"/>
             </div>
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
-                <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav Pizzamani</h1>
+                <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav
+                    Pizzamani</h1>
+                <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/add-friend.png"
+                                                                  th:src="@{../images/add-friend.png}" id="add-friend"
+                                                                  class="ms-3" alt="Add friend button"/></a>
                 <!-- TODO: Dynamic follow / unfollow button -->
                 <th:block sec:authorize="isAuthenticated()">
                     <th:block th:if="${isNotFollowing}">
@@ -27,12 +33,60 @@
                         <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
                     </th:block>
                     <th:block th:if="${showEditProfile}">
-                        <button class="btn btn-secondary">Edit Profile</button>
+                        <button id="edit-profile-button" class="btn btn-danger align-self-center" style="height: 45px;">Edit Profile</button>
                     </th:block>
                 </th:block>
+
+                <div id="edit-profile-modal" class="modal">
+                    <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2 class="editYourProfile">Edit your profile!</h2>
+                        <form id="edit-profile-form" th:action="@{/profile}" th:method="post" th:object="${user}"
+                              class="mx-1 mx-md-4">
+                            <div class="modal-container mt-3">
+                                <div class="row mb-4">
+                                    <div class="file-upload-placeholder col-md-4 col-sm-12">
+                                        <input class="file-upload-input" type='file' onchange="readURL(this);"
+                                               accept="image/*"/>
+                                        <div id="img-upload">
+                                            <img src="../static/images/photo.png" th:src="@{../images/photo.png}"
+                                                 class="img-fluid file-upload-image" alt="Photo upload image"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="col-md-12">
+                                            <label class="firstName" for="first-name">First Name:</label>
+                                            <input type="text" id="first-name" class="form-control"
+                                                   th:field="*{firstName}"
+                                                   placeholder="First name" aria-label="First name">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="lastName" for="last-name">Last Name:</label>
+                                            <input type="text" id="last-name" class="form-control"
+                                                   th:field="*{lastName}"
+                                                   placeholder="Last name" aria-label="Last name">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="bio" for="bio">Bio:</label>
+                                            <textarea id="bio" class="form-control" name="bio"
+                                                      placeholder="Tell us about yourself!" aria-label="Bio"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
+                                <button id="saveChangesBtn" type="submit" class="btn btn-danger btn-lg">Save your changes</button>
+                            </div>
+                            <div class="d-flex justify-content-center mb-4"></div>
+                        </form>
+                    </div>
+                </div>
+
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p id="user-bio" class="pt-2 pb-2 h-50">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,.
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
+                    quam felis, ultricies nec,.
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
                     <li class="nav-item">
@@ -58,6 +112,7 @@
             </div>
             <div class="col-4 ps-1">
                 <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Saved</button>
+
             </div>
         </div>
 
@@ -119,5 +174,30 @@
 </section>
 
 <div th:replace="partials :: script"></div>
+<script>
+    const editProfileButton = document.getElementById('edit-profile-button');
+    const modal = document.getElementById('edit-profile-modal');
+    const closeButton = document.getElementsByClassName('close')[0];
+    const editProfileForm = document.getElementById('edit-profile-form');
+    const saveChanges = document.getElementById("saveChangesBtn");
+
+    editProfileButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+    saveChanges.addEventListener('click', (event) => {
+        modal.style.display = 'none';
+    });
+</script>
 </body>
 </html>
