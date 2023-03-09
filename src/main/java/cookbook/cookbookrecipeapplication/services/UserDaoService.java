@@ -39,6 +39,10 @@ public class UserDaoService {
         chapterDao.save(newChapter);
     }
 
+    public void editUser(User user){
+        userDao.save(user);
+    }
+
     public User findUserById(long id) {
         return userDao.findById(id).get();
     }

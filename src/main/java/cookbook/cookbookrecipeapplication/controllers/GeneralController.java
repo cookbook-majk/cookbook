@@ -52,6 +52,7 @@ public class GeneralController {
         List<Recipe> recipes = searchResults.getResults();
         for (Recipe recipe : recipes){
             recipe.setReviews(new ArrayList<>());
+            recipe.setId(0);
         }
         searchResults.setResults(recipes);
         model.addAttribute("user", userDao.findUserByUsername("spoonacular"));

@@ -86,6 +86,29 @@ public class UserController {
         }
     }
 
+    @PostMapping("/profile/edit/{username}")
+    public String editUserProfile(
+            @PathVariable String username,
+            @RequestParam(name = "firstName") String firstName,
+            @RequestParam(name = "lastName") String lastName,
+//            @RequestParam(name = "imageURL") String imageURL,
+            @RequestParam(name = "userBio") String userBio) {
+        User user = userDao.findUserByUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setUserBio(userBio);
+
+//        if (imageURL.equals("0")) {
+//            imageURL = "/images/default-recipe.jpg";
+//            user.setProfilePicture(imageURL);
+//        } else {
+//            user.setProfilePicture(imageURL);
+//        }
+
+        userDao.editUser(user);
+            return "redirect:/profile/" + username;
+    }
+
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed(Model model) {
