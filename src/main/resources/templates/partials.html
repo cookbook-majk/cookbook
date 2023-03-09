@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- HEAD FRAGMENT -->
 <head th:fragment="head">
@@ -24,7 +24,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <form th:action="@{/search}" th:method="get" class="input-group rounded ms-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" name="param" aria-label="Search" aria-describedby="search-addon" />
+                    <input type="search" class="form-control rounded" placeholder="Search" name="search" aria-label="Search" aria-describedby="search-addon" />
                     <button type="submit" class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></button>
                 </form>
             </div>
@@ -32,7 +32,14 @@
             <div class="d-flex align-items-center" id="nav-links">
                 <a class="nav-link" aria-current="page" href="/feed"><i class="fa-solid fa-utensils"></i></a>
                 <a class="nav-link" href="/browse"><i class="fa-solid fa-book-open"></i></a>
-                <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button class="btn btn-danger" style="height: 45px; width: 100px;">Log Out</button>
+                    </form>
+                </th:block>
             </div>
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
@@ -42,7 +49,7 @@
                 <div class="offcanvas-body d-flex flex-column align-items-center pt-0">
                     <a
                             class="btn text-white btn-floating m-1 cb-brand"
-                            href="/home"
+                            href="/profile"
                             role="button"
                     ><h1 class="title" style="font-size: 64px;">cb</h1></a>
                     <ul class="navbar-nav flex-grow-1 pe-3 pt-4">
@@ -62,12 +69,29 @@
                             <a class="nav-link header" href="/about"><h5>About Us</h5></a>
                         </li>
                     </ul>
+<!--                    <th:block sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>-->
+<!--                    </th:block>-->
+<!--                    <th:block sec:authorize="isAuthenticated()">-->
+<!--                        <form th:action="@{/logout}" th:method="post">-->
+<!--                            <button class="btn btn-danger" style="height: 45px; width: 100px;">Log Out</button>-->
+<!--                        </form>-->
+<!--                    </th:block>-->
+                    <th:block sec:authorize="!isAuthenticated()">
                     <div class="row align-items-center d-flex flex-row">
                         <a class="btn btn-danger align-self-center" href="/login" style="height: 45px; width: 100px;">Log In</a>
                     </div>
                     <div class="d-flex justify-content-center mb-4">
                         <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a></p>
                     </div>
+                    </th:block>
+                    <th:block sec:authorize="isAuthenticated()">
+                    <div class="row align-items-center d-flex flex-row">
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="btn btn-danger align-self-center" style="height: 45px; width: 100px;">Log Out</button>
+                        </form>
+                    </div>
+                    </th:block>
                 </div>
             </div>
         </div>
