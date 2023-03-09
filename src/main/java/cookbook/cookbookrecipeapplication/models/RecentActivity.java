@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "recent_activity")
-public class RecentActivity {
+public class RecentActivity implements Comparable<RecentActivity>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +60,11 @@ public class RecentActivity {
         this.createdAt = createdAt;
         this.user = user;
         this.review = review;
+    }
+
+    @Override
+    public int compareTo(RecentActivity o) {
+        return getCreatedAt().compareTo(o.getCreatedAt());
     }
 
     public int getActivity_type() {

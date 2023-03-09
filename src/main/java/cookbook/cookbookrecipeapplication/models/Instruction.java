@@ -23,7 +23,6 @@ public class Instruction implements Serializable {
     @JoinColumn (name = "custom_recipe_id")
     private CustomRecipe custom_recipe;
 
-
     public Instruction() {
     }
 
