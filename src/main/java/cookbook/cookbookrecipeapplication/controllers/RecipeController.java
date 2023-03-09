@@ -102,6 +102,7 @@ public class RecipeController {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
         model.addAttribute("saves", recipeDao.getNumberOfSavesByRecipeId(id));
         model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+
         return "/recipe";
     }
 

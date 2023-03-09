@@ -143,7 +143,19 @@
                     </div>
                 </div>
                 <!-- Review Cards -->
-                <!-- TODO: Populate review cards -->
+                <div id="review-content">
+                    <div th:each="review : ${recipe.getReviews()}" class="m-0 p-0">
+                        <div th:replace="partials :: review-card(
+                            rating = ${review.getRating()},
+                            title = ${review.getTitle()},
+                            description = ${review.getComment()},
+                            username = ${review.getCreator_id().getUsername()},
+                            userimg = ${review.getCreator_id().getProfilePicture()},
+                            name = ${review.getCreator_id().getFirstName()} + ' ' + ${review.getCreator_id().getLastName()},
+                            date = ${review.getCreatedAt()})">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
