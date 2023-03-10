@@ -152,10 +152,10 @@
 </div>
 
 <!-- REVIEW CARD -->
-<div th:fragment="review-card (rating, title, description, date, username, userimg, name)">
+<div th:fragment="review-card (id, rating, title, description, date, username, userimg, name)">
     <div class="review-card card w-100 mb-3">
         <div class="review-details card-header d-flex p-3">
-            <div class="star-rating col d-flex align-items-center me-auto" th:data="${rating}">
+            <div class="star-rating col-2 d-flex align-items-center me-auto" th:data="${rating}">
                 <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
                 <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
                 <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
@@ -171,6 +171,9 @@
                     <i class="fa-solid fa-calendar-days me-1"></i>
                     <span th:text="${date}">Jan 31, 2023</span>
                 </div>
+                <a th:href="@{'/review/delete/' + ${id}}">
+                    <i class="fa-regular fa-trash-can ms-2 me-2"></i>
+                </a>
             </div>
         </div>
         <div class="card-body p-4 pt-3">

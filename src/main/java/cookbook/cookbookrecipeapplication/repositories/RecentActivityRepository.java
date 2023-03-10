@@ -12,7 +12,7 @@ public interface RecentActivityRepository extends JpaRepository<RecentActivity, 
 
 //    public RecentActivity findRecentActivityByUserAndTarget_user(User user, User targetUser);
 
-    @Query(value = "SELECT * from RecentActivity a where a.user like ?1 and a.target_user like?2")
-    List<RecentActivity> getRecentActivityByUserIdAndTargetUserId(long userId, long targetUserId);
+//    @Query(value = "SELECT * from RecentActivity a where a.user like ?1 and a.target_user like?2")
+//    List<RecentActivity> getRecentActivityByUserIdAndTargetUserId(long userId, long targetUserId);
 
 }
