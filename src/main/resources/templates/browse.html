@@ -6,7 +6,45 @@
 <body>
 <nav th:replace="partials :: navbar"></nav>
 
-// content here
+<div id="banner-image">
+    <div class="search-bar-container">
+        <form action="#" method="get">
+            <input type="search" id="searchHTML" name="searchHTML" placeholder="Search Recipes...">
+        </form>
+    </div>
+</div>
+<div class="discover-container">
+    <div style="width: 100%;">
+        <h2 class="header">Popular Categories</h2>
+    </div>
+    <a href="#" class="category-circle">
+        <img src="/images/skillet.jpeg" alt="category image">
+        <h5 class="circle-text">Pasta</h5>
+    </a>
+    <a href="#" class="category-circle">
+        <img src="/images/food-placeholder.jpeg" alt="category image">
+        <h5 class="circle-text">Pizza</h5>
+    </a>
+    <a href="#" class="category-circle">
+        <img src="/images/stir-fry.png" alt="category image">
+        <h5 class="circle-text">Vegan</h5>
+    </a>
+    <a href="#" class="category-circle">
+        <img src="/images/skillet.jpeg" alt="category image">
+        <h5 class="circle-text">Dessert</h5>
+    </a>
+    <a href="#" class="category-circle">
+        <img src="/images/cooking.jpg" alt="category image">
+        <h5 class="circle-text">Breakfast</h5>
+    </a>
+</div>
+<div class="popular-dishes-container">
+    <div style="width: 100%;">
+        <h2 class="header">Most Popular Dishes</h2>
+    </div>
+        Cards go here
+</div>
+
 
 <div th:replace="partials :: script"></div>
 </body>

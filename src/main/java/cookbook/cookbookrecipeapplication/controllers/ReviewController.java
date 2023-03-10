@@ -4,6 +4,7 @@ import cookbook.cookbookrecipeapplication.models.RecentActivity;
 import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.models.Review;
 import cookbook.cookbookrecipeapplication.models.User;
+import cookbook.cookbookrecipeapplication.repositories.RecentActivityRepository;
 import cookbook.cookbookrecipeapplication.repositories.ReviewRepository;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
@@ -24,38 +25,22 @@ import java.util.List;
 public class ReviewController {
     private RecipeDaoService recipeDao;
     private UserDaoService userDao;
+    private RecentActivityRepository recentActivityDao;
 
-    public ReviewController(RecipeDaoService recipeDao, UserDaoService userDao) {
+    public ReviewController(RecipeDaoService recipeDao, UserDaoService userDao, RecentActivityRepository recentActivityDao) {
         this.recipeDao = recipeDao;
         this.userDao = userDao;
+        this.recentActivityDao = recentActivityDao;
     }
 
-    // Create a review
-//    @PostMapping("/review/{recipeId}")
-//    public String createReview(@ModelAttribute Review review, @PathVariable long recipeId) {
-//        System.out.println("start");
-//        review.setCreatedAt(new Date());
-//        System.out.println("added date");
-//        review.setRating(3);
-//        System.out.println("added rating");
-//        RecentActivity recentActivity = new RecentActivity(
-//                4,
-//                new Date(),
-//                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-//                review
-//        );
-//
-//        userDao.saveRecentActivity(recentActivity);
-//
-//        review.setRecipe_id(recipeDao.findRecipeById(recipeId));
-//        recipeDao.saveReview(review);
-//        return "redirect:/recipe/" + recipeId;
-//    }
-
-    // Delete a review
-    @DeleteMapping("/review/delete/{reviewId}")
-    public void deleteReview(@PathVariable long reviewId) {
-        recipeDao.deleteReview(recipeDao.getReviewById(reviewId));
+    // Delete Review
+    @GetMapping("/review/delete/{id}")
+    public String deleteReview(@PathVariable long id) {
+        long recipeId = recipeDao.getReviewById(id).getRecipe_id().getId();
+        recipeDao.deleteRecentActivity(recentActivityDao.getRecentReviewActivityByUserIdAndRecipe(reviewId));
+        recipeDao.deleteReview(recipeDao.getReviewById(id));
+        return "redirect:/recipe/" + recipeId;
     }
+
 }
 

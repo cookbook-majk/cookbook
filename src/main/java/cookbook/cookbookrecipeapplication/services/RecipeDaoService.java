@@ -28,10 +28,11 @@ public class RecipeDaoService {
     private final DishTypeRepository dishTypeDao;
     private final UserRepository userDao;
     private final ChapterRepository chapterDao;
+    private final RecentActivityRepository recentActivityDao;
 
 
 
-    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository, DishTypeRepository dishTypeDao, UserRepository userDao, ChapterRepository chapterDao) {
+    public RecipeDaoService(RecipeRepository recipeRepository, CustomRecipeRepository customRecipeRepository, IngredientRepository ingredientRepository, InstructionRepository instructionRepository, ReviewRepository reviewRepository, DishTypeRepository dishTypeDao, UserRepository userDao, ChapterRepository chapterDao, RecentActivityRepository recentActivityDao) {
         this.recipeDao = recipeRepository;
         this.customRecipeDao = customRecipeRepository;
         this.ingredientDao = ingredientRepository;
@@ -40,6 +41,7 @@ public class RecipeDaoService {
         this.dishTypeDao = dishTypeDao;
         this.userDao = userDao;
         this.chapterDao = chapterDao;
+        this.recentActivityDao = recentActivityDao;
     }
 
     public Recipe findRecipeById(long id) {
@@ -189,11 +191,21 @@ public class RecipeDaoService {
         instructionDao.deleteAllInBatch(instructions);
     }
 
+    public List<Recipe> searchRecipesByTitle(String searchTerm){
+        return recipeDao.findRecipesByTitle(searchTerm);
+    }
 
-
+    public List<CustomRecipe> findCustomRecipesBySummary(String searchTerm){
+        return customRecipeDao.findCustomRecipesBySummary(searchTerm);
+    }
 
     public void deleteRecipe(Recipe recipe){
+        deleteRecentActivity(recentActivityDao.getRecentCreatedActivityByUserIdAndRecipe(recipe.getCustom_recipe().getCreator_id().getId(), recipe.getId()));
         recipeDao.delete(recipe);
+    }
+
+    public void deleteRecentActivity(RecentActivity recentActivity){
+        recentActivityDao.delete(recentActivity);
     }
 
 }
