@@ -135,6 +135,8 @@ public class RecipeDaoService {
         return searchResults;
     }
 
+
+
     public void saveCustomRecipe(CustomRecipe customRecipe){
         customRecipeDao.save(customRecipe);
     }
@@ -167,6 +169,13 @@ public class RecipeDaoService {
     }
     public void deleteInstruction(List<Instruction> instructions) {
         instructionDao.deleteAllInBatch(instructions);
+    }
+
+
+
+
+    public void deleteRecipe(Recipe recipe){
+        recipeDao.delete(recipe);
     }
 
 }

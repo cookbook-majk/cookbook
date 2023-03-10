@@ -56,6 +56,10 @@ public class CustomRecipe implements Serializable {
         this.summary = summary;
     }
 
+    public CustomRecipe (User user) {
+        this.user = user;
+    }
+
 
     public long getId() {
         return id;
