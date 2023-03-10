@@ -135,6 +135,24 @@ public class RecipeDaoService {
         return searchResults;
     }
 
+    public List<Recipe> findTrendingRecipes() {
+        List<Long> recipeIds = recipeDao.findTrendingRecipeIds();
+
+        List<Recipe> recipes = new ArrayList<>();
+        for(Long recipeId : recipeIds) {
+            recipeDao.findById(recipeId).ifPresent(recipes::add);
+        }
+        return recipes;
+    }
+    public List<Recipe> findMostSavedRecipes() {
+        List<Long> recipeIds = recipeDao.findMostSavedRecipeIds();
+
+        List<Recipe> recipes = new ArrayList<>();
+        for(Long recipeId : recipeIds) {
+            recipeDao.findById(recipeId).ifPresent(recipes::add);
+        }
+        return recipes;
+    }
 
 
     public void saveCustomRecipe(CustomRecipe customRecipe){
