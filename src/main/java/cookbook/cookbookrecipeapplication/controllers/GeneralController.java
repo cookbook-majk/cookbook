@@ -1,10 +1,7 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
 import cookbook.cookbookrecipeapplication.PropertiesReader;
-import cookbook.cookbookrecipeapplication.models.IngredientList;
-import cookbook.cookbookrecipeapplication.models.InstructionList;
-import cookbook.cookbookrecipeapplication.models.Recipe;
-import cookbook.cookbookrecipeapplication.models.SearchResults;
+import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
 import org.springframework.stereotype.Controller;
@@ -20,10 +17,10 @@ import java.util.Properties;
 public class GeneralController {
 
     // Service Injection
-    private final RecipeDaoService recipeService;
+    private final RecipeDaoService recipeDao;
     private final UserDaoService userDao;
-    public GeneralController(RecipeDaoService recipeService, UserDaoService userDao) {
-        this.recipeService = recipeService;
+    public GeneralController(RecipeDaoService recipeDao, UserDaoService userDao) {
+        this.recipeDao = recipeDao;
         this.userDao = userDao;
     }
 
@@ -48,13 +45,31 @@ public class GeneralController {
     // Search Recipes
     @GetMapping("/search")
     public String searchRecipes(@RequestParam("search") String search, Model model) throws IOException, InterruptedException {
-        SearchResults searchResults = recipeService.getSearchResultsSpoonacular(search);
+        SearchResults searchResults = recipeDao.getSearchResultsSpoonacular(search);
         List<Recipe> recipes = searchResults.getResults();
         for (Recipe recipe : recipes){
             recipe.setId(recipe.getSpoonacularId());
             recipe.setReviews(new ArrayList<>());
         }
         searchResults.setResults(recipes);
+
+        List<Recipe> cookbookRecipes = new ArrayList<>();
+
+        List<Recipe> recipesByTitle = recipeDao.searchRecipesByTitle(search);
+        cookbookRecipes.addAll(recipesByTitle);
+
+        List<CustomRecipe> customRecipesBySummary = recipeDao.findCustomRecipesBySummary(search);
+        for (CustomRecipe customRecipe : customRecipesBySummary){
+            Recipe recipe = customRecipe.getRecipe();
+            if (cookbookRecipes.contains(recipe)){
+
+            } else {
+                cookbookRecipes.add(recipe);
+            }
+        }
+
+        model.addAttribute("cookbookRecipes", cookbookRecipes);
+
         model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchTerm", search);
