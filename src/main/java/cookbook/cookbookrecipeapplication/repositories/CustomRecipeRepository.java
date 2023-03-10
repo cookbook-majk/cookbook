@@ -12,4 +12,7 @@ public interface CustomRecipeRepository extends JpaRepository<CustomRecipe, Long
     List<CustomRecipe> findCustomRecipesByUser(User user);
     CustomRecipe findByUserAndRecipe(User user, Recipe recipe);
     List<CustomRecipe> findByUser(User user);
+
+    @Query(value = "SELECT * FROM custom_recipes c WHERE c.summary LIKE %?1%", nativeQuery = true)
+    List<CustomRecipe> findCustomRecipesBySummary(String searchTerm);
 }

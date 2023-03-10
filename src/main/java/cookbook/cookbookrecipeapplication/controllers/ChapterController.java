@@ -4,6 +4,7 @@ import cookbook.cookbookrecipeapplication.models.Chapter;
 import cookbook.cookbookrecipeapplication.models.RecentActivity;
 import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.models.User;
+import cookbook.cookbookrecipeapplication.repositories.RecentActivityRepository;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
@@ -24,11 +25,13 @@ public class ChapterController {
     private UserDaoService userDao;
     private RecipeDaoService recipeDao;
     private ChapterDaoService chapterDao;
+    private RecentActivityRepository recentActivityDao;
 
-    public ChapterController(UserDaoService userDao, RecipeDaoService recipeDao, ChapterDaoService chapterDao) {
+    public ChapterController(UserDaoService userDao, RecipeDaoService recipeDao, ChapterDaoService chapterDao, RecentActivityRepository recentActivityDao) {
         this.userDao = userDao;
         this.recipeDao = recipeDao;
         this.chapterDao = chapterDao;
+        this.recentActivityDao = recentActivityDao;
     }
 
     // Saving a Recipe to chapter
@@ -99,6 +102,7 @@ public class ChapterController {
         Chapter chapter = chapterDao.findSavedChapterByUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         chapter.getSavedRecipes().remove(recipeDao.findRecipeById(recipeId));
         chapterDao.saveChapter(chapter);
+        recipeDao.deleteRecentActivity(recentActivityDao.getRecentSavedActivityByUserIdAndRecipe(recipeDao.findRecipeById(recipeId).getCustom_recipe().getCreator_id().getId(), recipeId));
         return "Unsaved " + recipeDao.findRecipeById(recipeId).getTitle();
     }
 

@@ -27,4 +27,6 @@ public class CustomRecipeDaoService {
     public List<CustomRecipe> findAll() {
         return customRecipeRepository.findAll();
     }
+
+
 }

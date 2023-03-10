@@ -17,13 +17,13 @@
         <div class="col-6 pe-1">
             <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"
                     data-bs-toggle="pill" data-bs-target="#recipes" aria-controls="recipes"
-                    aria-selected="true">Recipes
+                    aria-selected="true">Cookbook
             </button>
         </div>
         <div class="col-6 pe-1">
             <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab"
                     data-bs-toggle="pill" data-bs-target="#chapters" aria-controls="chapters" aria-selected="false">
-                Chapters
+                Spoonacular
             </button>
         </div>
         <!-- SearchBar Content -->
@@ -32,8 +32,29 @@
             <div id="recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn"
                  tabindex="0">
                 <br>
-                <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
+                <h1 class="header"><span th:text="${cookbookRecipes.size()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
                 <!-- Content Here -->
+                <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
+                    <th:block th:each="recipe : ${cookbookRecipes}">
+                        <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
+                            image = ${recipe.getImage()},
+                            title = ${recipe.getTitle()},
+                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername},
+                            userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
+                            firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
+                            lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
+                            date = ${recipe.getCreatedAt()},
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipe.getReviews().size})">
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <!-- Chapters -->
+            <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
+                <br>
+                <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>                <!-- Content Here -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${searchResults.getResults()}">
                         <div th:replace="partials :: recipe-card(
@@ -50,12 +71,6 @@
                         </div>
                     </th:block>
                 </div>
-            </div>
-            <!-- Chapters -->
-            <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
-                <br>
-                <h1 class="header">6 chapters found for "Gator"...</h1>
-                <!-- Content Here -->
             </div>
         </div>
     </div>
