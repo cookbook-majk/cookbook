@@ -53,6 +53,10 @@ public class Review {
         this.title = title;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }

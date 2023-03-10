@@ -30,32 +30,13 @@ public class ReviewController {
         this.userDao = userDao;
     }
 
-    // Create a review
-//    @PostMapping("/review/{recipeId}")
-//    public String createReview(@ModelAttribute Review review, @PathVariable long recipeId) {
-//        System.out.println("start");
-//        review.setCreatedAt(new Date());
-//        System.out.println("added date");
-//        review.setRating(3);
-//        System.out.println("added rating");
-//        RecentActivity recentActivity = new RecentActivity(
-//                4,
-//                new Date(),
-//                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-//                review
-//        );
-//
-//        userDao.saveRecentActivity(recentActivity);
-//
-//        review.setRecipe_id(recipeDao.findRecipeById(recipeId));
-//        recipeDao.saveReview(review);
-//        return "redirect:/recipe/" + recipeId;
-//    }
-
-    // Delete a review
-    @DeleteMapping("/review/delete/{reviewId}")
-    public void deleteReview(@PathVariable long reviewId) {
-        recipeDao.deleteReview(recipeDao.getReviewById(reviewId));
+    // Delete Review
+    @GetMapping("/review/delete/{id}")
+    public String deleteReview(@PathVariable long id) {
+        long recipeId = recipeDao.getReviewById(id).getRecipe_id().getId();
+        recipeDao.deleteReview(recipeDao.getReviewById(id));
+        return "redirect:/recipe/" + recipeId;
     }
+
 }
 
