@@ -135,8 +135,11 @@
         </div>
         <div class="card-body d-flex flex-column justify-content-between">
             <div>
-                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
-                    class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
                 <h5 class="card-title" th:text="${title}">Recipe Title</h5>
             </div>
             <div class="card-foot d-flex justify-content-between">
@@ -152,9 +155,12 @@
 <div th:fragment="review-card (rating, title, description, date, username, userimg, name)">
     <div class="review-card card w-100 mb-3">
         <div class="review-details card-header d-flex p-3">
-            <div class="col d-flex align-items-center me-auto" th:data="${rating}">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                    class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <div class="star-rating col d-flex align-items-center me-auto" th:data="${rating}">
+                <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                <i th:style="${rating > 3}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                <i th:style="${rating > 4}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
             </div>
             <div class="review-info col d-flex justify-content-end align-items-center">
                 <a th:href="'/profile/' + ${username}" href="#" class="d-flex align-items-center">

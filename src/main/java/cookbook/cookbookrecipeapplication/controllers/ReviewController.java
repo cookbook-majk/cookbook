@@ -1,6 +1,7 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
 import cookbook.cookbookrecipeapplication.models.RecentActivity;
+import cookbook.cookbookrecipeapplication.models.Recipe;
 import cookbook.cookbookrecipeapplication.models.Review;
 import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.repositories.ReviewRepository;
@@ -30,19 +31,26 @@ public class ReviewController {
     }
 
     // Create a review
-    @PostMapping("/review/{recipeId}")
-    public void createReview(@ModelAttribute Review review, @PathVariable int recipeId) {
-        review.setCreatedAt(new Date());
-        RecentActivity recentActivity = new RecentActivity(
-                4,
-                new Date(),
-                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-                review
-        );
-        userDao.saveRecentActivity(recentActivity);
-        review.setRecipe_id(recipeDao.findRecipeById(recipeId));
-        recipeDao.saveReview(review);
-    }
+//    @PostMapping("/review/{recipeId}")
+//    public String createReview(@ModelAttribute Review review, @PathVariable long recipeId) {
+//        System.out.println("start");
+//        review.setCreatedAt(new Date());
+//        System.out.println("added date");
+//        review.setRating(3);
+//        System.out.println("added rating");
+//        RecentActivity recentActivity = new RecentActivity(
+//                4,
+//                new Date(),
+//                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+//                review
+//        );
+//
+//        userDao.saveRecentActivity(recentActivity);
+//
+//        review.setRecipe_id(recipeDao.findRecipeById(recipeId));
+//        recipeDao.saveReview(review);
+//        return "redirect:/recipe/" + recipeId;
+//    }
 
     // Delete a review
     @DeleteMapping("/review/delete/{reviewId}")

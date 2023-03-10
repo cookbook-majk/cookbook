@@ -131,15 +131,16 @@ body {
 }
 #user-bio {
     font-size: 20px;
+    height: 100px;
 }
 #edit-profile-button {
-    width: 50px;
+    /*width: 50px;*/
     background-color: var(--lightred);
     border-color: var(--lightred);
-    border-radius: 50%;
+    /*border-radius: 50%;*/
 }
 #edit-profile-button i {
-    font-size: 26px;
+    font-size: 22px;
 }
 #add-friend {
     height: 45px;
@@ -237,7 +238,7 @@ body {
     left: 10px;
 }
 .recipe-card-user a {
-    color: var(--black);
+    color: var(--white);
     font-weight: 600;
     font-size: 17px;
     text-decoration: none;
@@ -308,6 +309,7 @@ body {
     position: absolute;
     top: 450px;
     width: 100%;
+    min-height: 700px;
 }
 #recipe-rating i {
     font-size: 35px;
@@ -381,8 +383,48 @@ body {
 .review-details .fa-star {
     font-size: 28px;
 }
+.star-rating .fa-star {
+    color: var(--grey);
+}
+.rating {
+    float:left;
+    width:300px;
+}
+.rating span {
+    float: right;
+    position: relative;
+}
+.rating span input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.rating {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    color: var(--grey);
+}
+.rating label, .rating input {
+    padding: 0;
+    margin: 0;
+}
+.rating input {
+    display: none;
+}
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: var(--lightred);
+}
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    color: var(--lightred);
+}
 /* SEARCH PAGE */
-#banner-image{
+#banner-image {
     background-image: url('../images/food-placeholder.jpeg');
     background-size: cover;
     background-position: center;
@@ -396,18 +438,18 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-#searchHTML{
+#searchHTML {
     width: 550px;
     height: 40px;
     border-color: 1px solid var(--grey);
     box-sizing: border-box;
     border-radius: 7px;
 }
-#searchHTML:focus{
+#searchHTML:focus {
     background-color: var(--lightgrey);
     outline: none;
 }
-.search-container{
+.search-container {
     padding-left: 25px;
     padding-right: 35px;
     font-family: 'Inter', sans-serif;
@@ -447,23 +489,16 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
-.editYourProfile{
+.editYourProfile {
     position: absolute;
     margin-top: 5px;
     margin-bottom: 15px;
     display: inline-flex;
     align-self: center;
 }
-#bio{
+#bio {
     height: 133px;
 }
-.firstName, .lastName, .bio{
+.firstName, .lastName, .bio {
     font-weight: bold;
-}
-#edit-profile-button{
-    box-sizing: border-box;
-    border-radius: 10%;
-    background-color: var(--red);
-    color: var(--white);
-    font-size: 15px;
 }
