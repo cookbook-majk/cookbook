@@ -162,5 +162,11 @@ public class RecipeDaoService {
     public Review getReviewById(long id){
         return reviewDao.findById(id).get();
     }
+    public void deleteIngredient(List<Ingredient> ingredients) {
+        ingredientDao.deleteAllInBatch(ingredients);
+    }
+    public void deleteInstruction(List<Instruction> instructions) {
+        instructionDao.deleteAllInBatch(instructions);
+    }
 
 }

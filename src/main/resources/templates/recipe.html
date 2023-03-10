@@ -25,7 +25,6 @@
                     </th:block>
                 </th:block>
             </div>
-            <!-- TODO: Add link to user profile -->
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
                 <a th:href="'/profile/' + ${recipe.getCustom_recipe().getCreator_id().getUsername()}" href="#">
                     <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}" src="/images/pizzaman.jpg" alt="user profile image">
@@ -39,7 +38,13 @@
         <div id="recipe-details">
             <div class="row justify-content-between">
                 <div id="recipe-rating" class="col">
-                    <h5><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></h5>
+                    <h5>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </h5>
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">

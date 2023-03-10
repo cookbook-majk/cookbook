@@ -35,7 +35,7 @@
                 <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
                 <!-- Content Here -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
-                    <div th:each="recipe : ${searchResults.getResults()}" class="m-0 p-0">
+                    <th:block th:each="recipe : ${searchResults.getResults()}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
@@ -48,7 +48,7 @@
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipe.getReviews().size})">
                         </div>
-                    </div>
+                    </th:block>
                 </div>
             </div>
             <!-- Chapters -->
