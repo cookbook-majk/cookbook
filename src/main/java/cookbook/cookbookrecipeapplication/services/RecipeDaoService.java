@@ -151,5 +151,14 @@ public class RecipeDaoService {
     public long getNumberOfSavesByRecipeId(long recipeId){
         return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
     }
+    public void saveReview(Review review){
+        reviewDao.save(review);
+    }
+    public void deleteReview(Review review){
+        reviewDao.delete(review);
+    }
+    public Review getReviewById(long id){
+        return reviewDao.findById(id).get();
+    }
 
 }
