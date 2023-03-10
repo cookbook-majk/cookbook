@@ -16,7 +16,14 @@
         </div>
         <div id="recipe-cover-buttons">
             <div id="recipe-page-save" class="d-flex justify-content-end">
-                <a href="#"><i class="fa-regular fa-bookmark"></i></a>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
+                        <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    </th:block>
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
+                        <a th:href="@{'/chapter/save/' + ${recipe.getId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    </th:block>
+                </th:block>
             </div>
             <!-- TODO: Add link to user profile -->
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
@@ -118,16 +125,16 @@
                                 <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
                                     class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
                             </div>
-                            <div class="review-info col d-flex justify-content-end align-items-center">
-                                <a href="#" class="d-flex align-items-center">
-                                    <img th:src="${user.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
-                                    <span th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></span>
-                                </a>
-                                <div class="d-flex align-items-center ms-2">
-                                    <i class="fa-solid fa-calendar-days me-1"></i>
-                                    <span>Jan 31, 2023</span>
-                                </div>
-                            </div>
+<!--                            <div class="review-info col d-flex justify-content-end align-items-center">-->
+<!--                                <a href="#" class="d-flex align-items-center">-->
+<!--                                    <img th:src="${user.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">-->
+<!--                                    <span th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></span>-->
+<!--                                </a>-->
+<!--                                <div class="d-flex align-items-center ms-2">-->
+<!--                                    <i class="fa-solid fa-calendar-days me-1"></i>-->
+<!--                                    <span>Jan 31, 2023</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div class="card-body p-4 pt-3">
                             <div class="form-floating mb-2">
