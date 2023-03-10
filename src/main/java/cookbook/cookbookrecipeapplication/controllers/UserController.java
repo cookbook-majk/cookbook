@@ -1,5 +1,6 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
+import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.Follower;
 import cookbook.cookbookrecipeapplication.models.RecentActivity;
 import cookbook.cookbookrecipeapplication.models.User;
@@ -68,7 +69,7 @@ public class UserController {
                 model.addAttribute("isNotFollowing", true);
             }
         }
-
+        model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
         model.addAttribute("user", user);
         model.addAttribute("recipes", user.getCustom_recipes());
         model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
@@ -88,22 +89,20 @@ public class UserController {
 
     @PostMapping("/profile/edit/{username}")
     public String editUserProfile(
+            Model model,
             @PathVariable String username,
             @RequestParam(name = "firstName") String firstName,
             @RequestParam(name = "lastName") String lastName,
-//            @RequestParam(name = "imageURL") String imageURL,
+            @RequestParam(name = "imageURL") String imageURL,
             @RequestParam(name = "userBio") String userBio) {
         User user = userDao.findUserByUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUserBio(userBio);
 
-//        if (imageURL.equals("0")) {
-//            imageURL = "/images/default-recipe.jpg";
-//            user.setProfilePicture(imageURL);
-//        } else {
-//            user.setProfilePicture(imageURL);
-//        }
+        if (!user.getProfilePicture().equals(imageURL)) {
+            user.setProfilePicture(imageURL);
+        }
 
         userDao.editUser(user);
             return "redirect:/profile/" + username;

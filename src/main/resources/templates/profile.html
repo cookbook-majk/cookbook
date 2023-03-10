@@ -37,54 +37,8 @@
                         </button>
                     </div>
                 </th:block>
-
-                <div id="edit-profile-modal" class="modal">
-                    <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h2 class="editYourProfile">Edit your profile!</h2>
-                        <form id="edit-profile-form" th:action="'/profile/edit/' + ${user.getUsername()}" th:method="post"
-                              class="mx-1 mx-md-4">
-                            <div class="modal-container mt-3">
-                                <div class="row mb-4">
-                                    <div class="file-upload-placeholder col-md-4 col-sm-12">
-                                        <input class="file-upload-input" type='file' onchange="readURL(this);"
-                                               accept="image/*"/>
-                                        <div id="img-upload">
-                                            <img src="../static/images/photo.png" th:src="@{../images/photo.png}"
-                                                 class="img-fluid file-upload-image" alt="Photo upload image" id="userImage"/>
-                                        </div>
-                                        <input type="hidden" value="0" id="fileStackResponse" th:name="imageURL">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="col-md-12">
-                                            <label class="firstName" for="first-name">First Name:</label>
-                                            <input type="text" th:value="${user.getFirstName()}" id="first-name" class="form-control"
-                                                   th:name="firstName"
-                                                   placeholder="First name" aria-label="First name">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="lastName" for="last-name">Last Name:</label>
-                                            <input type="text" th:value="${user.getLastName()}" id="last-name" class="form-control"
-                                                   th:name="lastName"
-                                                   placeholder="Last name" aria-label="Last name">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="bio" for="bio">Bio:</label>
-                                            <textarea id="bio" class="form-control" th:name="userBio" name="bio" placeholder="Tell us about yourself!" aria-label="Bio"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
-                                <button id="saveChangesBtn" type="submit" class="btn btn-danger btn-lg">Save your changes</button>
-                            </div>
-                            <div class="d-flex justify-content-center mb-4"></div>
-                        </form>
-                    </div>
-                </div>
-
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
-                <p id="user-bio" class="pt-2 pb-2 h-50">
+                <p th:text="${user.getUserBio()}" id="user-bio" class="pt-2 pb-2 h-50">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                     massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
                     quam felis, ultricies nec,.
@@ -174,9 +128,70 @@
     </div>
 </section>
 
+
+<!-- Edit Profile Modal -->
+<div id="edit-profile-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class="editYourProfile">Edit your profile!</h2>
+        <form id="edit-profile-form" th:action="'/profile/edit/' + ${user.getUsername()}" th:method="post"
+              class="mx-1 mx-md-4">
+            <div class="modal-container mt-3">
+                <div class="row mb-4">
+                    <div class="file-upload-placeholder col-md-4 col-sm-12">
+                        <div id="img-upload">
+                            <img th:src="${user.getProfilePicture()}"
+                                 class="img-fluid file-upload-image" alt="Photo upload image" id="userImage"/>
+                        </div>
+                        <input type="hidden" th:value="${user.getProfilePicture()}" id="fileStackResponse" th:name="imageURL">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <label class="firstName" for="first-name">First Name:</label>
+                            <input type="text" th:value="${user.getFirstName()}" id="first-name" class="form-control"
+                                   th:name="firstName"
+                                   placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="lastName" for="last-name">Last Name:</label>
+                            <input type="text" th:value="${user.getLastName()}" id="last-name" class="form-control"
+                                   th:name="lastName"
+                                   placeholder="Last name" aria-label="Last name">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="bio" for="bio">Bio:</label>
+                            <textarea id="bio" class="form-control" th:name="userBio" name="bio" placeholder="Tell us about yourself!" aria-label="Bio" th:text="${user.getUserBio()}"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
+                <button id="saveChangesBtn" type="submit" class="btn btn-danger btn-lg">Save your changes</button>
+            </div>
+            <div class="d-flex justify-content-center mb-4"></div>
+        </form>
+    </div>
+</div>
+
 <div th:replace="partials :: script"></div>
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-<script>
+<script th:inline="javascript">
+
+    const client = filestack.init([[${filestack}]]);
+    const options = {
+        onFileUploadFinished(file) {
+            console.log(file);
+            $('#fileStackResponse').val(file.url)
+            $('#userImage').attr('src', file.url).removeData('th:src')
+        }
+    }
+    // client.picker(options).open();
+
+    $(`#img-upload`).click(function(){
+        console.log("ran the things");
+        client.picker(options).open();
+    });
+
     const editProfileButton = document.getElementById('edit-profile-button');
     const modal = document.getElementById('edit-profile-modal');
     const closeButton = document.getElementsByClassName('close')[0];
@@ -200,17 +215,6 @@
     saveChanges.addEventListener('click', (event) => {
         modal.style.display = 'none';
     });
-
-    // const client = filestack.init([[${filestack}]]);
-    // const options = {
-    //     onFileUploadFinished(file) {
-    //         console.log(file);
-    //         $('#fileStackResponse').val(file.url)
-    //         $('#userImage').attr('src', file.url).removeData('th:src')
-    //     }
-    // }
-    // client.picker(options).open();
-
 
 </script>
 </body>
