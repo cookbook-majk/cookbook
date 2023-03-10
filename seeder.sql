@@ -378,5 +378,4 @@ VALUES
     ('This was a hit with my family! The flavors were perfect.', now(),null, 5, 18, 6,'Delicious recipe!'),
     ('Fantastic recipe! Will definitely be making this again.', now(),null, 5, 19, 7,'My new favorite recipe!'),
     ('Loved this recipe! The flavors were perfect.', now(),null, 5, 20, 7,'Easy and delicious!'),
-
     ('This recipe turned out great! Will be making this again soon.', now(),null, 4, 21, 7,'Great recipe!');
