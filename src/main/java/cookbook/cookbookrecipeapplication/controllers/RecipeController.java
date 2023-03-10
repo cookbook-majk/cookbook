@@ -69,7 +69,7 @@ public class RecipeController {
                 new Date(),
                 title,
                 customRecipe
-                );
+        );
         Set<DishType> categories = new HashSet<>();
         categories.add(recipeDao.getDishTypeById(Long.parseLong(category)));
         recipe.setDishTypes(categories);
@@ -117,6 +117,9 @@ public class RecipeController {
             @RequestParam(name = "rating") int rating
     ) {
 
+//        if (recipeDao.findRecipeById(recipe) == null){
+//
+//        }
         Review review = new Review(
                 new Date(),
                 comment,
@@ -142,9 +145,18 @@ public class RecipeController {
     @GetMapping("/recipe/sp/{spoonacularId}")
     public String showSpoonacularRecipe(@PathVariable long spoonacularId, Model model) throws IOException, InterruptedException {
         model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
+        model.addAttribute("review", new Review());
         return "/recipe";
     }
 
+    @GetMapping("/recipe/{recipeId}/delete")
+    public String deleteRecipe(@PathVariable long recipeId) {
+        recipeDao.deleteRecipe(recipeDao.findRecipeById(recipeId));
+        return "redirect:/profile";
+    }
 
 
 //

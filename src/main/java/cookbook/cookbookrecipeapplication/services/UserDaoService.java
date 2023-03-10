@@ -75,6 +75,7 @@ public class UserDaoService {
         System.out.println(loggedInUser.getUsername());
         System.out.println(followee.getUsername());
         followerDao.delete(follower);
+//        deleteRecentActivity(recentActivityDao.(loggedInUser, followee));
     }
 
     public List<RecentActivity> getAllFollowingRecentActivity(User user){
@@ -89,6 +90,10 @@ public class UserDaoService {
 
     public boolean isUserFollowingUser(User user1, User user2){
         return (followerDao.findFollowerByFollowerAndUser(user1, user2)) != null;
+    }
+
+    public void deleteRecentActivity(RecentActivity recentActivity){
+        recentActivityDao.delete(recentActivity);
     }
 
 

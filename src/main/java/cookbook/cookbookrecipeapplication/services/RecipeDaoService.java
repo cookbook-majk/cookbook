@@ -135,6 +135,8 @@ public class RecipeDaoService {
         return searchResults;
     }
 
+
+
     public void saveCustomRecipe(CustomRecipe customRecipe){
         customRecipeDao.save(customRecipe);
     }
@@ -161,6 +163,13 @@ public class RecipeDaoService {
     }
     public Review getReviewById(long id){
         return reviewDao.findById(id).get();
+    }
+
+
+
+
+    public void deleteRecipe(Recipe recipe){
+        recipeDao.delete(recipe);
     }
 
 }

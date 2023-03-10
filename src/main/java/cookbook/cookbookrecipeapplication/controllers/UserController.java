@@ -1,9 +1,7 @@
 package cookbook.cookbookrecipeapplication.controllers;
 
 import cookbook.cookbookrecipeapplication.PropertiesReader;
-import cookbook.cookbookrecipeapplication.models.Follower;
-import cookbook.cookbookrecipeapplication.models.RecentActivity;
-import cookbook.cookbookrecipeapplication.models.User;
+import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
@@ -13,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -75,10 +76,22 @@ public class UserController {
                 model.addAttribute("isNotFollowing", true);
             }
         }
+        Set<Recipe> savedRecipes = chapterDao.findSavedChapterByUser(user).getSavedRecipes();
+        List<Recipe> adjustedSavedRecipes = new ArrayList<>();
+        for (Recipe recipe : savedRecipes){
+            if (recipe.getSpoonacularId() != 0){
+                recipe.setCustom_recipe(new CustomRecipe(userDao.findUserByUsername("Spoonacular")));
+                recipe.setId(recipe.getSpoonacularId());
+                adjustedSavedRecipes.add(recipe);
+            } else {
+                adjustedSavedRecipes.add(recipe);
+            }
+        }
+
         model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
         model.addAttribute("user", user);
         model.addAttribute("recipes", user.getCustom_recipes());
-        model.addAttribute("savedRecipes", chapterDao.findSavedChapterByUser(user).getSavedRecipes());
+        model.addAttribute("savedRecipes", adjustedSavedRecipes);
         model.addAttribute("recentActivity", user.getRecentActivities());
         model.addAttribute("recipeDao", recipeDao);
         return "/profile";
