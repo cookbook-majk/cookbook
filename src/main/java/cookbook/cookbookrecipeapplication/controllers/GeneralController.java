@@ -51,11 +51,11 @@ public class GeneralController {
         SearchResults searchResults = recipeService.getSearchResultsSpoonacular(search);
         List<Recipe> recipes = searchResults.getResults();
         for (Recipe recipe : recipes){
+            recipe.setId(recipe.getSpoonacularId());
             recipe.setReviews(new ArrayList<>());
-            recipe.setId(0);
         }
         searchResults.setResults(recipes);
-        model.addAttribute("user", userDao.findUserByUsername("spoonacular"));
+        model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchTerm", search);
         return "/search";

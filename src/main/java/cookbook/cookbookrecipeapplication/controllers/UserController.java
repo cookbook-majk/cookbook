@@ -7,6 +7,7 @@ import cookbook.cookbookrecipeapplication.models.User;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,16 +57,21 @@ public class UserController {
     public String showProfile(@PathVariable String username, Model model) {
         User user = userDao.findUserByUsername(username);
         // Checks if user is logged in
-        if ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        if (!name.equals("anonymousUser")){
+            System.out.println("ISNT NULL " + (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getUsername());
             // Checks if user is on own page / if so, shows edit profile button
-            if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId() == (user).getId()){
+            Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+            String loggedInUserName = loggedInUser.getName();
+            User loggedInUserObj = userDao.findUserByUsername(loggedInUserName);
+            if (loggedInUserObj.getId() == user.getId()){
                 model.addAttribute("showEditProfile", true);
                 // Checks if logged in user is following page user
-            } else if (userDao.isUserFollowingUser(user, ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()))){
-                System.out.println("is following");
+            }
+            else if (userDao.isUserFollowingUser(user, ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()))){
                 model.addAttribute("isFollowing", true);
             } else {
-                System.out.println("is not following");
                 model.addAttribute("isNotFollowing", true);
             }
         }
@@ -80,7 +86,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String showUserProfileOrRedirect() {
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
             return "redirect:/profile/" + ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         } else {
             return "redirect:/login";

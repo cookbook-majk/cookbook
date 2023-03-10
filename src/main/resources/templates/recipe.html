@@ -16,7 +16,14 @@
         </div>
         <div id="recipe-cover-buttons">
             <div id="recipe-page-save" class="d-flex justify-content-end">
-                <a href="#"><i class="fa-regular fa-bookmark"></i></a>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
+                        <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    </th:block>
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
+                        <a th:href="@{'/chapter/save/' + ${recipe.getId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    </th:block>
+                </th:block>
             </div>
             <!-- TODO: Add link to user profile -->
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">

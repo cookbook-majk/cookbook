@@ -65,6 +65,7 @@ public class ChapterController {
         if (recipeDao.findRecipeBySpoonacularId(spoonacularId) == null){
             // Creates the recipe object
             Recipe recipe = recipeDao.getRecipeSpoonacular(spoonacularId);
+            recipe.setCreatedAt(new Date());
             recipeDao.saveRecipe(recipe);
             //  Finds saved chapter by logged in user
             Chapter chapter = chapterDao.findSavedChapterByUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
