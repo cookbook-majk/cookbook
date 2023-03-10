@@ -171,4 +171,86 @@ public class RecipeController {
 //        model.addAttribute("recipeCards", recipeCards);
 //        return "recipeCards";
 //    }
+
+
+    // Draft an Edit
+    @GetMapping("/recipe/{id}/edit")
+    public String editDraft(Model model, @PathVariable long id) {
+        model.addAttribute("recipe", recipeDao.findRecipeById(id).getCustom_recipe());
+        model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
+
+        IngredientList ingredients = new IngredientList();
+        List<Ingredient> ingredientsList = new ArrayList<>();
+        ingredientsList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getIngredients());
+        ingredients.setIngredients(ingredientsList);
+        model.addAttribute("ingredients", ingredients);
+
+        InstructionList instructions = new InstructionList();
+        List<Instruction> instructionList = new ArrayList<>();
+        instructionList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getInstructions());
+        instructions.setInstructions(instructionList);
+        model.addAttribute("instructions", instructions);
+
+        return "/edit";
+    }
+
+    // Edit a Recipe
+    @PostMapping("/recipe/edit")
+    public String editRecipe(
+            // Recipe Details
+            @RequestParam(name = "id") long id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String summary,
+            @RequestParam(name = "time") int readyInMinutes,
+            @RequestParam(name = "servings") int servings,
+            @RequestParam(name = "category") String category,
+            @RequestParam(name = "imageURL") String imageURL,
+            // Models
+            Model model,
+            @ModelAttribute IngredientList ingredients,
+            @ModelAttribute InstructionList instructions
+    ) {
+        // Recipe Objects:
+        CustomRecipe customRecipe = recipeDao.findRecipeById(id).getCustom_recipe();
+        Recipe recipe = recipeDao.findRecipeById(id);
+
+        // Recipe Details:
+        recipe.setTitle(title);
+        customRecipe.setSummary(summary);
+        customRecipe.setReadyInMinutes(readyInMinutes);
+        customRecipe.setServings(servings);
+        recipe.setImage(imageURL);
+
+        Set<DishType> categories = new HashSet<>();
+        categories.add(recipeDao.getDishTypeById(Long.parseLong(category)));
+        recipe.setDishTypes(categories);
+
+        // Ingredients & Instructions:
+        List<Ingredient> ingredientList = new ArrayList<>();
+        recipeDao.deleteIngredient(customRecipe.getIngredients());
+        for (Ingredient ingredient : ingredients.getIngredients()) {
+            ingredient.setCustom_recipe(customRecipe);
+            ingredientList.add(ingredient);
+        }
+        customRecipe.setIngredients(ingredientList);
+
+        List<Instruction> instructionList = new ArrayList<>();
+        recipeDao.deleteInstruction(customRecipe.getInstructions());
+        for (Instruction instruction : instructions.getInstructions()) {
+            instruction.setCustom_recipe(customRecipe);
+            instruction.setOrder_num(0);
+            instructionList.add(instruction);
+        }
+        customRecipe.setInstructions(instructionList);
+
+        recipe.setCustom_recipe(customRecipe);
+        recipeDao.saveRecipe(recipe);
+        recipeDao.saveCustomRecipe(customRecipe);
+
+        return "redirect:/recipe/" + recipe.getId();
+    }
+
+
+
 }
