@@ -17,12 +17,29 @@
         <div id="recipe-cover-buttons">
             <div id="recipe-page-save" class="d-flex justify-content-end">
                 <th:block sec:authorize="isAuthenticated()">
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
-                        <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    <!-- Check for user ownership -->
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} == ${user.getUsername()}"> <!-- Populate the edit & delete buttons -->
+                        <a th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
                     </th:block>
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
-                        <a th:href="@{'/chapter/save/' + ${recipe.getId()}}"><i class="fa-regular fa-bookmark"></i></a>
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${user.getUsername()}"> <!-- Check for Cookbook vs Spoonacular id -->
+                        <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
+                            <!-- Link via Spoonacular -->
+                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </a>
+                        </th:block>
+                        <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
+                            <!-- Link via Cookbook -->
+                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </a>
+                        </th:block>
                     </th:block>
+                </th:block>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <i style="height: 50px; color: transparent;"></i>
                 </th:block>
             </div>
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
@@ -153,7 +170,7 @@
                                         </a>
                                         <div class="d-flex align-items-center ms-2">
                                             <i class="fa-solid fa-calendar-days me-1"></i>
-                                            <span>Jan 31, 2023</span>
+                                            <span th:text="${#dates.format(#dates.createNow(), 'MMM dd, yyyy')}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -171,24 +188,31 @@
                             </div>
                         </form>
                     </th:block>
-                    <th:block th:if="${user} == null">
-                        Please log in to leave a review!
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <div class="row justify-content-center d-flex flex-row">
+                            <h4 class="text-center mb-3">Please log in to leave a review.</h4>
+                            <a class="btn btn-danger justify-content-center" href="/login" style="height: 45px; width: 100px;">Log In</a>
+                        </div>
+                        <div class="d-flex justify-content-center mb-4">
+                            <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a></p>
+                        </div>
                     </th:block>
                 </div>
                 <!-- Review Cards -->
                 <div id="review-content">
                     <span th:if="${recipe.getReviews().size()} == 0">
-                        Nothing here yet, be the first to write a review!
+                        <h4 class="text-center mb-3">Nothing here just yet. Be the first to write a review!</h4>
                     </span>
                     <div th:each="review : ${recipe.getReviews()}" class="m-0 p-0">
                         <div th:replace="partials :: review-card(
+                            id = ${review.getId()},
                             rating = ${review.getRating()},
                             title = ${review.getTitle()},
                             description = ${review.getComment()},
                             username = ${review.getCreator_id().getUsername()},
                             userimg = ${review.getCreator_id().getProfilePicture()},
                             name = ${review.getCreator_id().getFirstName()} + ' ' + ${review.getCreator_id().getLastName()},
-                            date = ${review.getCreatedAt()})">
+                            date = ${#dates.format(review.getCreatedAt(), 'MMM dd, yyyy')})">
                         </div>
                     </div>
                 </div>

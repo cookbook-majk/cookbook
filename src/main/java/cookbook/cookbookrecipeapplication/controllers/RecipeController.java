@@ -50,6 +50,7 @@ public class RecipeController {
             @ModelAttribute IngredientList ingredients,
             @ModelAttribute InstructionList instructions
     ) {
+
         // Custom Recipe:
         CustomRecipe customRecipe = new CustomRecipe(
                 servings,
@@ -58,8 +59,8 @@ public class RecipeController {
                 summary
         );
         recipeDao.saveCustomRecipe(customRecipe);
-        // Recipe:
 
+        // Recipe:
         if (imageURL.equals("0")) {
             imageURL = "/images/default-recipe.jpg";
         }
@@ -96,7 +97,7 @@ public class RecipeController {
         return "redirect:/recipe/" + recipe.getId();
     }
 
-    // View Recipe
+    // View Cookbook Recipe
     @GetMapping("/recipe/{id}")
     public String showRecipe(@PathVariable long id, Model model) {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
@@ -117,9 +118,6 @@ public class RecipeController {
             @RequestParam(name = "rating") int rating
     ) {
 
-//        if (recipeDao.findRecipeById(recipe) == null){
-//
-//        }
         Review review = new Review(
                 new Date(),
                 comment,
@@ -141,7 +139,7 @@ public class RecipeController {
         return "redirect:/recipe/" + recipe;
     }
 
-    // View recipe from spoonacular
+    // View Spoonacular Recipe
     @GetMapping("/recipe/sp/{spoonacularId}")
     public String showSpoonacularRecipe(@PathVariable long spoonacularId, Model model) throws IOException, InterruptedException {
         model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
@@ -152,38 +150,12 @@ public class RecipeController {
         return "/recipe";
     }
 
+    // Delete Recipe
     @GetMapping("/recipe/{recipeId}/delete")
     public String deleteRecipe(@PathVariable long recipeId) {
         recipeDao.deleteRecipe(recipeDao.findRecipeById(recipeId));
         return "redirect:/profile";
     }
-
-
-//
-//    // Edit a Recipe
-//    @GetMapping("/posts/{id}/edit")
-//    public String editPost(@PathVariable long id, Model model){
-//        model.addAttribute("post", postService.getPostById(id));
-//        return "posts/edit";
-//    }
-
-    // RENDER RECIPES FOR PROFILE
-//    @GetMapping("/recipe-cards")
-//    public String getRecipeCards(Model model) {
-//        List<RecipeCard> recipeCards = new ArrayList<>();
-//        List<CustomRecipe> customRecipes = customRecipeService.getAllCustomRecipes();
-//        for (CustomRecipe customRecipe : customRecipes) {
-//            User user = userDao.getUserById(customRecipe.getUserId());
-//            Recipe recipe = recipeDao.getRecipeById(customRecipe.getRecipeId());
-//            RecipeCard recipeCard = new RecipeCard(user.getFirstName(), user.getLastName(),
-//                    recipe.getTitle(), recipe.getCreatedAt(),
-//                    recipe.getImage());
-//            recipeCards.add(recipeCard);
-//        }
-//        model.addAttribute("recipeCards", recipeCards);
-//        return "recipeCards";
-//    }
-
 
     // Draft an Edit
     @GetMapping("/recipe/{id}/edit")

@@ -12,7 +12,14 @@
       <!-- RECIPE DETAILS -->
       <input type="hidden" th:name="id" th:value="${recipe.getId()}">
       <div id="edit-recipe-details" class="row mb-3">
-        <h1 class="header">Recipe Details</h1>
+        <div class="col">
+          <h1 class="header">Recipe Details</h1>
+        </div>
+        <div class="col d-flex justify-content-end align-items-center">
+          <a th:href="@{'/recipe/' + ${recipe.getRecipe().getId()} + '/delete'}">
+            <i class="fa-regular fa-trash-can pb-2"></i>
+          </a>
+        </div>
         <hr>
         <div class="col-md-8 col-12">
           <div class="form-floating mb-2">
@@ -37,7 +44,7 @@
               </div>
             </div>
             <div class="col-4 ps-1">
-              <!-- TODO: Fix this mess -->
+              <!-- TODO: Use thymeleaf to populate options -->
               <div class="mb-2">
                 <select th:name="category" class="form-select" id="edit-recipe-category" aria-label="Category" style="height: 58px;">
                   <option value="0">Blah</option>
@@ -56,19 +63,11 @@
             </div>
           </div>
         </div>
-        <!--                <div class="file-upload-placeholder col-md-4 col-sm-12">-->
-        <!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
-        <!--                    <div id="img-upload">-->
-        <!--                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image"/>-->
-        <!--                    </div>-->
-        <!--                    <input type="hidden" value="" id="fileStackResponse" th:name="imageURL">-->
-        <!--                </div>-->
-        <div class="col-md-4 col-sm-12">
-          <!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
+        <div class="file-upload-placeholder col-md-4 col-sm-12">
           <div id="img-upload">
-            <img src="../static/images/photo.png" th:src="${recipe.getRecipe().getImage()}" class="img-fluid file-upload-image" alt="Photo upload image" id="recipeImage"/>
+            <img th:src="${recipe.getRecipe().getImage()}" src="" class="img-fluid file-upload-image" alt="Photo upload image" id="recipeImage"/>
           </div>
-          <input type="hidden" value="0" id="fileStackResponse" th:name="imageURL" th:value="${recipe.getRecipe().getImage()}">
+          <input type="hidden" th:value="${recipe.getRecipe().getImage()}" id="fileStackResponse" th:name="imageURL">
         </div>
       </div>
       <!-- RECIPE INGREDIENTS -->
@@ -206,6 +205,7 @@
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:inline="javascript">
 
+  // Controls the file uploader
   const client = filestack.init([[${filestack}]]);
   const options = {
     onFileUploadFinished(file) {
@@ -214,36 +214,12 @@
       $('#recipeImage').attr('src', file.url).removeData('th:src')
     }
   }
-  client.picker(options).open();
 
-  function readURL(input) {
-    if (input.files && input.files[0]) {                      // if input is file, files has content
-      var inputFileData = input.files[0];                     // shortcut
-      var reader = new FileReader();                          // FileReader() : init
-      reader.onload = function(e) {                           /* FileReader : set up ************** */
-        console.log('e',e)
-        $('.file-upload-image').attr('src', e.target.result); // image element : set src data.
-        $('.image-title').html(inputFileData.name);           // set image's title
-      };
-      console.log('input.files[0]',input.files[0])
-      reader.readAsDataURL(inputFileData);     // reads target inputFileData, launch `.onload` actions
-    } else { removeUpload(); }
-  }
-
-  function removeUpload() {
-    var $clone = $('.file-upload-input').val('').clone(true); // create empty clone
-    $('.file-upload-input').replaceWith($clone);              // reset input: replaced by empty clone
-    $('.file-upload-placeholder').show();                     // show placeholder
-  }
-
-  // Style when drag-over
-  $('.file-upload-placeholder').bind('dragover', function () {
-    $('.file-upload-placeholder').addClass('image-dropping');
-  });
-  $('.file-upload-placeholder').bind('dragleave', function () {
-    $('.file-upload-placeholder').removeClass('image-dropping');
+  $(`#img-upload`).click(function(){
+    client.picker(options).open();
   });
 
+  // Populates more fields
   $(document).ready(function(){
     $(".unit-select").html($("#unit-select").html());
   });
