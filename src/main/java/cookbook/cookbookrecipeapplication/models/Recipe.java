@@ -53,7 +53,7 @@ public class Recipe implements Serializable {
     public Recipe() {
     }
 
-    public Recipe(long spoonacular_id, String image, String image_type, Date createdAt, String title) {
+    public Recipe(long spoonacularId, String image, String image_type, Date createdAt, String title) {
         this.spoonacularId = spoonacularId;
         this.image = image;
         this.image_type = image_type;

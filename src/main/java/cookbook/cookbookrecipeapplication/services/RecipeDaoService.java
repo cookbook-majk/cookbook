@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,7 +76,7 @@ public class RecipeDaoService {
         mapper.registerModule(module);
         CustomRecipe customRecipe = mapper.readValue(response.body(), CustomRecipe.class);
         // Adds spoonacular as creator of recipe
-        customRecipe.setCreator_id(userDao.findByUsername("spoonacular"));
+        customRecipe.setCreator_id(userDao.findByUsername("Spoonacular"));
 
         // Deserializes data into recipe object and adds it into custom recipe object
         ObjectMapper mapper2 = new ObjectMapper();
@@ -84,7 +85,12 @@ public class RecipeDaoService {
         module.addDeserializer(Recipe.class, new RecipeDeserializer());
         mapper.registerModule(module);
         Recipe recipe = mapper.readValue(response.body(), Recipe.class);
+        recipe.setReviews(new ArrayList<>());
         recipe.setCustom_recipe(customRecipe);
+
+        for (Instruction instruction : recipe.getCustom_recipe().getInstructions()){
+            System.out.println(instruction.getOrder_num() + " " + instruction.getContent());
+        }
 
         return recipe;
     }
@@ -126,10 +132,6 @@ public class RecipeDaoService {
         mapper.registerModule(module);
         SearchResults searchResults = mapper.readValue(response.body(), SearchResults.class);
 
-        List<Recipe> recipeResults = searchResults.getResults();
-        for (Recipe recipe : recipeResults) {
-            System.out.println(recipe.getTitle());
-        }
         return searchResults;
     }
 
