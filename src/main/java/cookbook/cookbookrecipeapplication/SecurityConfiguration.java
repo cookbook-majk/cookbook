@@ -53,7 +53,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers( // only authenticated users can visit these pages
-                        "/profile/{username}/edit", "/logout", "/feed", "/recipe/create", "/recipe/{id}/edit", "/recipe/{id}/delete", "/follow/{user_id}", "/unfollow/{user_id}", "/chapter/save/{id}", "/chapter/unsave/{id}", "/chapter/save/sp/{id}", "/profile/edit/{username}"
+                        "/profile/{username}/edit", "/logout", "/feed", "/recipe/create", "/recipe/{id}/edit", "/recipe/{id}/delete", "/follow/{user_id}", "/unfollow/{user_id}", "/chapter/save/{id}", "/chapter/unsave/{id}", "/chapter/save/sp/{id}", "/profile/edit/{username}", "/review", "/review/{id}"
                 )
                 .authenticated()
         ;

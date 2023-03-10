@@ -101,9 +101,41 @@ public class RecipeController {
     public String showRecipe(@PathVariable long id, Model model) {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
         model.addAttribute("saves", recipeDao.getNumberOfSavesByRecipeId(id));
-        model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
+        model.addAttribute("review", new Review());
         return "/recipe";
+    }
+
+    @PostMapping("/review")
+    public String makeReview(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "description") String comment,
+            @RequestParam(name = "recipe") long recipe,
+            @RequestParam(name = "user") long user,
+            @RequestParam(name = "rating") int rating
+    ) {
+
+        Review review = new Review(
+                new Date(),
+                comment,
+                rating,
+                userDao.findUserById(user),
+                recipeDao.findRecipeById(recipe),
+                title
+        );
+
+        RecentActivity recentActivity = new RecentActivity(
+                4,
+                new Date(),
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+                review
+        );
+
+        recipeDao.saveReview(review);
+        userDao.saveRecentActivity(recentActivity);
+        return "redirect:/recipe/" + recipe;
     }
 
     // View recipe from spoonacular

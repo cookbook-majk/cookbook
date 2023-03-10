@@ -19,26 +19,29 @@
             </div>
 
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
-                <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">Gustav
-                    Pizzamani</h1>
-                <!-- Follow / Unfollow / Edit Buttons -->
-                <th:block sec:authorize="isAuthenticated()">
-                    <div th:if="${isNotFollowing}">
-                    <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                <div class="d-inline-flex w-100">
+                    <div class="mb-0">
+                        <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">User Name</h1>
                     </div>
+                    <!-- Follow / Unfollow / Edit Buttons -->
+                    <th:block sec:authorize="isAuthenticated()">
+                        <div th:if="${isNotFollowing}">
+                            <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                        </div>
 
-                    <div th:if="${isFollowing}">
-                        <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
-                    </div>
+                        <div th:if="${isFollowing}">
+                            <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                        </div>
 
-                    <div th:if="${showEditProfile}" class="d-flex justify-content-start">
-                        <button id="edit-profile-button" class="btn btn-danger m-2">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </div>
-                </th:block>
+                        <div th:if="${showEditProfile}" class="d-flex justify-content-start">
+                            <button id="edit-profile-button" class="btn btn-danger ms-3">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </div>
+                    </th:block>
+                </div>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
-                <p th:text="${user.getUserBio()}" id="user-bio" class="pt-2 pb-2 h-50">
+                <p th:text="${user.getUserBio()}" id="user-bio" class="pt-2 pb-2">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                     massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
                     quam felis, ultricies nec,.
@@ -106,7 +109,6 @@
                 <h1 class="header">Saved Recipes</h1>
                 <hr>
                 <!-- Saved Recipe Cards -->
-                <!-- TODO: Fix card spacing -->
                 <div id="saved-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${savedRecipes}">
                         <div th:replace="partials :: recipe-card(
@@ -121,7 +123,7 @@
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getId())})">
                         </div>
-                    </div>
+                    </th:block>
                 </div>
             </div>
         </div>
