@@ -4,6 +4,7 @@
 <!-- HEAD FRAGMENT -->
 <head th:fragment="head">
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e8ac724fbe.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,26 +104,28 @@
 <!-- TODO: Change date return -->
 <!-- TODO: Star rating -->
 <!-- TODO: Gradient overlay for recipe image -->
-<div class="recipe-card card" th:fragment="recipe-card (id, image, title, username, userimg, firstname, lastname, date, reviews, saves)">
-    <a class="recipe-link" th:href="'/recipe/' + ${id}" href="#"></a>
-    <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
-    <a href="/recipe/1"><i class="fa-regular fa-bookmark save-recipe"></i></a>
-    <div class="recipe-card-user align-items-center">
-        <a th:href="'/profile/' + ${username}" href="#">
-            <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
-            <span th:text="${firstname}">First Name</span><span> </span><span th:text="${lastname}">Last Name</span>
-        </a>
-    </div>
-    <div class="card-body d-flex flex-column justify-content-between">
-        <div>
-            <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
-                class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-            <h5 class="card-title" th:text="${title}">Recipe Title</h5>
+<div class="recipe-card col-12 col-md-6 col-lg-3" th:fragment="recipe-card (id, image, title, username, userimg, firstname, lastname, date, reviews, saves)">
+    <div class="card m-2 p-0">
+        <a class="recipe-link" th:href="'/recipe/' + ${id}" href="#"></a>
+        <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
+        <a href="/recipe/1"><i class="fa-regular fa-bookmark save-recipe"></i></a>
+        <div class="recipe-card-user align-items-center">
+            <a th:href="'/profile/' + ${username}" href="#">
+                <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
+                <span th:text="${firstname}">First Name</span><span> </span><span th:text="${lastname}">Last Name</span>
+            </a>
         </div>
-        <div class="card-foot d-flex justify-content-between">
-            <i class="fa-solid fa-calendar-days me-1"></i> <span th:text="${date}">#</span>
-            <i class="fa-solid fa-comment me-1"></i> <span th:text="${reviews}">#</span>
-            <i class="fa-solid fa-bookmark me-1"></i> <span th:text="${saves}">#</span>
+        <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+                <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
+                    class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
+                <h5 class="card-title" th:text="${title}">Recipe Title</h5>
+            </div>
+            <div class="card-foot d-flex justify-content-between">
+                <i class="fa-solid fa-calendar-days me-1"></i> <span th:text="${date}">#</span>
+                <i class="fa-solid fa-comment me-1"></i> <span th:text="${reviews}">#</span>
+                <i class="fa-solid fa-bookmark me-1"></i> <span th:text="${saves}">#</span>
+            </div>
         </div>
     </div>
 </div>

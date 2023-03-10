@@ -25,10 +25,6 @@ body {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
 }
-.container {
-    padding: 25px 50px;
-    font-family: 'Inter', sans-serif;
-}
 /* NAVBAR */
 .navbar {
     background-color: var(--lightgrey);
@@ -136,6 +132,15 @@ body {
 #user-bio {
     font-size: 20px;
 }
+#edit-profile-button {
+    width: 50px;
+    background-color: var(--lightred);
+    border-color: var(--lightred);
+    border-radius: 50%;
+}
+#edit-profile-button i {
+    font-size: 26px;
+}
 #add-friend {
     height: 45px;
     width: 45px;
@@ -197,10 +202,10 @@ body {
 /* RECIPE CARDS */
 .recipe-card {
     font-family: 'Inter', sans-serif;
-    width: 18rem;
-    max-width: 18rem;
-    margin: 25px;
-    padding: 0;
+    /*min-width: 16rem;*/
+    max-width: 22rem;
+    /*margin: 25px;*/
+    /*padding: 0;*/
 }
 .recipe-card:hover {
     cursor: pointer;
@@ -222,8 +227,8 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: black;
-    font-size: 30px;
+    color: var(--lightred);
+    font-size: 36px;
     z-index: 2;
 }
 .recipe-card-user {
