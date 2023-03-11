@@ -37,7 +37,7 @@ public class ReviewController {
     @GetMapping("/review/delete/{id}")
     public String deleteReview(@PathVariable long id) {
         long recipeId = recipeDao.getReviewById(id).getRecipe_id().getId();
-        recipeDao.deleteRecentActivity(recentActivityDao.getRecentReviewActivityByUserIdAndRecipe(reviewId));
+        recipeDao.deleteRecentActivity(recentActivityDao.getRecentReviewActivityByUserIdAndRecipe(id));
         recipeDao.deleteReview(recipeDao.getReviewById(id));
         return "redirect:/recipe/" + recipeId;
     }
