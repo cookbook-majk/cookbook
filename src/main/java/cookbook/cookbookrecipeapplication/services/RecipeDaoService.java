@@ -208,4 +208,8 @@ public class RecipeDaoService {
         recentActivityDao.delete(recentActivity);
     }
 
+    public List<Recipe> findRecipesByDishType(long dishTypeId){
+        return recipeDao.findRecipesByDishType(dishTypeId);
+    }
+
 }
