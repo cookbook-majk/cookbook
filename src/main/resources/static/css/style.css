@@ -568,3 +568,19 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+/* ABOUT US */
+#about-us .circle-img {
+    border-radius: 50%;
+}
+.dev-links i {
+    font-size: 25px;
+}
+.dev-links .fa-github {
+    color: #1a1e22;
+}
+.dev-links .fa-linkedin {
+    color: #1163bd;
+}
+.dev-links .fa-copyright {
+    color: #8bc34b;
+}
