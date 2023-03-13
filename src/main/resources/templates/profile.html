@@ -19,16 +19,23 @@
             <div id="user-details" class="col-md-7 col-lg-8 p-3">
                 <div class="d-inline-flex w-100">
                     <div class="mb-0">
-                        <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">User Name</h1>
+                        <h1 id="fullname" class="header" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}">
+                            User Name</h1>
                     </div>
                     <!-- Follow / Unfollow / Edit Buttons -->
                     <th:block sec:authorize="isAuthenticated()">
                         <div th:if="${isNotFollowing}">
-                            <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                            <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png"
+                                                                              th:src="@{../images/follow.png}"
+                                                                              id="add-friend" class="ms-3"
+                                                                              alt="Add friend button"/></a>
                         </div>
 
                         <div th:if="${isFollowing}">
-                            <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button" /></a>
+                            <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png"
+                                                                                th:src="@{../images/unfollow.png}"
+                                                                                id="add-friend" class="ms-3"
+                                                                                alt="Add friend button"/></a>
                         </div>
 
                         <div th:if="${showEditProfile}" class="d-flex justify-content-start">
@@ -45,12 +52,18 @@
                     quam felis, ultricies nec,.
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
-                    <li class="nav-item">
-                        <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
-                    </li>
-                    <li class="nav-item">
-                        <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
-                    </li>
+                    <button type="button" id="followers-btn" data-bs-toggle="modal"
+                            data-bs-target="#followersListModal">
+                        <li class="nav-item">
+                            <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
+                        </li>
+                    </button>
+                    <button type="button" id="following-btn" data-bs-toggle="modal"
+                            data-bs-target="#followingListModal">
+                        <li class="nav-item">
+                            <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
+                        </li>
+                    </button>
                     <li class="nav-item">
                         <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                     </li>
@@ -61,13 +74,22 @@
         <!-- Profile Tabs -->
         <div id="profile-tabs" class="row mt-4 mb-3" role="tablist">
             <div class="col-4 pe-1">
-                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity" aria-selected="false">Activity</button>
+                <button type="button" id="activity-btn" class="btn btn-lg btn-secondary w-100" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#user-activity" aria-controls="user-activity"
+                        aria-selected="false">Activity
+                </button>
             </div>
             <div class="col-4">
-                <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab" data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes" aria-selected="true">Recipes</button>
+                <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#user-recipes" aria-controls="user-recipes"
+                        aria-selected="true">Recipes
+                </button>
             </div>
             <div class="col-4 ps-1">
-                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab" data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters" aria-selected="false">Saved</button>
+                <button type="button" id="chapters-btn" class="btn btn-lg btn-secondary w-100" role="tab"
+                        data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters"
+                        aria-selected="false">Saved
+                </button>
 
             </div>
         </div>
@@ -152,7 +174,8 @@
                 </div>
             </div>
 
-            <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
+            <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn"
+                 tabindex="0">
                 <h1 class="header">User Recipes</h1>
                 <hr>
                 <!-- User Recipe Cards -->
@@ -216,7 +239,8 @@
                             <img th:src="${user.getProfilePicture()}"
                                  class="img-fluid file-upload-image" alt="Photo upload image" id="userImage"/>
                         </div>
-                        <input type="hidden" th:value="${user.getProfilePicture()}" id="fileStackResponse" th:name="imageURL">
+                        <input type="hidden" th:value="${user.getProfilePicture()}" id="fileStackResponse"
+                               th:name="imageURL">
                     </div>
                     <div class="col-md-8">
                         <div class="col-md-12">
@@ -233,7 +257,9 @@
                         </div>
                         <div class="col-md-12">
                             <label class="bio" for="bio">Bio:</label>
-                            <textarea id="bio" class="form-control" th:name="userBio" name="bio" placeholder="Tell us about yourself!" aria-label="Bio" th:text="${user.getUserBio()}"></textarea>
+                            <textarea id="bio" class="form-control" th:name="userBio" name="bio"
+                                      placeholder="Tell us about yourself!" aria-label="Bio"
+                                      th:text="${user.getUserBio()}"></textarea>
                         </div>
                     </div>
                 </div>
@@ -243,6 +269,52 @@
             </div>
             <div class="d-flex justify-content-center mb-4"></div>
         </form>
+    </div>
+</div>
+
+<!--Followers modal-->
+<div id="followersListModal" class="modal">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="followers-modal-title">Followers</h2>
+            <div class="modal-body">
+                    <!-- List of following goes here -->
+                        <div class="card flex-row" style="width: 100%; height: 100px;">
+                            <img class="card-img-left" src="/images/flank-steak.webp"/>
+                            <div class="card-body d-flex row">
+        <span>
+        <h3 class="card-title h5 h4-sm search-user-firstname">First name, Last Name</h3>
+        </span>
+                                <p class="card-text">@username</p>
+                            </div>
+                        </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Following modal-->
+<div id="followingListModal" class="modal">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="following-modal-title">Following</h2>
+            <div class="modal-body">
+                    <!-- List of following goes here -->
+                        <div class="card flex-row" style="width: 100%; height: 100px;">
+                            <img class="card-img-left" src="/images/flank-steak.webp"/>
+                            <div class="card-body d-flex row">
+        <span>
+        <h3 class="card-title h5 h4-sm search-user-firstname">First name, Last Name</h3>
+        </span>
+                                <p class="card-text">@username</p>
+                            </div>
+                        </div>
+            </div>
+            <div class="d-flex justify-content-center mb-4"></div>
+        </div>
     </div>
 </div>
 
@@ -261,13 +333,16 @@
             $('#userImage').attr('src', file.url).removeData('th:src')
         }
     }
+
     $(`#img-upload`).click(function(){
         client.picker(options).open();
     });
 
     const editProfileButton = document.getElementById('edit-profile-button');
     const modal = document.getElementById('edit-profile-modal');
-    const closeButton = document.getElementsByClassName('close')[0];
+    const closeButton = document.getElementsByClassName('close'[0]);
+    const closeButton2 = document.getElementsByClassName('close'[1]);
+    const closeButton3 = document.getElementsByClassName('close'[2]);
     const editProfileForm = document.getElementById('edit-profile-form');
     const saveChanges = document.getElementById("saveChangesBtn");
 
@@ -276,6 +351,12 @@
     });
 
     closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    closeButton2.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    closeButton3.addEventListener('click', () => {
         modal.style.display = 'none';
     });
 
@@ -295,14 +376,14 @@
 <script>
     function validateNameLength(name) {
         const nameLength = name.length;
-        return nameLength >= 1 && nameLength <= 255 ;
+        return nameLength >= 1 && nameLength <= 255;
     }
 </script>
 <!-- Bio Validation -->
 <script>
     function validateBioLength(bio) {
         const nameLength = name.length;
-        return nameLength >= 0 && nameLength <= 255 ;
+        return nameLength >= 0 && nameLength <= 255;
     }
 </script>
 <!--  -->
