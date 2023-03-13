@@ -645,3 +645,12 @@ body {
 .activity-description .card-foot {
     background-color: transparent;
 }
+/* Search User Card */
+.card-img-left{
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px;
+}
+.search-user-firstname, .search-user-lastname{
+    display: inline-flex;
+}

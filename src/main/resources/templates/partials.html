@@ -3,13 +3,15 @@
 
 <!-- HEAD FRAGMENT -->
 <head th:fragment="head">
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e8ac724fbe.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
@@ -20,12 +22,15 @@
     <nav class="navbar fixed-top">
         <div class="container-fluid">
             <div class="d-flex">
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <form th:action="@{/search}" th:method="get" class="input-group rounded ms-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" name="search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></button>
+                    <input type="search" class="form-control rounded" placeholder="Search" name="search"
+                           aria-label="Search" aria-describedby="search-addon"/>
+                    <button type="submit" class="input-group-text border-0" id="search-addon"><i
+                            class="fas fa-search"></i></button>
                 </form>
             </div>
             <a class="navbar-brand title" href="/home" style="margin-left: -55px;">cook<span style="color: var(--red);">book</span></a>
@@ -41,10 +46,12 @@
                     </form>
                 </th:block>
             </div>
-            <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h1 class="title" href="/home">cook<span style="color: var(--red);">book</span></h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" style="margin: 0"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close" style="margin: 0"></button>
                 </div>
                 <div class="offcanvas-body d-flex flex-column align-items-center pt-0">
                     <a
@@ -69,28 +76,32 @@
                             <a class="nav-link header" href="/about"><h5>About Us</h5></a>
                         </li>
                     </ul>
-<!--                    <th:block sec:authorize="!isAuthenticated()">-->
-<!--                        <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>-->
-<!--                    </th:block>-->
-<!--                    <th:block sec:authorize="isAuthenticated()">-->
-<!--                        <form th:action="@{/logout}" th:method="post">-->
-<!--                            <button class="btn btn-danger" style="height: 45px; width: 100px;">Log Out</button>-->
-<!--                        </form>-->
-<!--                    </th:block>-->
+                    <!--                    <th:block sec:authorize="!isAuthenticated()">-->
+                    <!--                        <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>-->
+                    <!--                    </th:block>-->
+                    <!--                    <th:block sec:authorize="isAuthenticated()">-->
+                    <!--                        <form th:action="@{/logout}" th:method="post">-->
+                    <!--                            <button class="btn btn-danger" style="height: 45px; width: 100px;">Log Out</button>-->
+                    <!--                        </form>-->
+                    <!--                    </th:block>-->
                     <th:block sec:authorize="!isAuthenticated()">
-                    <div class="row align-items-center d-flex flex-row">
-                        <a class="btn btn-danger align-self-center" href="/login" style="height: 45px; width: 100px;">Log In</a>
-                    </div>
-                    <div class="d-flex justify-content-center mb-4">
-                        <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a></p>
-                    </div>
+                        <div class="row align-items-center d-flex flex-row">
+                            <a class="btn btn-danger align-self-center" href="/login"
+                               style="height: 45px; width: 100px;">Log In</a>
+                        </div>
+                        <div class="d-flex justify-content-center mb-4">
+                            <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a>
+                            </p>
+                        </div>
                     </th:block>
                     <th:block sec:authorize="isAuthenticated()">
-                    <div class="row align-items-center d-flex flex-row">
-                        <form th:action="@{/logout}" th:method="post">
-                            <button class="btn btn-danger align-self-center" style="height: 45px; width: 100px;">Log Out</button>
-                        </form>
-                    </div>
+                        <div class="row align-items-center d-flex flex-row">
+                            <form th:action="@{/logout}" th:method="post">
+                                <button class="btn btn-danger align-self-center" style="height: 45px; width: 100px;">Log
+                                    Out
+                                </button>
+                            </form>
+                        </div>
                     </th:block>
                 </div>
             </div>
@@ -108,28 +119,29 @@
             <a class="recipe-link" th:href="'/recipe/sp/' + ${id}"></a>
         </th:block>
         <th:block th:if="${username != 'Spoonacular'}">
-        <a class="recipe-link" th:href="'/recipe/' + ${id}" href="#"></a>
+            <a class="recipe-link" th:href="'/recipe/' + ${id}" href="#"></a>
         </th:block>
         <img src="/images/food-placeholder.jpeg" th:src="${image}" alt="placeholder image" class="w-100">
-            <!--     TODO: change to button and run get request through JS   -->
+        <!--     TODO: change to button and run get request through JS   -->
         <th:block sec:authorize="isAuthenticated()">
             <th:block th:if="${username == 'Spoonacular'}">
-                    <i class="fa-regular fa-bookmark save-recipe saveRecipeSp" th:data-id="${id}"></i>
+                <i class="fa-regular fa-bookmark save-recipe saveRecipeSp" th:data-id="${id}"></i>
             </th:block>
             <th:block th:if="${username != 'Spoonacular'}">
-                    <i class="fa-regular fa-bookmark save-recipe saveRecipe" th:data-id="${id}"></i>
+                <i class="fa-regular fa-bookmark save-recipe saveRecipe" th:data-id="${id}"></i>
             </th:block>
         </th:block>
         <div class="recipe-card-user align-items-center">
             <th:block th:if="${username != 'Spoonacular'}">
-            <a th:href="'/profile/' + ${username}" href="#">
-                <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
-                <span th:text="${firstname}">First Name</span><span> </span><span th:text="${lastname}">Last Name</span>
-            </a>
+                <a th:href="'/profile/' + ${username}" href="#">
+                    <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
+                    <span th:text="${firstname}">First Name</span><span> </span><span
+                        th:text="${lastname}">Last Name</span>
+                </a>
             </th:block>
             <th:block th:if="${username == 'Spoonacular'}">
-                    <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
-                    <span th:text="${firstname}">First Name</span>
+                <img th:src="${userimg}" src="/images/pizzaman.jpg" alt="user profile image" class="mb-1 me-1">
+                <span th:text="${firstname}">First Name</span>
             </th:block>
         </div>
         <div class="card-body d-flex flex-column justify-content-between">
@@ -194,7 +206,6 @@
     </div>
 </div>
 
-<!-- KM -->
 <!-- ACTIVITY CARD -->
 <div class="activity-card col-12" th:fragment="activity-card (link, image, rating, title, text, username, userimg, action, date)">
 
@@ -235,17 +246,30 @@
         </div>
     </div>
 </div>
-<!-- /KM -->
+
+<!-- USER SEARCH CARD-->
+<div th:fragment="user-search-card">
+    <div class="card flex-row" style="width: 22em; height: 100px;">
+        <img class="card-img-left" src="/images/flank-steak.webp"/>
+        <div class="card-body d-flex row">
+        <span>
+        <h3 class="card-title h5 h4-sm search-user-firstname">First name, Last Name</h3>
+        </span>
+            <p class="card-text">@username</p>
+        </div>
+    </div>
+</div>
 
 <!-- SCRIPT FRAGMENT -->
 <!-- TODO: Fix script file path error -->
 <div th:fragment="script">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-<!--    <script src="../static/js/script.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <!--    <script src="../static/js/script.js"></script>-->
     <script>
-
 
 
     </script>

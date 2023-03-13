@@ -3,6 +3,7 @@
 
 <head th:replace="partials :: head"></head>
 <title>Create Recipe</title>
+<link rel="icon" href="../static/images/stir-fry.png" th:href="@{../images/stir-fry.png}">
 <body style="background-color: #f2f2f2;">
 <nav th:replace="partials :: navbar"></nav>
 
@@ -53,15 +54,8 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="file-upload-placeholder col-md-4 col-sm-12">-->
-<!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
-<!--                    <div id="img-upload">-->
-<!--                        <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image"/>-->
-<!--                    </div>-->
-<!--                    <input type="hidden" value="" id="fileStackResponse" th:name="imageURL">-->
-<!--                </div>-->
                 <div class="col-md-4 col-sm-12">
-<!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />-->
+
                     <div id="img-upload">
                         <img src="../static/images/photo.png" th:src="@{../images/photo.png}" class="img-fluid file-upload-image" alt="Photo upload image" id="recipeImage"/>
                     </div>
@@ -200,6 +194,7 @@
 </section>
 
 <div th:replace="partials :: script"></div>
+<!-- Filestack JS -->
 <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:inline="javascript">
 
@@ -211,7 +206,9 @@
              $('#recipeImage').attr('src', file.url).removeData('th:src')
          }
      }
-     client.picker(options).open();
+     $(`#img-upload`).click(function(){
+         client.picker(options).open();
+     });
 
     function readURL(input) {
         if (input.files && input.files[0]) {                      // if input is file, files has content
@@ -250,6 +247,26 @@
     });
 
 </script>
-
+<!-- Recipe Title Validation -->
+<script>
+        function validateTitleLength(name) {
+        const nameLength = name.length;
+        return nameLength >= 1 && nameLength <= 100 ;
+    }
+</script>
+<!-- Recipe Instruction Validation -->
+<script>
+    function validateInstructionLength(step) {
+        const stepLength = step.length;
+        return stepLength >= 1 && stepLength <= 100 ;
+    }
+</script>
+<!-- Recipe Ingredient Validation -->
+<script>
+    function validateIngredientLength(ing) {
+        const ingLength = ing.length;
+        return ingLength >= 1 && ingLength <= 100 ;
+    }
+</script>
 </body>
 </html>

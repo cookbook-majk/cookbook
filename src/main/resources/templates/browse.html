@@ -3,6 +3,7 @@
 
 <head th:replace="partials :: head"></head>
 <title>Browse Recipes</title>
+<link rel="icon" href="../static/images/stir-fry.png" th:href="@{../images/stir-fry.png}">
 <body>
 <nav th:replace="partials :: navbar"></nav>
 
@@ -13,37 +14,76 @@
         </form>
     </div>
 </div>
+<div class="container">
 <div class="discover-container">
     <div style="width: 100%;">
         <h2 class="header">Popular Categories</h2>
     </div>
-    <a href="#" class="category-circle">
+    <a th:href="@{/category/main-course}" class="category-circle">
         <img src="/images/skillet.jpeg" alt="category image">
-        <h5 class="circle-text">Pasta</h5>
+        <h5 class="circle-text">Main Course</h5>
     </a>
-    <a href="#" class="category-circle">
+    <a th:href="@{/category/side-dish}" class="category-circle">
         <img src="/images/food-placeholder.jpeg" alt="category image">
-        <h5 class="circle-text">Pizza</h5>
+        <h5 class="circle-text">Side Dish</h5>
     </a>
-    <a href="#" class="category-circle">
+    <a th:href="@{/category/breakfast}" class="category-circle">
         <img src="/images/stir-fry.png" alt="category image">
-        <h5 class="circle-text">Vegan</h5>
+        <h5 class="circle-text">Breakfast</h5>
     </a>
-    <a href="#" class="category-circle">
+    <a th:href="@{/category/dessert}" class="category-circle">
         <img src="/images/skillet.jpeg" alt="category image">
         <h5 class="circle-text">Dessert</h5>
     </a>
-    <a href="#" class="category-circle">
+    <a th:href="@{/category/beverage}" class="category-circle">
         <img src="/images/cooking.jpg" alt="category image">
-        <h5 class="circle-text">Breakfast</h5>
+        <h5 class="circle-text">Beverage</h5>
     </a>
+</div>
+<div class="trending-dishes-container">
+    <div style="width: 100%;">
+        <h2 class="header">Trending Dishes</h2>
+    </div>
+    <div class="d-flex flex-wrap flex-row justify-content-between">
+        <th:block th:each="recipe : ${trendingRecipes}">
+            <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
+                            image = ${recipe.getImage()},
+                            title = ${recipe.getTitle()},
+                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
+                            userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
+                            firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
+                            lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+            </div>
+        </th:block>
+    </div>
 </div>
 <div class="popular-dishes-container">
     <div style="width: 100%;">
         <h2 class="header">Most Popular Dishes</h2>
     </div>
-        Cards go here
+    <div class="d-flex flex-wrap flex-row justify-content-between">
+        <th:block th:each="recipe : ${popularRecipes}">
+            <div th:replace="partials :: recipe-card(
+                            id = ${recipe.getId()},
+                            image = ${recipe.getImage()},
+                            title = ${recipe.getTitle()},
+                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
+                            userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
+                            firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
+                            lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
+                            reviews = ${recipe.getReviews().size},
+                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+            </div>
+        </th:block>
+    </div>
 </div>
+</div>
+
 
 
 <div th:replace="partials :: script"></div>

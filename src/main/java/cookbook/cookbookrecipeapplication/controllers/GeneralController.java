@@ -26,7 +26,12 @@ public class GeneralController {
 
     // Homepage
     @GetMapping("/home")
-    public String showHome(Model model) { return "/home"; }
+    public String showHome(Model model){
+        model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("popularRecipes", recipeDao.findMostSavedRecipes());
+        model.addAttribute("trendingRecipes", recipeDao.findTrendingRecipes());
+        return "/home";
+    }
 
     // About Us
     @GetMapping("/about")
@@ -36,7 +41,10 @@ public class GeneralController {
 
     // Browse & Discover
     @GetMapping("/browse")
-    public String browseRecipes(){
+    public String browseRecipes(Model model){
+        model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("popularRecipes", recipeDao.findMostSavedRecipes());
+        model.addAttribute("trendingRecipes", recipeDao.findTrendingRecipes());
         return "/browse";
     }
 
@@ -67,10 +75,31 @@ public class GeneralController {
         }
 
         model.addAttribute("cookbookRecipes", cookbookRecipes);
-
+        model.addAttribute("recipeDao", recipeDao);
         model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchTerm", search);
+        return "/search";
+    }
+
+    // Search Recipes
+    @GetMapping("/category/{categoryName}")
+    public String searchRecipesCategory(@PathVariable String categoryName, Model model) throws IOException, InterruptedException {
+        SearchResults searchResults = recipeDao.getCategorySearchResultsSpoonacular(categoryName);
+        List<Recipe> recipes = searchResults.getResults();
+        for (Recipe recipe : recipes){
+            recipe.setId(recipe.getSpoonacularId());
+            recipe.setReviews(new ArrayList<>());
+        }
+        searchResults.setResults(recipes);
+
+        List<Recipe> cookbookRecipes = recipeDao.findRecipesByDishType((recipeDao.getDishTypeByName(categoryName)).getId());
+
+        model.addAttribute("cookbookRecipes", cookbookRecipes);
+
+        model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
+        model.addAttribute("searchResults", searchResults);
+        model.addAttribute("searchTerm", categoryName);
         return "/search";
     }
 

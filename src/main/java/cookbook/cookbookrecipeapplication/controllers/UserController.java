@@ -92,6 +92,8 @@ public class UserController {
 
         model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
         model.addAttribute("user", user);
+        model.addAttribute("followers", user.getUserFollows());
+        model.addAttribute("following", user.getFollowing());
         model.addAttribute("recipes", user.getCustom_recipes());
         model.addAttribute("savedRecipes", adjustedSavedRecipes);
         model.addAttribute("recentActivity", user.getRecentActivities());
@@ -132,17 +134,20 @@ public class UserController {
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed(Model model) {
-        model.addAttribute("recipeDao", recipeDao);
-        if (userDao.getAllFollowingRecentActivity((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()) == null) {
+        if (userDao.findUserByUsername(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).getFollowing() == null){
             System.out.println("was null");
             model.addAttribute("noResults", true);
         } else {
-            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+            List<RecentActivity> activites = userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+
+            for (RecentActivity activity : activites){
+                System.out.println(activity.getActivity_type());
+            }
+
+            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(userDao.findUserByUsername(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())));
         }
         return "/feed";
     }
-
-    // UPDATE USER
 
     // DELETE USER
     @DeleteMapping(path = "{id}")

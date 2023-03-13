@@ -148,6 +148,7 @@ public class RecipeController {
             model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
         model.addAttribute("review", new Review());
+        model.addAttribute("recipeDao", recipeDao);
         return "/recipe";
     }
 

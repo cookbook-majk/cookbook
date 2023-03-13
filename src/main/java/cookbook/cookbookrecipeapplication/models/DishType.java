@@ -32,4 +32,12 @@ public class DishType {
     public void setType(String type) {
         this.type = type;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }
