@@ -264,4 +264,18 @@ public class RecipeDaoService {
         return recipeDao.findByTitle(title);
     }
 
+    public int getRatingAverageByRecipe(Recipe recipe){
+        if (recipe.getReviews().size() != 0) {
+            List<Review> reviews = recipe.getReviews();
+            int total = 0;
+            for (Review review : reviews){
+                int rating = review.getRating();
+                total += rating;
+            }
+            return (total / reviews.size());
+        } else {
+            return 0;
+        }
+    }
+
 }

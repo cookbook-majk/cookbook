@@ -101,6 +101,7 @@ public class RecipeController {
     @GetMapping("/recipe/{id}")
     public String showRecipe(@PathVariable long id, Model model) {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
+        model.addAttribute("rating", recipeDao.getRatingAverageByRecipe(recipeDao.findRecipeById(id)));
         model.addAttribute("saves", recipeDao.getNumberOfSavesByRecipeId(id));
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
             model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));

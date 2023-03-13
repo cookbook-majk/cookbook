@@ -584,8 +584,68 @@ body {
 .dev-links .fa-copyright {
     color: #8bc34b;
 }
-/*Search User Card*/
-/*MS*/
+/* ACTIVITY CARD */
+.activity-card {
+    height: 230px;
+}
+.activity-card .activity-head {
+    background-color: var(--lightgrey);
+    border-color: var(--lightgrey);
+}
+.activity-card .activity-head img {
+    border-radius: 50%;
+    height: 35px;
+    float: left;
+}
+.activity-card .activity-head span {
+    clear: right;
+}
+.activity-card .cover-img {
+    height: 220px;
+    object-fit: cover;
+}
+.activity-card .card-body {
+    background-color: var(--lightgrey);
+    border-color: var(--lightgrey);
+    height: 220px;
+}
+.activity-card .star-rating i,
+.recipe-card .star-rating i {
+    font-size: 22px;
+    margin: -2px;
+}
+.activity-card h5 {
+    font-weight: 600;
+}
+.activity-description {
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+}
+.activity-description .read-more {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    font-size: 18px;
+    background-image: linear-gradient(to bottom, transparent, var(--lightgrey));
+}
+.activity-description .button {
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+    background-color: var(--grey);
+    color: var(--white);
+    font-size: 16px;
+    text-decoration: none;
+    padding: 5px;
+}
+.activity-description .card-foot {
+    background-color: transparent;
+}
+/* Search User Card */
 .card-img-left{
     border-radius: 50%;
     max-width: 100px;
@@ -594,4 +654,3 @@ body {
 .search-user-firstname, .search-user-lastname{
     display: inline-flex;
 }
-/*MS*/
