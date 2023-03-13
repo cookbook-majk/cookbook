@@ -3,6 +3,7 @@
 
 <head th:replace="partials :: head"></head>
 <title>Create Recipe</title>
+<link rel="icon" href="../static/images/stir-fry.png" th:href="@{../images/stir-fry.png}">
 <body style="background-color: #f2f2f2;">
 <nav th:replace="partials :: navbar"></nav>
 
@@ -205,7 +206,9 @@
              $('#recipeImage').attr('src', file.url).removeData('th:src')
          }
      }
-     client.picker(options).open();
+     $(`#img-upload`).click(function(){
+         client.picker(options).open();
+     });
 
     function readURL(input) {
         if (input.files && input.files[0]) {                      // if input is file, files has content

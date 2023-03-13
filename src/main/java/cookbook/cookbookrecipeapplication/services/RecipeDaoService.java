@@ -16,6 +16,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecipeDaoService {
@@ -137,12 +138,41 @@ public class RecipeDaoService {
         return searchResults;
     }
 
+    public SearchResults getCategorySearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
+        String updatedSearchParam = searchParam.replaceAll("-", "%20");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=%20&type=" + updatedSearchParam + "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&ignorePantry=true&sortDirection=asc&number=5"))
+                .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
+                .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleModule module =
+                new SimpleModule("SearchResultsDeserializer", new Version(1, 0, 0, null, null, null));
+        module.addDeserializer(SearchResults.class, new SearchResultsDeserializer());
+        mapper.registerModule(module);
+        SearchResults searchResults = mapper.readValue(response.body(), SearchResults.class);
+
+        return searchResults;
+    }
+
     public List<Recipe> findTrendingRecipes() {
         List<Long> recipeIds = recipeDao.findTrendingRecipeIds();
 
         List<Recipe> recipes = new ArrayList<>();
         for(Long recipeId : recipeIds) {
-            recipeDao.findById(recipeId).ifPresent(recipes::add);
+            Recipe recipe = recipeDao.findById(recipeId).get();
+            if (recipe.getSpoonacularId() != 0){
+                CustomRecipe customRecipe = new CustomRecipe(userDao.findByUsername("spoonacular"));
+                recipe.setCustom_recipe(customRecipe);
+                recipe.setId(recipe.getSpoonacularId());
+                recipes.add(recipe);
+            } else {
+                recipes.add(recipe);
+            }
         }
         return recipes;
     }
@@ -151,11 +181,18 @@ public class RecipeDaoService {
 
         List<Recipe> recipes = new ArrayList<>();
         for(Long recipeId : recipeIds) {
-            recipeDao.findById(recipeId).ifPresent(recipes::add);
+            Recipe recipe = recipeDao.findById(recipeId).get();
+            if (recipe.getSpoonacularId() != 0){
+                CustomRecipe customRecipe = new CustomRecipe(userDao.findByUsername("spoonacular"));
+                recipe.setCustom_recipe(customRecipe);
+                recipe.setId(recipe.getSpoonacularId());
+                recipes.add(recipe);
+            } else {
+                recipes.add(recipe);
+            }
         }
         return recipes;
     }
-
 
     public void saveCustomRecipe(CustomRecipe customRecipe){
         customRecipeDao.save(customRecipe);
@@ -174,6 +211,9 @@ public class RecipeDaoService {
     }
     public long getNumberOfSavesByRecipeId(long recipeId){
         return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
+    }
+    public long getNumberOfSavesByRecipeTitle(String recipeTitle){
+        return chapterDao.getChaptersBySavedRecipes(Optional.ofNullable(recipeDao.findByTitle(recipeTitle))).size();
     }
     public void saveReview(Review review){
         reviewDao.save(review);
@@ -209,7 +249,33 @@ public class RecipeDaoService {
     }
 
     public List<Recipe> findRecipesByDishType(long dishTypeId){
-        return recipeDao.findRecipesByDishType(dishTypeId);
+        List<Recipe> recipes = new ArrayList<>();
+        for (Long recipeId : recipeDao.findRecipesByDishType(dishTypeId)){
+            recipes.add(findRecipeById(recipeId));
+        }
+        return recipes;
+    }
+
+    public DishType getDishTypeByName(String name){
+        return dishTypeDao.getDishTypeByType(name);
+    }
+
+    public Recipe findRecipeByTitle(String title){
+        return recipeDao.findByTitle(title);
+    }
+
+    public int getRatingAverageByRecipe(Recipe recipe){
+        if (recipe.getReviews().size() != 0) {
+            List<Review> reviews = recipe.getReviews();
+            int total = 0;
+            for (Review review : reviews){
+                int rating = review.getRating();
+                total += rating;
+            }
+            return (total / reviews.size());
+        } else {
+            return 0;
+        }
     }
 
 }

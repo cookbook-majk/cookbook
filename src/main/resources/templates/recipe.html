@@ -3,8 +3,8 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="partials :: head"></head>
-<title>Create Recipe</title>
-
+<title th:text="${recipe.getTitle()}">Create Recipe</title>
+<link rel="icon" href="../static/images/stir-fry.png" th:href="@{../images/stir-fry.png}">
 <body style="background-color: #f2f2f2;">
 <nav th:insert="partials :: navbar"></nav>
 
@@ -55,18 +55,18 @@
         <div id="recipe-details">
             <div class="row justify-content-between">
                 <div id="recipe-rating" class="col">
-                    <h5>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </h5>
+                    <div class="star-rating">
+                        <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 3}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 4}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                    </div>
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">
                         <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${recipe.getReviews().size()}">#</span></a>
-                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span th:text="${saves}">#</span></a>
+                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span th:text="${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())}">#</span></a>
                     </div>
                 </div>
             </div>
