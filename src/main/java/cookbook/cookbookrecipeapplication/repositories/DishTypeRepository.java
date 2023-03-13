@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DishTypeRepository extends JpaRepository<DishType, Long> {
 
+    DishType getDishTypeByType(String name);
+
 }

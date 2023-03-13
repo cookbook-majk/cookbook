@@ -95,7 +95,7 @@
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
-                            date = ${recipe.getRecipe().getCreatedAt()},
+                            date = ${#dates.format(recipe.getRecipe().getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getRecipe().getReviews().size},
                             saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getRecipe().getId())})">
                         </div>
@@ -117,9 +117,9 @@
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
                             firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
-                            date = ${recipe.getCreatedAt()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getId())})">
+                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
                         </div>
                     </th:block>
                 </div>
@@ -188,10 +188,7 @@
             $('#userImage').attr('src', file.url).removeData('th:src')
         }
     }
-    // client.picker(options).open();
-
     $(`#img-upload`).click(function(){
-        console.log("ran the things");
         client.picker(options).open();
     });
 
