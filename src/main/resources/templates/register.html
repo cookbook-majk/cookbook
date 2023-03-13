@@ -23,6 +23,17 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col">
+                            <!-- Username Validation Use Example:
+                            <form action="#" th:action="@{/submit}" th:object="${user}" method="post">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" th:value="${user.username}"
+                                       onblur="validateUsername(this.value)">
+                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                                <div id="username-error"></div>
+                                <button type="submit">Submit</button>
+                            </form>
+                            -->
+
                             <label class="visually-hidden" for="username">Username</label>
                             <div class="input-group">
                                 <div class="input-group-text">
@@ -45,6 +56,13 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col">
+                        <!-- Password Validation Use Example: Returns a True or False boolean, if false doesn't allow form to submit
+                            <form onsubmit="return validatePassword(document.getElementById('password').value)">
+                                FORM FIELD
+                                <input type="password" id="password" name="password" />
+                                SUBMIT BUTTON
+                            </form>
+                        -->
                             <input type="password" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password">
                         </div>
                         <div class="col">
@@ -70,5 +88,69 @@
 </section>
 
 <div th:replace="partials :: script"></div>
+<!-- JQuery link -->
+<script
+        src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous">
+</script>
+<!-- Password Validation JS -->
+<script>
+    function validatePassword(password) {
+        const passwordLength = password.length;
+        let hasLowerCase = false;
+        let hasUpperCase = false;
+        let hasSpecial = false;
+
+        for (let i = 0; i < passwordLength; i++) {
+            const char = password.charAt(i);
+            if (char >= 'a' && char <= 'z') {
+                hasLowerCase = true;
+            } else if (char >= 'A' && char <= 'Z') {
+                hasUpperCase = true;
+            } else if (!isNaN(parseInt(char))) {
+
+            } else {
+                hasSpecial = true;
+            }
+        }
+        return passwordLength >= 8 && passwordLength<= 20 && hasLowerCase && hasUpperCase && hasSpecial;
+    }
+</script>
+<!-- Username Validation JS -->
+<script>
+    function validateUsername(username) {
+            const usernameLength = username.length;
+            let requiredChars = /^[a-zA-Z0-9_-]+$/.test(username);
+            return usernameLength > 0 && usernameLength <= 25 && requiredChars;
+    }
+</script>
+<!-- Email Format Validation JS -->
+<script>
+    function validateEmailFormat(email) {
+        const emailLength = email.length;
+        let hasAtSymbol = false;
+        let hasDot = false;
+
+        for (let i = 0; i < emailLength; i++) {
+            const char = email.charAt(i);
+            if (char == '@') {
+                hasAtSymbol = true;
+            } else if (char == '.') {
+                hasDot = true;
+            } else {
+
+            }
+        }
+        return hasAtSymbol && hasDot && emailLength < 256;
+    }
+</script>
+<!-- First and Last Name Length Validation -->
+<script>
+    function validateNameLength(name) {
+        const nameLength = name.length;
+        return nameLength >= 1 && nameLength <= 255 ;
+    }
+</script>
 </body>
 </html>
