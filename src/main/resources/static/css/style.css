@@ -584,3 +584,14 @@ body {
 .dev-links .fa-copyright {
     color: #8bc34b;
 }
+/*Search User Card*/
+/*MS*/
+.card-img-left{
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px;
+}
+.search-user-firstname, .search-user-lastname{
+    display: inline-flex;
+}
+/*MS*/

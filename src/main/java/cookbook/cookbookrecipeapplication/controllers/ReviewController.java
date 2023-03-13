@@ -41,6 +41,5 @@ public class ReviewController {
         recipeDao.deleteReview(recipeDao.getReviewById(id));
         return "redirect:/recipe/" + recipeId;
     }
-
 }
 
