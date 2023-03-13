@@ -10,6 +10,7 @@ import cookbook.cookbookrecipeapplication.repositories.RecentActivityRepository;
 import cookbook.cookbookrecipeapplication.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -96,9 +97,7 @@ public class UserDaoService {
         recentActivityDao.delete(recentActivity);
     }
 
-
-
-
+    public List<Long> searchUsers(@RequestParam("q") String searchTerm) { return userDao.findUserBySearchTerm(searchTerm.toLowerCase()); }
 
 }
 

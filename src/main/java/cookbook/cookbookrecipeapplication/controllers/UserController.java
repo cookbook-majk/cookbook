@@ -2,9 +2,11 @@ package cookbook.cookbookrecipeapplication.controllers;
 
 import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.*;
+import cookbook.cookbookrecipeapplication.repositories.UserRepository;
 import cookbook.cookbookrecipeapplication.services.ChapterDaoService;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
