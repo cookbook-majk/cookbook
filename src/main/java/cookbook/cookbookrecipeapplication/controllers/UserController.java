@@ -132,10 +132,12 @@ public class UserController {
     //* ACTIVITY FEED *//
     @GetMapping("/feed")
     public String showActivityFeed(Model model) {
-        if (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFollowing() == null){
+        model.addAttribute("recipeDao", recipeDao);
+        if (userDao.getAllFollowingRecentActivity((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()) == null) {
+            System.out.println("was null");
             model.addAttribute("noResults", true);
         } else {
-            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())));
+            model.addAttribute("recentActivity", userDao.getAllFollowingRecentActivity((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
         }
         return "/feed";
     }
@@ -156,7 +158,7 @@ public class UserController {
         userDao.followUser(follower);
 
         RecentActivity recentActivity = new RecentActivity(
-                4,
+                3,
                 new Date(),
                 loggedInUser,
                 userDao.findUserById(user_id)

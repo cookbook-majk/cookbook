@@ -74,28 +74,100 @@
 
         <!-- Profile Body Section -->
         <div class="row tab-content">
+
             <div id="user-activity" class="tab-pane fade" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
                 <h1 class="header">Recent Activity</h1>
                 <hr>
-                <!-- Content Here -->
+                <!-- Activity Cards -->
+                <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
+                    <th:block th:each="activity : ${user.getRecentActivities()}">
+                        <th:block th:switch="${activity.getActivity_type()}">
+                            <!-- TODO: Fix card title spacing -->
+                            <!-- Recipe Activity -->
+                            <th:block th:case="1">
+                                <div th:replace="partials :: activity-card(
+                                    link = '/recipe/' + ${activity.getRecipe().getId()},
+                                    image = ${activity.getRecipe().getImage()},
+                                    rating = ${recipeDao.getRatingAverageByRecipe(activity.getRecipe())},
+                                    title = ${activity.getRecipe().getTitle()},
+                                    text = ${activity.getRecipe().getCustom_recipe().getSummary() == null} ?
+                                        '' : ${activity.getRecipe().getCustom_recipe().getSummary()},
+                                    username = ${user.getUsername()},
+                                    userimg = ${user.getProfilePicture()},
+                                    action = ${user.firstName} + ' ' + ${user.lastName} + ' created a new recipe.',
+                                    date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
+                                </div>
+                            </th:block>
+                            <!-- Save Activity -->
+                            <th:block th:case="2">
+                                <!-- TODO: Default Spoonacular description -->
+                                <div th:replace="partials :: activity-card(
+                                    link = ${activity.getRecipe().getSpoonacularId() == 0} ?
+                                        '/recipe/' + ${activity.getRecipe().getId()} :
+                                        '/recipe/sp/' + ${activity.getRecipe().getSpoonacularId()},
+                                    image = ${activity.getRecipe().getImage()},
+                                    rating = ${recipeDao.getRatingAverageByRecipe(activity.getRecipe())},
+                                    title = ${activity.getRecipe().getTitle()},
+                                    text = ${activity.getRecipe().getCustom_recipe().getSummary() == null} ?
+                                        '' : ${activity.getRecipe().getCustom_recipe().getSummary()},
+                                    username = ${user.getUsername()},
+                                    userimg = ${user.getProfilePicture()},
+                                    action = ${user.firstName} + ' ' + ${user.lastName} + ' saved a recipe.',
+                                    date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
+                                </div>
+                            </th:block>
+                            <!-- Follow Activity -->
+                            <th:block th:case="3">
+                                <!-- TODO: Remove rating -->
+                                <div th:replace="partials :: activity-card(
+                                    link = '/profile/' + ${activity.getTarget_user().getUsername()},
+                                    image = ${activity.getTarget_user().getProfilePicture()},
+                                    rating = 1,
+                                    title = ${activity.getTarget_user().getFirstName()} + ' ' + ${activity.getTarget_user().getLastName()},
+                                    text = ${activity.getTarget_user().getUserBio() == null} ?
+                                        '' : ${activity.getTarget_user().getUserBio()},
+                                    username = ${user.getUsername()},
+                                    userimg = ${user.getProfilePicture()},
+                                    action = ${user.firstName} + ' ' + ${user.lastName} + ' followed a user.',
+                                    date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
+                                </div>
+                            </th:block>
+                            <!-- Review Activity -->
+                            <th:block th:case="4">
+                                <div th:replace="partials :: activity-card(
+                                    link = '/recipe/' + ${activity.getReview().getRecipe_id()},
+                                    image = ${activity.getReview().getRecipe_id().getImage()},
+                                    rating = ${activity.getReview().getRating()},
+                                    title = ${activity.getReview().getTitle()},
+                                    text = ${activity.getReview().getComment() == null} ?
+                                        '' : ${activity.getReview().getComment()},
+                                    username = ${user.getUsername()},
+                                    userimg = ${user.getProfilePicture()},
+                                    action = ${user.firstName} + ' ' + ${user.lastName} + ' reviewed a recipe.',
+                                    date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
+                                </div>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </div>
             </div>
 
             <div id="user-recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn" tabindex="0">
                 <h1 class="header">User Recipes</h1>
                 <hr>
                 <!-- User Recipe Cards -->
-                <!-- TODO: Fix card spacing -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${recipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getRecipe().getId()},
                             image = ${recipe.getRecipe().getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getRecipe().getTitle()},
                             username = ${user.getUsername()},
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
-                            date = ${recipe.getRecipe().getCreatedAt()},
+                            date = ${#dates.format(recipe.getRecipe().getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getRecipe().getReviews().size},
                             saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getRecipe().getId())})">
                         </div>
@@ -112,12 +184,13 @@
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
                             firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
-                            date = ${recipe.getCreatedAt()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipeDao.getNumberOfSavesByRecipeId(recipe.getId())})">
                         </div>

@@ -55,13 +55,13 @@
         <div id="recipe-details">
             <div class="row justify-content-between">
                 <div id="recipe-rating" class="col">
-                    <h5>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    </h5>
+                    <div class="star-rating">
+                        <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 3}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        <i th:style="${rating > 4}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                    </div>
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">

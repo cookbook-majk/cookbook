@@ -26,9 +26,7 @@ public class GeneralController {
 
     // Homepage
     @GetMapping("/home")
-    public String showHome(){
-        return "/home";
-    }
+    public String showHome(Model model) { return "/home"; }
 
     // About Us
     @GetMapping("/about")
