@@ -174,7 +174,10 @@
 </div>
 
 <div th:replace="partials :: script"></div>
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<!-- File Stack -->
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js">
+
+</script>
 <script th:inline="javascript">
 
     const client = filestack.init([[${filestack}]]);
@@ -217,5 +220,21 @@
     });
 
 </script>
+
+<!-- Name Validation -->
+<script>
+    function validateNameLength(name) {
+        const nameLength = name.length;
+        return nameLength >= 1 && nameLength <= 255 ;
+    }
+</script>
+<!-- Bio Validation -->
+<script>
+    function validateBioLength(bio) {
+        const nameLength = name.length;
+        return nameLength >= 0 && nameLength <= 255 ;
+    }
+</script>
+<!--  -->
 </body>
 </html>

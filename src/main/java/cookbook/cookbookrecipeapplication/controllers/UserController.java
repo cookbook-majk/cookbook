@@ -140,8 +140,6 @@ public class UserController {
         return "/feed";
     }
 
-    // UPDATE USER
-
     // DELETE USER
     @DeleteMapping(path = "{id}")
     public void deleteUser(@PathVariable("id") Long id) {
