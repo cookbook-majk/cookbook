@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="partials :: head"></head>
+<title>Error</title>
+<body style="background-color: white;">
+<nav th:replace="partials :: navbar"></nav>
+
+<!--<h1>ERROR 500</h1>-->
+
+<div class="container">
+    <img class="w-100 h-100" src="/images/500-error.jpg" alt="500 Error">
+</div>
+
+<div th:replace="partials :: script"></div>
+</body>
+</html>

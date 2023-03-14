@@ -12,9 +12,16 @@ import java.util.Set;
 public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     Chapter findByName(String name);
+
+    @Query(value = "SELECT id from chapters c where c.user_id = ?1", nativeQuery = true)
+    Chapter findByUserId(long id);
+
     Set<Chapter> getChaptersBySavedRecipes(Optional<Recipe> recipe);
 
     @Query(value = "SELECT * from chapters c where c.user_id = ?1", nativeQuery = true)
     Chapter findByUserId(long id);
 
 }
+
+
+//@Query(value = "SELECT * from recent_activity a where a.user_id = ?1 and a.recipe_id = ?2 and a.activity_type = 1", nativeQuery = true)
