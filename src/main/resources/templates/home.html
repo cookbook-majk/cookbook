@@ -50,6 +50,7 @@
           <th:block th:each="recipe : ${trendingRecipes}">
             <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
                             image = ${recipe.getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
@@ -72,6 +73,7 @@
           <th:block th:each="recipe : ${popularRecipes}">
             <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
                             image = ${recipe.getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},

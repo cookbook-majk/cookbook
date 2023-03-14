@@ -18,6 +18,9 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     Set<Chapter> getChaptersBySavedRecipes(Optional<Recipe> recipe);
 
+    @Query(value = "SELECT * from chapters c where c.user_id = ?1", nativeQuery = true)
+    Chapter findByUserId(long id);
+
 }
 
 

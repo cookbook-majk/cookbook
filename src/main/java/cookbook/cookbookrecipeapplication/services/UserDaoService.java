@@ -107,5 +107,9 @@ public class UserDaoService {
         return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
     }
 
+    public boolean checkIfSaved(User user, Recipe recipe){
+        return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+    }
+
 }
 

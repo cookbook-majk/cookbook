@@ -99,6 +99,10 @@ public class UserController {
         model.addAttribute("savedRecipes", adjustedSavedRecipes);
         model.addAttribute("recentActivity", user.getRecentActivities());
         model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("userDao", userDao);
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
 
         return "/profile";
     }

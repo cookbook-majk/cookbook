@@ -14,79 +14,106 @@
         </form>
     </div>
 </div>
-<div class="container">
-<div class="discover-container">
-    <div style="width: 100%;">
-        <h2 class="header">Popular Categories</h2>
-    </div>
-    <a th:href="@{/category/main-course}" class="category-circle">
-        <img src="/images/skillet.jpeg" alt="category image">
-        <h5 class="circle-text">Main Course</h5>
-    </a>
-    <a th:href="@{/category/side-dish}" class="category-circle">
-        <img src="/images/food-placeholder.jpeg" alt="category image">
-        <h5 class="circle-text">Side Dish</h5>
-    </a>
-    <a th:href="@{/category/breakfast}" class="category-circle">
-        <img src="/images/stir-fry.png" alt="category image">
-        <h5 class="circle-text">Breakfast</h5>
-    </a>
-    <a th:href="@{/category/dessert}" class="category-circle">
-        <img src="/images/skillet.jpeg" alt="category image">
-        <h5 class="circle-text">Dessert</h5>
-    </a>
-    <a th:href="@{/category/beverage}" class="category-circle">
-        <img src="/images/cooking.jpg" alt="category image">
-        <h5 class="circle-text">Beverage</h5>
-    </a>
-</div>
-<div class="trending-dishes-container">
-    <div style="width: 100%;">
-        <h2 class="header">Trending Dishes</h2>
-    </div>
-    <div class="d-flex flex-wrap flex-row justify-content-between">
-        <th:block th:each="recipe : ${trendingRecipes}">
-            <div th:replace="partials :: recipe-card(
-                            id = ${recipe.getId()},
-                            image = ${recipe.getImage()},
-                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
-                            title = ${recipe.getTitle()},
-                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
-                            userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
-                            firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
-                            lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
-                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
-                            reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+<div id="browse-body" class="pt-4" style="background-color: var(--white); height: 100%;">
+    <div class="container">
+        <div id="category-content">
+            <div class="row">
+                <h2 class="header">Popular Categories</h2>
+                <hr>
             </div>
-        </th:block>
-    </div>
-</div>
-<div class="popular-dishes-container">
-    <div style="width: 100%;">
-        <h2 class="header">Most Popular Dishes</h2>
-    </div>
-    <div class="d-flex flex-wrap flex-row justify-content-between">
-        <th:block th:each="recipe : ${popularRecipes}">
-            <div th:replace="partials :: recipe-card(
-                            id = ${recipe.getId()},
-                            image = ${recipe.getImage()},
-                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
-                            title = ${recipe.getTitle()},
-                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
-                            userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
-                            firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
-                            lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
-                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
-                            reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+            <div id="categories">
+                <a th:href="@{/category/main-course}" class="category">
+                    <img src="/images/main-course.jpeg" alt="category image">
+                    <h5>Main Course</h5>
+                </a>
+                <a th:href="@{/category/side-dish}" class="category">
+                    <img src="/images/side-dish.png" alt="category image">
+                    <h5>Side Dishes</h5>
+                </a>
+                <a th:href="@{/category/appetizer}" class="category">
+                    <img src="/images/appetizer.jpeg" alt="category image">
+                    <h5>Appetizers</h5>
+                </a>
+                <a th:href="@{/category/bread}" class="category">
+                    <img src="/images/bread.jpeg" alt="category image">
+                    <h5>Bread</h5>
+                </a>
+                <a th:href="@{/category/soup}" class="category">
+                    <img src="/images/soup.jpeg" alt="category image">
+                    <h5>Soups</h5>
+                </a>
+                <a th:href="@{/category/salad}" class="category">
+                    <img src="/images/salad.jpeg" alt="category image">
+                    <h5>Salads</h5>
+                </a>
+                <a th:href="@{/category/breakfast}" class="category">
+                    <img src="/images/breakfast.jpeg" alt="category image">
+                    <h5>Breakfast</h5>
+                </a>
+                <a th:href="@{/category/dessert}" class="category">
+                    <img src="/images/dessert.jpeg" alt="category image">
+                    <h5>Desserts</h5>
+                </a>
+                <a th:href="@{/category/sauce}" class="category">
+                    <img src="/images/sauce.jpeg" alt="category image">
+                    <h5>Sauces</h5>
+                </a>
+                <a th:href="@{/category/beverage}" class="category">
+                    <img src="/images/beverage.jpeg" alt="category image">
+                    <h5>Beverages</h5>
+                </a>
             </div>
-        </th:block>
+        </div>
+        <div id="trending-content">
+            <div class="row mt-4">
+                <h2 class="header">Trending Dishes</h2>
+                <hr>
+            </div>
+            <div class="d-flex flex-wrap flex-row justify-content-between">
+                <th:block th:each="recipe : ${trendingRecipes}">
+                    <div th:replace="partials :: recipe-card(
+                                    id = ${recipe.getId()},
+                                    saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                                    image = ${recipe.getImage()},
+                                    rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
+                                    title = ${recipe.getTitle()},
+                                    username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
+                                    userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
+                                    firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
+                                    lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
+                                    date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
+                                    reviews = ${recipe.getReviews().size},
+                                    saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div id="popular-content">
+            <div class="row mt-4">
+                <h2 class="header">Popular Dishes</h2>
+                <hr>
+            </div>
+            <div class="d-flex flex-wrap flex-row justify-content-between">
+                <th:block th:each="recipe : ${popularRecipes}">
+                    <div th:replace="partials :: recipe-card(
+                                    id = ${recipe.getId()},
+                                    saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                                    image = ${recipe.getImage()},
+                                    rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
+                                    title = ${recipe.getTitle()},
+                                    username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
+                                    userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
+                                    firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
+                                    lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
+                                    date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
+                                    reviews = ${recipe.getReviews().size},
+                                    saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+                    </div>
+                </th:block>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-
-
 
 <div th:replace="partials :: script"></div>
 </body>

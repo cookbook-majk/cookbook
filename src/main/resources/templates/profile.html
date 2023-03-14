@@ -25,20 +25,22 @@
                     <!-- Follow / Unfollow / Edit Buttons -->
                     <th:block sec:authorize="isAuthenticated()">
                         <div th:if="${isNotFollowing}">
-                            <a th:href="@{'/follow/' + ${user.getId()}}"><img src="../static/images/follow.png"
-                                                                              th:src="@{../images/follow.png}"
-                                                                              id="add-friend" class="ms-3"
-                                                                              alt="Add friend button"/></a>
+                            <a th:href="@{'/follow/' + ${user.getId()}}">
+                                <img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button"/>
+                            </a>
                         </div>
 
                         <div th:if="${isFollowing}">
-                            <a th:href="@{'/unfollow/' + ${user.getId()}}"><img src="../static/images/unfollow.png"
-                                                                                th:src="@{../images/unfollow.png}"
-                                                                                id="add-friend" class="ms-3"
-                                                                                alt="Add friend button"/></a>
+                            <a th:href="@{'/unfollow/' + ${user.getId()}}">
+                                <img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button"/>
+                            </a>
                         </div>
 
                         <div th:if="${showEditProfile}" class="d-flex justify-content-start">
+                            <!-- TODO: Search User Button -->
+                            <button id="search-users-button" class="btn btn-danger ms-3">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
                             <button id="edit-profile-button" class="btn btn-danger ms-3">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -50,23 +52,21 @@
                 </div>
                 <h2 id="username" class="header" th:text="'@' + ${user.getUsername()}">@pizzaguy</h2>
                 <p th:text="${user.getUserBio()}" id="user-bio" class="pt-2 pb-2">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                    massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
-                    quam felis, ultricies nec,.
+                    User bio
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
-                    <button type="button" id="followers-btn" data-bs-toggle="modal"
-                            data-bs-target="#followersListModal">
                         <li class="nav-item">
+                            <button type="button" id="followers-btn" data-bs-toggle="modal"
+                                    data-bs-target="#followersListModal">
                             <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
+                            </button>
                         </li>
-                    </button>
-                    <button type="button" id="following-btn" data-bs-toggle="modal"
-                            data-bs-target="#followingListModal">
                         <li class="nav-item">
+                            <button type="button" id="following-btn" data-bs-toggle="modal"
+                                    data-bs-target="#followingListModal">
                             <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
+                            </button>
                         </li>
-                    </button>
                     <li class="nav-item">
                         <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                     </li>
@@ -186,6 +186,7 @@
                     <th:block th:each="recipe : ${recipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getRecipe().getId()},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
                             image = ${recipe.getRecipe().getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getRecipe().getTitle()},
@@ -210,6 +211,7 @@
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
@@ -275,7 +277,8 @@
     </div>
 </div>
 
-<!--Followers modal-->
+<!-- Followers Modal -->
+<!-- TODO: Formatting -->
 <div id="followersListModal" class="modal">
     <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
         <div class="modal-content">
@@ -310,7 +313,8 @@
     </div>
 </div>
 
-<!--Following modal-->
+<!-- Following Modal -->
+<!-- TODO: Formatting -->
 <div id="followingListModal" class="modal">
     <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
         <div class="modal-content">
@@ -358,9 +362,9 @@
 
 <div th:replace="partials :: script"></div>
 <!-- File Stack -->
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js">
-
-</script>
+<!-- TODO: Can Filestack be moved to the Script partial? -->
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<!-- TODO: Consolidate JS -->
 <script th:inline="javascript">
 
     const client = filestack.init([[${filestack}]]);
