@@ -3,19 +3,20 @@
 
 <head th:replace="partials :: head"></head>
 <title>Activity Feed</title>
-<body>
+<body style="background-color: var(--white);">
 <nav th:replace="partials :: navbar"></nav>
 
-<h1 class="header">Recent Activity</h1>
-<hr>
-<!-- Activity Cards -->
-<div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
-    <th:block th:each="activity : ${recentActivity}">
-        <th:block th:switch="${activity.getActivity_type()}">
-            <!-- TODO: Fix card title spacing -->
-            <!-- Recipe Activity -->
-            <th:block th:case="1">
-                <div th:replace="partials :: activity-card(
+<div id="activity-feed" class="container">
+    <h1 class="header mt-4">Recent Activity</h1>
+    <hr>
+    <!-- Activity Cards -->
+    <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
+        <th:block th:each="activity : ${recentActivity}">
+            <th:block th:switch="${activity.getActivity_type()}">
+                <!-- TODO: Fix card title spacing -->
+                <!-- Recipe Activity -->
+                <th:block th:case="1">
+                    <div th:replace="partials :: activity-card(
                                     link = '/recipe/' + ${activity.getRecipe().getId()},
                                     image = ${activity.getRecipe().getImage()},
                                     rating = ${recipeDao.getRatingAverageByRecipe(activity.getRecipe())},
@@ -26,12 +27,12 @@
                                     userimg = ${activity.getUser().getProfilePicture()},
                                     action = ${activity.getUser().firstName} + ' ' + ${activity.getUser().lastName} + ' created a new recipe.',
                                     date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
-                </div>
-            </th:block>
-            <!-- Save Activity -->
-            <th:block th:case="2">
-                <!-- TODO: Default Spoonacular description -->
-                <div th:replace="partials :: activity-card(
+                    </div>
+                </th:block>
+                <!-- Save Activity -->
+                <th:block th:case="2">
+                    <!-- TODO: Default Spoonacular description -->
+                    <div th:replace="partials :: activity-card(
                                     link = ${activity.getRecipe().getSpoonacularId() == 0} ?
                                         '/recipe/' + ${activity.getRecipe().getId()} :
                                         '/recipe/sp/' + ${activity.getRecipe().getSpoonacularId()},
@@ -44,12 +45,12 @@
                                     userimg = ${activity.getUser().getProfilePicture()},
                                     action = ${activity.getUser().firstName} + ' ' + ${activity.getUser().lastName} + ' saved a recipe.',
                                     date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
-                </div>
-            </th:block>
-            <!-- Follow Activity -->
-            <th:block th:case="3">
-                <!-- TODO: Remove rating -->
-                <div th:replace="partials :: activity-card(
+                    </div>
+                </th:block>
+                <!-- Follow Activity -->
+                <th:block th:case="3">
+                    <!-- TODO: Remove rating -->
+                    <div th:replace="partials :: activity-card(
                                     link = '/profile/' + ${activity.getTarget_user().getUsername()},
                                     image = ${activity.getTarget_user().getProfilePicture()},
                                     rating = 1,
@@ -60,11 +61,11 @@
                                     userimg = ${activity.getUser().getProfilePicture()},
                                     action = ${activity.getUser().firstName} + ' ' + ${activity.getUser().lastName} + ' followed a user.',
                                     date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
-                </div>
-            </th:block>
-            <!-- Review Activity -->
-            <th:block th:case="4">
-                <div th:replace="partials :: activity-card(
+                    </div>
+                </th:block>
+                <!-- Review Activity -->
+                <th:block th:case="4">
+                    <div th:replace="partials :: activity-card(
                                     link = '/recipe/' + ${activity.getReview().getRecipe_id()},
                                     image = ${activity.getReview().getRecipe_id().getImage()},
                                     rating = ${activity.getReview().getRating()},
@@ -75,10 +76,11 @@
                                     userimg = ${activity.getUser().getProfilePicture()},
                                     action = ${activity.getUser().firstName} + ' ' + ${activity.getUser().lastName} + ' reviewed a recipe.',
                                     date = ${#dates.format(activity.getCreatedAt(), 'MMM dd, yyyy')})">
-                </div>
+                    </div>
+                </th:block>
             </th:block>
         </th:block>
-    </th:block>
+    </div>
 </div>
 
 <div th:replace="partials :: script"></div>
