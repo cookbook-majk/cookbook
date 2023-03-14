@@ -12,34 +12,23 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12 col-lg-6 col-xl-5 order-2 order-lg-1">
                 <p class="text-center h1 header fw-bold mb-5 mx-1 mx-md-4 mt-4 mt-md-2">Registration</p>
-                <form th:action="@{/register}" th:method="post" th:object="${user}" class="mx-1 mx-md-4">
+                <form th:action="@{/register}" th:method="post" th:object="${user}" id="registrationForm" class="mx-1 mx-md-4 ">
                     <div class="row mb-4">
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name" aria-label="First name">
+                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name" aria-label="First name" id="firstnameReg" onblur="return validateFirstnameLength();">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name" aria-label="Last name">
+                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name" aria-label="Last name" id="lastnameReg" onblur="return validateLastnameLength();">
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col">
-                            <!-- Username Validation Use Example:
-                            <form action="#" th:action="@{/submit}" th:object="${user}" method="post">
-                                <label for="username">Username:</label>
-                                <input type="text" id="username" name="username" th:value="${user.username}"
-                                       onblur="validateUsername(this.value)">
-                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-                                <div id="username-error"></div>
-                                <button type="submit">Submit</button>
-                            </form>
-                            -->
-
                             <label class="visually-hidden" for="username">Username</label>
                             <div class="input-group">
                                 <div class="input-group-text">
                                     <i class="fas fa-user fa-lg fa-fw"></i>
                                 </div>
-                                <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username">
+                                <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username" onblur="return validateUsername();">
                             </div>
                         </div>
                     </div>
@@ -50,23 +39,16 @@
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope fa-lg fa-fw"></i>
                                 </div>
-                                <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+                                <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email" onblur="return validateEmailFormat();">
                             </div>
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col">
-                        <!-- Password Validation Use Example: Returns a True or False boolean, if false doesn't allow form to submit
-                            <form onsubmit="return validatePassword(document.getElementById('password').value)">
-                                FORM FIELD
-                                <input type="password" id="password" name="password" />
-                                SUBMIT BUTTON
-                            </form>
-                        -->
-                            <input type="password" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password">
+                            <input type="password" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password" id="password1Reg" onblur="return validatePassword1();">
                         </div>
                         <div class="col">
-                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" id="password2Reg" onblur="return validatePassword2();">
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
@@ -78,6 +60,16 @@
                         </span>
                     </div>
                 </form>
+                <div id="message">
+                    <h6>Password must contain the following:</h6>
+                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                    <p id="number" class="invalid">A <b>number</b></p>
+                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                </div>
+            </div>
+            <div id="liveAlertPlaceholder">
+
             </div>
             <div class="col-md-9 col-lg-5 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                 <img src="../static/images/cooking.jpg" th:src="@{images/cooking.jpg}" class="img-fluid side-img"
@@ -94,46 +86,95 @@
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
         crossorigin="anonymous">
 </script>
+<!-- Live Alert JS -->
+<script>
+    let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+    let alert = (message, type) => {
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('')
+
+        alertPlaceholder.append(wrapper)
+    }
+    let alertTrigger = document.getElementById('liveAlertBtn')
+    if (alertTrigger) { alertTrigger.addEventListener('click', () => { alert('Nice, you triggered this alert message!', 'success')})}
+
+</script>
 <!-- Password Validation JS -->
 <script>
-    function validatePassword(password) {
-        const passwordLength = password.length;
+    function validatePassword1() {
+        const pw1Input = document.getElementById("password1Reg");
+        const passwordLength = pw1Input.length;
         let hasLowerCase = false;
         let hasUpperCase = false;
-        let hasSpecial = false;
-
+        console.log("Password validation")
         for (let i = 0; i < passwordLength; i++) {
-            const char = password.charAt(i);
+            const char = pw1Input.charAt(i);
             if (char >= 'a' && char <= 'z') {
                 hasLowerCase = true;
             } else if (char >= 'A' && char <= 'Z') {
                 hasUpperCase = true;
-            } else if (!isNaN(parseInt(char))) {
-
-            } else {
-                hasSpecial = true;
-            }
+            } else {}
         }
-        return passwordLength >= 8 && passwordLength<= 20 && hasLowerCase && hasUpperCase && hasSpecial;
+        if (passwordLength >= 8 && passwordLength<= 20 && hasLowerCase && hasUpperCase) {
+            return true;
+        }
+        else{
+            let alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+                const wrapper = document.createElement('div')
+                wrapper.innerHTML = [
+                    '<div class="alert alert-danger alert-dismissible" role="alert">',
+                    '   <div>The password you entered did not fit the requirements, please enter a new one.</div>',
+                    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                    '</div>'
+                ].join('')
+                alertPlaceholder.append(wrapper)
+            return false;
+        }
+    }
+</script>
+<!-- Validate Password Matching JS -->
+<script>
+    function validatePassword2() {
+        const pw2Input = document.getElementById("password2Reg");
+        const pw1Input = document.getElementById("password1Reg");
+
+        if (pw2Input === pw1Input) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 </script>
 <!-- Username Validation JS -->
 <script>
-    function validateUsername(username) {
-            const usernameLength = username.length;
-            let requiredChars = /^[a-zA-Z0-9_-]+$/.test(username);
-            return usernameLength > 0 && usernameLength <= 25 && requiredChars;
+    function validateUsername() {
+        const usernameInput = document.getElementById("username");
+        const usernameLength = usernameInput.length;
+        let requiredChars = /^[a-zA-Z0-9_-]+$/.test(usernameInput);
+
+        if (usernameLength > 0 && usernameLength <= 25 && requiredChars) {
+            return true
+        }
+        else{
+            return false;
+        }
     }
 </script>
 <!-- Email Format Validation JS -->
 <script>
-    function validateEmailFormat(email) {
-        const emailLength = email.length;
+    function validateEmailFormat() {
+        const emailInput = document.getElementById("email");
+        const emailLength = emailInput.length;
         let hasAtSymbol = false;
         let hasDot = false;
-
         for (let i = 0; i < emailLength; i++) {
-            const char = email.charAt(i);
+            const char = emailInput.charAt(i);
             if (char == '@') {
                 hasAtSymbol = true;
             } else if (char == '.') {
@@ -142,15 +183,99 @@
 
             }
         }
-        return hasAtSymbol && hasDot && emailLength < 256;
+        if (hasAtSymbol && hasDot && emailLength < 256) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 </script>
 <!-- First and Last Name Length Validation -->
 <script>
-    function validateNameLength(name) {
-        const nameLength = name.length;
-        return nameLength >= 1 && nameLength <= 255 ;
+    function validateFirstnameLength() {
+        const firstnameInput = document.getElementById("firstnameReg");
+        const nameLength = firstnameInput.length;
+        if (nameLength >= 1 && nameLength <= 255) {
+            return true;
+        }
+        else{
+            return false;
+            }
+        }
+
+        function validateLastnameLength() {
+            const lastnameInput = document.getElementById("lastnameReg");
+            const nameLength = lastnameInput.length;
+            if (nameLength >= 1 && nameLength <= 255) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+</script>
+<!-- Password Input Requirement JS -->
+<script>
+    let myInput = document.getElementById("password1Reg");
+    let letter = document.getElementById("letter");
+    let capital = document.getElementById("capital");
+    let number = document.getElementById("number");
+    let length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+        // Validate lowercase letters
+        let lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        let upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        let numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
     }
 </script>
+
 </body>
 </html>
