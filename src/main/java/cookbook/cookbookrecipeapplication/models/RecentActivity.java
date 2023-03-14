@@ -98,4 +98,20 @@ public class RecentActivity implements Comparable<RecentActivity>{
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public User getTarget_user() {
+        return target_user;
+    }
+
+    public void setTarget_user(User target_user) {
+        this.target_user = target_user;
+    }
 }

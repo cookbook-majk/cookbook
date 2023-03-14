@@ -12,4 +12,5 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
     Chapter findByName(String name);
     Set<Chapter> getChaptersBySavedRecipes(Optional<Recipe> recipe);
+
 }

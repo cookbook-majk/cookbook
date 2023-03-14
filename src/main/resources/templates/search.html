@@ -3,7 +3,7 @@
 
 <head th:replace="partials :: head"></head>
 <title>Search Results</title>
-<body>
+<body style="background-color: var(--white);">
 <nav th:replace="partials :: navbar"></nav>
 <div id="banner-image">
     <div class="search-bar-container">
@@ -34,19 +34,19 @@
                 <br>
                 <h1 class="header"><span th:text="${cookbookRecipes.size()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
                 <!-- Content Here -->
-                <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${cookbookRecipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
                             title = ${recipe.getTitle()},
-                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername},
+                            username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
                             firstname = ${recipe.getCustom_recipe().getCreator_id().getFirstName()},
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
-                            date = ${recipe.getCreatedAt()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipe.getReviews().size})">
+                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
                         </div>
                     </th:block>
                 </div>
@@ -55,7 +55,7 @@
             <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <br>
                 <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>                <!-- Content Here -->
-                <div id="recipe-content" class="d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${searchResults.getResults()}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
@@ -65,7 +65,7 @@
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
-                            date = ${recipe.getCreatedAt()},
+                            date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipe.getReviews().size})">
                         </div>
