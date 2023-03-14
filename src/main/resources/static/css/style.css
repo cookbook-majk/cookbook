@@ -21,6 +21,9 @@ html {
 body {
     padding-top: 73px;
 }
+body::-webkit-scrollbar {
+    display: none;
+}
 .header {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -237,7 +240,8 @@ body {
     top: 160px;
     left: 10px;
 }
-.recipe-card-user a {
+.recipe-card-user a,
+.spoonacular-user {
     color: var(--white);
     font-weight: 600;
     font-size: 17px;
@@ -433,12 +437,14 @@ body {
 }
 /* SEARCH PAGE */
 #banner-image {
-    background-image: url('../images/food-placeholder.jpeg');
+    background-image: url('../images/search-cover.jpg');
     background-size: cover;
     background-position: center;
-    position: relative;
     width: 100%;
-    height:250px;
+    height: 250px;
+    position: fixed;
+    top: 72px;
+    z-index: 0;
 }
 .search-bar-container {
     position: absolute;
@@ -510,63 +516,40 @@ body {
 .firstName, .lastName, .bio {
     font-weight: bold;
 }
-/*DISHCOVERY CSS*/
-.discover-container {
-    margin: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.category-circle {
-    width: 115px;
-    height: 115px;
-    border-radius: 50%;
-    box-shadow: var(--lightgrey) 0 0 30px;
-    background-size: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
+/* BROWSE PAGE */
+#browse-body {
     position: relative;
-    text-align: center;
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: bold;
+    background-color: var(--white);
+    top: 235px;
+    height: 725px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    z-index: 1;
 }
-.category-circle img{
+#categories {
+    display: flex;
+    flex-flow: row;
+    overflow: auto;
+    white-space: nowrap;
+}
+#categories::-webkit-scrollbar {
+    display: none;
+}
+#categories a {
+    text-decoration: none;
+    color: white;
+    padding: 0 16px;
+}
+.category img {
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
-    max-width: 100%;
-    max-height: 100%;
     object-fit: cover;
 }
-.circle a {
-    color: inherit;
-    text-decoration: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.circle-text {
-    color: #070707;
-    margin: 0;
-    padding-top: 5px;
+.category h5 {
+    color: var(--black);
+    font-weight: 600;
     text-align: center;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    box-sizing: border-box;
-}
-.popular-dishes-container{
-    margin: 10px;
-    padding-top: 15px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
 }
 /* ABOUT US */
 #about-us .circle-img {

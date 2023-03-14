@@ -4,6 +4,7 @@ import cookbook.cookbookrecipeapplication.PropertiesReader;
 import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.services.RecipeDaoService;
 import cookbook.cookbookrecipeapplication.services.UserDaoService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,12 @@ public class GeneralController {
     @GetMapping("/home")
     public String showHome(Model model){
         model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("userDao", userDao);
         model.addAttribute("popularRecipes", recipeDao.findMostSavedRecipes());
         model.addAttribute("trendingRecipes", recipeDao.findTrendingRecipes());
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
         return "/home";
     }
 
@@ -42,6 +47,10 @@ public class GeneralController {
     // Browse & Discover
     @GetMapping("/browse")
     public String browseRecipes(Model model){
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
+        model.addAttribute("userDao", userDao);
         model.addAttribute("recipeDao", recipeDao);
         model.addAttribute("popularRecipes", recipeDao.findMostSavedRecipes());
         model.addAttribute("trendingRecipes", recipeDao.findTrendingRecipes());
@@ -74,8 +83,13 @@ public class GeneralController {
             }
         }
 
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
+
         model.addAttribute("cookbookRecipes", cookbookRecipes);
         model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("userDao", userDao);
         model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchTerm", search);
