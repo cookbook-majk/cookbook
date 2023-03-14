@@ -56,14 +56,15 @@ public class UserController {
     }
 
     //* USER PROFILE *//
-    @GetMapping("/profile/{username}")
-    public String showProfile(@PathVariable String username, Model model) {
-        User user = userDao.findUserByUsername(username);
+    @GetMapping("/profile/{userName}")
+    public String showProfile(@PathVariable String userName, Model model) {
+        User user = userDao.findUserByUsername(userName);
+        System.out.println("username from uri: " + userName);
+        System.out.println("user obj username: " + user.getUsername());
         // Checks if user is logged in
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
-        if (!name.equals("anonymousUser")){
-            System.out.println("ISNT NULL " + (((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())).getUsername());
+        if (name !=null && !name.equals("anonymousUser")){
             // Checks if user is on own page / if so, shows edit profile button
             Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
             String loggedInUserName = loggedInUser.getName();
@@ -98,6 +99,7 @@ public class UserController {
         model.addAttribute("savedRecipes", adjustedSavedRecipes);
         model.addAttribute("recentActivity", user.getRecentActivities());
         model.addAttribute("recipeDao", recipeDao);
+
         return "/profile";
     }
 
@@ -172,5 +174,14 @@ public class UserController {
         userDao.unfollowUser(userDao.findUserById(user_id), loggedInUser);
         return "redirect:/profile/" + userDao.findUserById(user_id).getUsername();
     }
+
+    @GetMapping("/users/{searchParam}.json")
+    public @ResponseBody List<User> viewUsersInJSONFormat(@PathVariable String searchParam) {
+        for (User user : userDao.searchUsers(searchParam)){
+            System.out.println(user.getUsername());
+        }
+        return userDao.searchUsers(searchParam);
+    }
+
 
 }

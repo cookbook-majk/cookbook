@@ -1,5 +1,7 @@
 package cookbook.cookbookrecipeapplication.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
@@ -13,51 +15,67 @@ public class User {
     // Columns
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id;
 
     @Column(nullable = false, unique = true, length = 25)
+    @JsonManagedReference
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     private String email;
 
     @Column(nullable = false)
+    @JsonManagedReference
     private String firstName;
 
     @Column(nullable = false)
+    @JsonManagedReference
     private String lastName;
 
     @Column(nullable = false)
+    @JsonIgnore
     private Date userCreated;
 
     @Column
+    @JsonIgnore
     private String userBio;
 
     @Column(nullable = false)
+    @JsonManagedReference
     private String profilePicture;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<CustomRecipe> custom_recipes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Review> reviews;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private  List<Chapter> chapters;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private  List<RecentActivity> recentActivities;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private  List<Follower> userFollows;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "follower")
+    @JsonIgnore
     private  List<Follower> following;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "target_user")
+    @JsonIgnore
     private List<RecentActivity> targetUserRecentActivities;
 
     // Constructors
