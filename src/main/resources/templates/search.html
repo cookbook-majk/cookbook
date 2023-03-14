@@ -39,6 +39,7 @@
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
@@ -60,6 +61,7 @@
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${user.getUsername},
                             userimg = ${user.getProfilePicture()},
