@@ -1,9 +1,6 @@
 package cookbook.cookbookrecipeapplication.services;
 
-import cookbook.cookbookrecipeapplication.models.Chapter;
-import cookbook.cookbookrecipeapplication.models.Follower;
-import cookbook.cookbookrecipeapplication.models.RecentActivity;
-import cookbook.cookbookrecipeapplication.models.User;
+import cookbook.cookbookrecipeapplication.models.*;
 import cookbook.cookbookrecipeapplication.repositories.ChapterRepository;
 import cookbook.cookbookrecipeapplication.repositories.FollowerRepository;
 import cookbook.cookbookrecipeapplication.repositories.RecentActivityRepository;
@@ -98,7 +95,17 @@ public class UserDaoService {
         recentActivityDao.delete(recentActivity);
     }
 
-    public List<Long> searchUsers(@RequestParam("q") String searchTerm) { return userDao.findUserBySearchTerm(searchTerm.toLowerCase()); }
+    public List<User> searchUsers(@RequestParam("q") String searchTerm) {
+        List<User> users = new ArrayList<>();
+        for (Long id : userDao.findUserBySearchTerm(searchTerm.toLowerCase())){
+            users.add(findUserById(id));
+        }
+        return users;
+    }
+
+    public boolean checkIfSaved(User user, Recipe recipe){
+        return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+    }
 
 }
 
