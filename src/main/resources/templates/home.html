@@ -3,7 +3,7 @@
 
 <head th:replace="partials :: head"></head>
 <title>Cookbook Home</title>
-<body>
+<body style="background-color: var(--white);">
 <nav th:replace="partials :: navbar"></nav>
 
   <!-- CALL TO ACTION -->
@@ -15,7 +15,7 @@
       <a class="btn btn-danger w-25 align-self-center mt-5" style="font-size: 30px;" href="/register">Join Now</a>
     </div>
   </div>
-  <div id="page-body">
+  <div id="page-body" style="background-color: var(--white); height: 100%;">
     <div class="container">
       <div class="discover-container">
         <div style="width: 100%;">
@@ -51,6 +51,7 @@
             <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},
@@ -72,6 +73,7 @@
             <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
                             userimg = ${recipe.getCustom_recipe().getCreator_id().getProfilePicture()},

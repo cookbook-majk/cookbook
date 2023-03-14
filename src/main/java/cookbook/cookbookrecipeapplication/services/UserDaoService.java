@@ -80,10 +80,11 @@ public class UserDaoService {
     }
 
     public List<RecentActivity> getAllFollowingRecentActivity(User user){
-        List<Follower> following = user.getFollowing();
+        List<Long> followerIds = followerDao.getFollowersByUser(user.getId());
         List<RecentActivity> recentActivityList = new ArrayList<>();
-        for (Follower follower : following){
-            recentActivityList.addAll(follower.getUser().getRecentActivities());
+        for (Long userId : followerIds){
+            User follower = userDao.findById(userId).get();
+            recentActivityList.addAll(follower.getRecentActivities());
         }
         Collections.sort(recentActivityList);
         return recentActivityList;
