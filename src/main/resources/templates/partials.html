@@ -184,9 +184,11 @@
                     <i class="fa-solid fa-calendar-days me-1"></i>
                     <span th:text="${date}">Jan 31, 2023</span>
                 </div>
-                <a th:href="@{'/review/delete/' + ${id}}">
-                    <i class="fa-regular fa-trash-can ms-2 me-2"></i>
-                </a>
+                <th:block sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username == username}">
+                    <a th:href="@{'/review/delete/' + ${id}}">
+                        <i class="fa-regular fa-trash-can ms-2 me-2"></i>
+                    </a>
+                </th:block>
             </div>
         </div>
         <div class="card-body p-4 pt-3">
