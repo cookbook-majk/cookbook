@@ -106,8 +106,8 @@ public class UserDaoService {
 
 
     public boolean checkIfSaved(User user, Recipe recipe){
-        if (user != null){
-        return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+        if (user != null) {
+            return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
         }
         return false;
     }

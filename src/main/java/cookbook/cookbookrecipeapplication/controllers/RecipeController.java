@@ -103,9 +103,10 @@ public class RecipeController {
         model.addAttribute("recipe", recipeDao.findRecipeById(id));
         model.addAttribute("rating", recipeDao.getRatingAverageByRecipe(recipeDao.findRecipeById(id)));
         model.addAttribute("saves", recipeDao.getNumberOfSavesByRecipeId(id));
+        model.addAttribute("userDao", userDao);
         model.addAttribute("recipeDao", recipeDao);
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
-            model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
         model.addAttribute("review", new Review());
         return "/recipe";
@@ -146,10 +147,11 @@ public class RecipeController {
     public String showSpoonacularRecipe(@PathVariable long spoonacularId, Model model) throws IOException, InterruptedException {
         model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
-            model.addAttribute("user", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
         model.addAttribute("review", new Review());
         model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("userDao", userDao);
         return "/recipe";
     }
 

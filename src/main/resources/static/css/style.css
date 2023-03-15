@@ -88,6 +88,15 @@ body::-webkit-scrollbar {
     width: 650px;
     z-index: 0;
 }
+#home-body {
+    position: relative;
+    background-color: var(--white);
+    top: 475px;
+    height: 725px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    z-index: 1;
+}
 #call-to-action .header {
     color: var(--black);
     text-align: center;
@@ -538,7 +547,7 @@ body::-webkit-scrollbar {
 #categories a {
     text-decoration: none;
     color: white;
-    padding: 0 16px;
+    padding: 0 32px 0 0;
 }
 .category img {
     height: 150px;
