@@ -187,7 +187,7 @@
                     <th:block th:each="recipe : ${recipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getRecipe().getId()},
-                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getRecipe().getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getRecipe().getTitle()},
@@ -212,7 +212,7 @@
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             image = ${recipe.getImage()},
-                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
                             username = ${recipe.getCustom_recipe().getCreator_id().getUsername()},
