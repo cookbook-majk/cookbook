@@ -147,7 +147,7 @@
                             <div class="review-card card w-100 mb-3">
                                 <div class="review-details card-header d-flex p-3">
                                     <input th:name="recipe" th:value="${recipe.getId()}" type="hidden">
-                                    <div class="col d-flex align-items-center me-auto">
+                                    <div class="col-3 d-flex align-items-center me-auto">
                                         <div class="rating d-flex justify-content-end">
                                             <input id="star5" th:name="rating" name="star" type="radio" value="5" class="radio-btn hide" />
                                             <label for="star5" ><i class="fa-solid fa-star"></i></label>
@@ -162,7 +162,7 @@
                                             <div class="clear"></div>
                                         </div>
                                     </div>
-                                    <div class="review-info col d-flex justify-content-end align-items-center">
+                                    <div class="review-info col-9 d-flex justify-content-end align-items-center">
                                         <input th:name="user" th:value="${loggedInUser.getId()}" type="hidden">
                                         <a href="#" class="d-flex align-items-center">
                                             <img th:src="${loggedInUser.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">

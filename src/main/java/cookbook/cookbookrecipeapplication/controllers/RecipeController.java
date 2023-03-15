@@ -27,7 +27,7 @@ public class RecipeController {
     }
 
     // Draft a Recipe
-    @GetMapping("/recipe/create")
+    @GetMapping("/create")
     public String draftRecipe(Model model) {
         model.addAttribute("ingredients", new IngredientList());
         model.addAttribute("instructions", new InstructionList());
@@ -36,7 +36,7 @@ public class RecipeController {
     }
 
     // Create a Recipe
-    @PostMapping("/recipe/create")
+    @PostMapping("/create")
     public String createRecipe(
             // Recipe Details
             @RequestParam(name = "title") String title,
