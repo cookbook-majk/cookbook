@@ -17,22 +17,23 @@
             <div id="recipe-page-save" class="d-flex justify-content-end">
                 <th:block sec:authorize="isAuthenticated()">
                     <!-- Check for user ownership -->
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} == ${user.getUsername()}"> <!-- Populate the edit & delete buttons -->
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} == ${loggedInUser.getUsername()}"> <!-- Populate the edit & delete buttons -->
                         <a th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                     </th:block>
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${user.getUsername()}"> <!-- Check for Cookbook vs Spoonacular id -->
+                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${loggedInUser.getUsername()}"> <!-- Check for Cookbook vs Spoonacular id -->
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
                             <!-- Link via Spoonacular -->
                             <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">
-                                <i class="fa-regular fa-bookmark"></i>
+                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'fa-solid' : 'fa-regular'}" class="fa-bookmark"></i>
                             </a>
                         </th:block>
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
                             <!-- Link via Cookbook -->
                             <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">
-                                <i class="fa-regular fa-bookmark"></i>
+<!--                                <i class="fa-regular fa-bookmark"></i>-->
+                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'}" class="fa-bookmark"></i>
                             </a>
                         </th:block>
                     </th:block>
@@ -162,10 +163,10 @@
                                         </div>
                                     </div>
                                     <div class="review-info col d-flex justify-content-end align-items-center">
-                                        <input th:name="user" th:value="${user.getId()}" type="hidden">
+                                        <input th:name="user" th:value="${loggedInUser.getId()}" type="hidden">
                                         <a href="#" class="d-flex align-items-center">
-                                            <img th:src="${user.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
-                                            <span th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></span>
+                                            <img th:src="${loggedInUser.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
+                                            <span th:text="${loggedInUser.getFirstName()} + ' ' + ${loggedInUser.getLastName()}"></span>
                                         </a>
                                         <div class="d-flex align-items-center ms-2">
                                             <i class="fa-solid fa-calendar-days me-1"></i>

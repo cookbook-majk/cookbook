@@ -69,6 +69,7 @@ public class UserController {
             Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
             String loggedInUserName = loggedInUser.getName();
             User loggedInUserObj = userDao.findUserByUsername(loggedInUserName);
+            model.addAttribute("loggedInUser", loggedInUserObj);
             if (loggedInUserObj.getId() == user.getId()){
                 model.addAttribute("showEditProfile", true);
                 // Checks if logged in user is following page user
@@ -100,9 +101,6 @@ public class UserController {
         model.addAttribute("recentActivity", user.getRecentActivities());
         model.addAttribute("recipeDao", recipeDao);
         model.addAttribute("userDao", userDao);
-        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
-            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-        }
 
         return "/profile";
     }

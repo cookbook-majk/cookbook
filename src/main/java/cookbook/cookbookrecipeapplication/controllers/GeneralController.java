@@ -76,9 +76,7 @@ public class GeneralController {
         List<CustomRecipe> customRecipesBySummary = recipeDao.findCustomRecipesBySummary(search);
         for (CustomRecipe customRecipe : customRecipesBySummary){
             Recipe recipe = customRecipe.getRecipe();
-            if (cookbookRecipes.contains(recipe)){
-
-            } else {
+            if (!cookbookRecipes.contains(recipe)){
                 cookbookRecipes.add(recipe);
             }
         }
