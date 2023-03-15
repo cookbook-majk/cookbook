@@ -26,27 +26,30 @@
                     <th:block sec:authorize="isAuthenticated()">
                         <div th:if="${isNotFollowing}">
                             <a th:href="@{'/follow/' + ${user.getId()}}">
-                                <img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend" class="ms-3" alt="Add friend button"/>
+                                <img src="../static/images/follow.png" th:src="@{../images/follow.png}" id="add-friend"
+                                     class="ms-3" alt="Add friend button"/>
                             </a>
                         </div>
 
                         <div th:if="${isFollowing}">
                             <a th:href="@{'/unfollow/' + ${user.getId()}}">
-                                <img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}" id="add-friend" class="ms-3" alt="Add friend button"/>
+                                <img src="../static/images/unfollow.png" th:src="@{../images/unfollow.png}"
+                                     id="add-friend" class="ms-3" alt="Add friend button"/>
                             </a>
                         </div>
 
                         <div th:if="${showEditProfile}" class="d-flex justify-content-start">
                             <!-- TODO: Search User Button -->
-                            <button id="search-users-button" class="btn btn-danger ms-3">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
                             <button id="edit-profile-button" class="btn btn-danger ms-3">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#findUserModal">
-                                Launch demo modal
+                            <button id="search-users-btn" class="btn btn-danger ms-3" data-bs-toggle="modal"
+                                    data-bs-target="#findUserModal">
+                                <i class="fa-duotone fa-user-group"></i>
                             </button>
+<!--                            <button type="button" class="btn btn-primary">-->
+<!--                                Launch demo modal-->
+<!--                            </button>-->
                         </div>
                     </th:block>
                 </div>
@@ -55,18 +58,18 @@
                     User bio
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
-                        <li class="nav-item">
-                            <button type="button" id="followers-btn" data-bs-toggle="modal"
-                                    data-bs-target="#followersListModal">
+                    <li class="nav-item">
+                        <button type="button" id="followers-btn" data-bs-toggle="modal"
+                                data-bs-target="#followersListModal">
                             <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button type="button" id="following-btn" data-bs-toggle="modal"
-                                    data-bs-target="#followingListModal">
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" id="following-btn" data-bs-toggle="modal"
+                                data-bs-target="#followingListModal">
                             <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
-                            </button>
-                        </li>
+                        </button>
+                    </li>
                     <li class="nav-item">
                         <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                     </li>
@@ -93,10 +96,8 @@
                         data-bs-toggle="pill" data-bs-target="#user-chapters" aria-controls="user-chapters"
                         aria-selected="false">Saved
                 </button>
-
             </div>
         </div>
-
         <!-- Profile Body Section -->
         <div class="row tab-content">
 
@@ -286,26 +287,28 @@
             <h2 class="followers-modal-title">Followers</h2>
             <div class="modal-body">
                 <!-- List of following goes here -->
-                <div class="card flex-row" style="width: 100%; height: 100px;">
-                    <img class="card-img-left" src="/images/flank-steak.webp"/>
-                    <div class="card-body d-flex row">
-                    <span>
-                    <h3 class="card-title h5 h4-sm search-user-firstname">First name, Last Name</h3>
-                    </span>
-                        <p class="card-text">@username</p>
-                    </div>
-                </div>
+<!--                <div class="card flex-row" style="width: 100%; height: 100px;">-->
+<!--                    <img class="card-img-left" src="/images/flank-steak.webp"/>-->
+<!--                    <div class="card-body d-flex row">-->
+<!--                    <span>-->
+<!--                    <h3 class="card-title h5 h4-sm search-user-firstname">First name, Last Name</h3>-->
+<!--                    </span>-->
+<!--                        <p class="card-text">@username</p>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <th:block th:each="follower : ${following}">
                     <a th:href="@{'/profile/' + ${follower.getUser().getUsername()}}">
-                    <div class="card flex-row" style="width: 100%; height: 100px;">
-                        <img class="card-img-left" th:src="${follower.getUser().getProfilePicture()}" src="/images/flank-steak.webp"/>
-                        <div class="card-body d-flex row">
+                        <div class="card flex-row" style="width: 100%; height: 100px;">
+                            <img class="card-img-left" th:src="${follower.getUser().getProfilePicture()}"
+                                 src="/images/flank-steak.webp"/>
+                            <div class="card-body d-flex row">
         <span>
-        <h3 class="card-title h5 h4-sm search-user-firstname" th:text="${follower.getUser().getFirstName()} + ' ' + ${follower.getUser().getLastName()}">First name, Last Name</h3>
+        <h3 class="card-title h5 h4-sm search-user-firstname"
+            th:text="${follower.getUser().getFirstName()} + ' ' + ${follower.getUser().getLastName()}">First name, Last Name</h3>
         </span>
-                            <p class="card-text" th:text="'@' + ${follower.getUser().getUsername()}">@username</p>
+                                <p class="card-text" th:text="'@' + ${follower.getUser().getUsername()}">@username</p>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </th:block>
             </div>
@@ -324,15 +327,18 @@
                 <!-- List of following goes here -->
                 <th:block th:each="follower : ${followers}">
                     <a th:href="@{'/profile/' + ${follower.getFollower().getUsername()}}">
-                    <div class="card flex-row" style="width: 100%; height: 100px;">
-                        <img class="card-img-left" th:src="${follower.getFollower().getProfilePicture()}" src="/images/flank-steak.webp"/>
-                        <div class="card-body d-flex row">
+                        <div class="card flex-row" style="width: 100%; height: 100px;">
+                            <img class="card-img-left" th:src="${follower.getFollower().getProfilePicture()}"
+                                 src="/images/flank-steak.webp"/>
+                            <div class="card-body d-flex row">
         <span>
-        <h3 class="card-title h5 h4-sm search-user-firstname" th:text="${follower.getFollower().getFirstName()} + ' ' + ${follower.getFollower().getLastName()}">First name, Last Name</h3>
+        <h3 class="card-title h5 h4-sm search-user-firstname"
+            th:text="${follower.getFollower().getFirstName()} + ' ' + ${follower.getFollower().getLastName()}">First name, Last Name</h3>
         </span>
-                            <p class="card-text" th:text="'@' + ${follower.getFollower().getUsername()}">@username</p>
+                                <p class="card-text" th:text="'@' + ${follower.getFollower().getUsername()}">
+                                    @username</p>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </th:block>
             </div>
@@ -349,11 +355,14 @@
             <h2 class="following-modal-title">Find Friends</h2>
             <div class="modal-body">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search by Name or Username" id="searchUserInput">
+                    <input type="text" class="form-control" placeholder="Search by Name or Username"
+                           id="searchUserInput">
                     <button class="btn btn-outline-secondary" type="button" id="searchUserButton">Search</button>
                 </div>
                 <!-- List of following goes here -->
+                <div id="foundUsersContainer">
 
+                </div>
             </div>
             <div class="d-flex justify-content-center mb-4"></div>
         </div>
@@ -380,12 +389,28 @@
         client.picker(options).open();
     });
 
-    $('#searchUserButton').click(function(e) {
+    $('#searchUserButton').click(function (e) {
         e.preventDefault();
-        console.log("ran thing");
+        $(`#foundUsersContainer`).html('');
         fetch(`/users/${$('#searchUserInput').val()}.json`)
             .then(response => response.json()).then((data) => {
             console.log(data);
+            data.forEach(function(user){
+                $(`#foundUsersContainer`).append(`
+                <a href="/profile/${user.username}">
+                    <div class="card flex-row" style="width: 100%; height: 100px;">
+                        <img class="card-img-left" src="${user.profilePicture}"/>
+                        <div class="card-body d-flex row">
+                            <span>
+                                <h3 class="card-title h5 h4-sm search-user-firstname">${user.firstName} ${user.lastName}</h3>
+                            </span>
+                            <p class="card-text"">
+                                        @${user.username}</p>
+                        </div>
+                    </div>
+                </a>
+                `);
+            });
         })
     })
 

@@ -58,9 +58,10 @@ public class UserController {
     //* USER PROFILE *//
     @GetMapping("/profile/{userName}")
     public String showProfile(@PathVariable String userName, Model model) {
+        System.out.println("TEST: " + userName);
         User user = userDao.findUserByUsername(userName);
-        System.out.println("username from uri: " + userName);
-        System.out.println("user obj username: " + user.getUsername());
+//        System.out.println("username from uri: " + userName);
+//        System.out.println("user obj username: " + user.getUsername());
         // Checks if user is logged in
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
@@ -103,7 +104,6 @@ public class UserController {
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
             model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         }
-
         return "/profile";
     }
 
@@ -185,6 +185,7 @@ public class UserController {
             System.out.println(user.getUsername());
         }
         return userDao.searchUsers(searchParam);
+//        return "STRING";
     }
 
 
