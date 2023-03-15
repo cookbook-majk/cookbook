@@ -30,7 +30,7 @@ public class UserDaoService {
     public void registerUser(User user) {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
-        user.setProfilePicture("example.jpg");
+        user.setProfilePicture("https://cdn.filestackcontent.com/UHwsMtM8Qf2XXlhEIOON");
         user.setUserCreated(new Date());
         userDao.save(user);
         Chapter newChapter = new Chapter(user.getUsername() + "Saved", user.getUsername() + " saved recipes", user, false);

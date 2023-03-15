@@ -52,7 +52,7 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(@ModelAttribute User user) {
         userDao.registerUser(user);
-        return "redirect:/login";
+        return "redirect:/profile/" + user.getUsername();
     }
 
     //* USER PROFILE *//
@@ -60,8 +60,6 @@ public class UserController {
     public String showProfile(@PathVariable String userName, Model model) {
         System.out.println("TEST: " + userName);
         User user = userDao.findUserByUsername(userName);
-//        System.out.println("username from uri: " + userName);
-//        System.out.println("user obj username: " + user.getUsername());
         // Checks if user is logged in
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();

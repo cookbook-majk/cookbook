@@ -82,7 +82,8 @@ public class GeneralController {
         }
 
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
-            model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+            User loggedInUser = userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            model.addAttribute("loggedInUser", loggedInUser);
         }
 
         model.addAttribute("cookbookRecipes", cookbookRecipes);
@@ -107,8 +108,14 @@ public class GeneralController {
 
         List<Recipe> cookbookRecipes = recipeDao.findRecipesByDishType((recipeDao.getDishTypeByName(categoryName)).getId());
 
-        model.addAttribute("cookbookRecipes", cookbookRecipes);
+        if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            User loggedInUser = userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            model.addAttribute("loggedInUser", loggedInUser);
+        }
 
+        model.addAttribute("cookbookRecipes", cookbookRecipes);
+        model.addAttribute("recipeDao", recipeDao);
+        model.addAttribute("userDao", userDao);
         model.addAttribute("user", userDao.findUserByUsername("Spoonacular"));
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("searchTerm", categoryName);
