@@ -95,16 +95,21 @@ public class UserDaoService {
         recentActivityDao.delete(recentActivity);
     }
 
-    public List<User> searchUsers(@RequestParam("q") String searchTerm) {
+    public List<User> searchUsers(String searchTerm) {
         List<User> users = new ArrayList<>();
-        for (Long id : userDao.findUserBySearchTerm(searchTerm.toLowerCase())){
+        for (Long id : userDao.findUserByFirstNameOrLastNameOrUsername(searchTerm)){
             users.add(findUserById(id));
         }
         return users;
     }
 
+
+
     public boolean checkIfSaved(User user, Recipe recipe){
+        if (user != null){
         return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+        }
+        return false;
     }
 
 }

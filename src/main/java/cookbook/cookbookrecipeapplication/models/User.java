@@ -19,7 +19,6 @@ public class User {
     private long id;
 
     @Column(nullable = false, unique = true, length = 25)
-    @JsonManagedReference
     private String username;
 
     @Column(nullable = false)
@@ -31,11 +30,9 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @JsonManagedReference
     private String firstName;
 
     @Column(nullable = false)
-    @JsonManagedReference
     private String lastName;
 
     @Column(nullable = false)
@@ -47,7 +44,6 @@ public class User {
     private String userBio;
 
     @Column(nullable = false)
-    @JsonManagedReference
     private String profilePicture;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
