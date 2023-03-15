@@ -52,7 +52,7 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(@ModelAttribute User user) {
         userDao.registerUser(user);
-        return "redirect:/profile/" + user.getUsername();
+        return "redirect:/login";
     }
 
     //* USER PROFILE *//

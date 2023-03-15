@@ -11,6 +11,9 @@
     <hr>
     <!-- Activity Cards -->
     <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
+        <span th:if="${recentActivity.size()} == 0">
+            <h4 class="text-center mb-3">Nothing here just yet. Follow other users to see their activity!</h4>
+        </span>
         <th:block th:each="activity : ${recentActivity}">
             <th:block th:switch="${activity.getActivity_type()}">
                 <!-- TODO: Fix card title spacing -->
