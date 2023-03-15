@@ -39,7 +39,7 @@
                     <th:block th:each="recipe : ${cookbookRecipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
-                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
@@ -57,12 +57,13 @@
             <!-- Chapters -->
             <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <br>
-                <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>                <!-- Content Here -->
+                <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
+                <!-- Content Here -->
                 <div class="d-flex flex-wrap flex-row justify-content-between">
                     <th:block th:each="recipe : ${searchResults.getResults()}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
-                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'},
+                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getImage()},
                             rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
                             title = ${recipe.getTitle()},
@@ -82,5 +83,11 @@
 </div>
 
 <div th:replace="partials :: script"></div>
+<script th:inline="javascript">
+
+
+
+
+</script>
 </body>
 </html>

@@ -95,15 +95,32 @@ public class ChapterController {
         }
     }
 
-    @PostMapping("/chapter/unsave/{recipeId}")
+    @GetMapping("/chapter/unsave/{recipeId}")
+    @ResponseBody
+    public String unSaveRecipeFromSpoonacular(@PathVariable long recipeId) {
+        //  Finds saved chapter by logged in user
+        Chapter chapter = chapterDao.findSavedChapterByUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //  Removes recipe from users chapter
+        chapter.getSavedRecipes().remove(recipeDao.findRecipeById(recipeId));
+        // Resaves the updated chapter
+        chapterDao.saveChapter(chapter);
+        // Finds and removes recent activity associated with save
+        recipeDao.deleteRecentActivity(recentActivityDao.getRecentSavedActivityByUserIdAndRecipe(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId(), recipeId));
+        return "Unsaved " + recipeDao.findRecipeById(recipeId).getTitle();
+    }
+
+    @GetMapping("/chapter/unsave/sp/{recipeId}")
     @ResponseBody
     public String unSaveRecipe(@PathVariable long recipeId) {
         //  Finds saved chapter by logged in user
         Chapter chapter = chapterDao.findSavedChapterByUser((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        chapter.getSavedRecipes().remove(recipeDao.findRecipeById(recipeId));
+        //  Removes recipe from users chapter
+        chapter.getSavedRecipes().remove(recipeDao.findRecipeBySpoonacularId(recipeId));
+        // Resaves the updated chapter
         chapterDao.saveChapter(chapter);
-        recipeDao.deleteRecentActivity(recentActivityDao.getRecentSavedActivityByUserIdAndRecipe(recipeDao.findRecipeById(recipeId).getCustom_recipe().getCreator_id().getId(), recipeId));
-        return "Unsaved " + recipeDao.findRecipeById(recipeId).getTitle();
+        // Finds and removes recent activity associated with save
+        recipeDao.deleteRecentActivity(recentActivityDao.getRecentSavedActivityByUserIdAndRecipe(((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId(), recipeDao.findRecipeBySpoonacularId(recipeId).getId()));
+        return "Unsaved " + recipeDao.findRecipeBySpoonacularId(recipeId).getTitle();
     }
 
 }

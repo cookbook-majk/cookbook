@@ -14,8 +14,8 @@ VALUES ('spoonacular@email.com', 'Spoonacular', 'Spoonacular', '$2a$10$VfAsJ18TI
        ('ronaldmcdonald@email.com', 'Ronald', 'McDonald', '$2a$10$VfAsJ18TI0pSyEcH6rMkZeDgdZ5Eyc', 'https://api.time.com/wp-content/uploads/2014/04/74432_wavingronald.jpg?quality=85&w=2596', 'Im Lovin It', now(), 'mcdonalds');
 
 INSERT INTO dish_types (type)
-VALUES ('main course'),
-       ('side dish'),
+VALUES ('main-course'),
+       ('side-dish'),
        ('dessert'),
        ('appetizer'),
        ('salad'),
