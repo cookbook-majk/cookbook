@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 /* Logout configuration */
                 .and()
                 .logout()
-                .logoutSuccessUrl("/") // logged-out users will be sent to the home page
+                .logoutSuccessUrl("/login") // logged-out users will be sent to the home page
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeHttpRequests()
@@ -53,7 +53,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers( // only authenticated users can visit these pages
-                        "/profile/{username}/edit", "/logout", "/feed", "/recipe/create", "/recipe/{id}/edit", "/recipe/{id}/delete", "/follow/{user_id}", "/unfollow/{user_id}", "/chapter/save/{id}", "/chapter/unsave/{id}", "/chapter/save/sp/{id}", "/chapter/unsave/sp/{id}", "/profile/edit/{username}", "/review", "/review/{id}", "/review/delete/{id}", "/users/{searchParam}.json"
+                        "/profile/{username}/edit", "/logout", "/feed", "/create", "/recipe/{id}/edit", "/recipe/{id}/delete", "/follow/{user_id}", "/unfollow/{user_id}", "/chapter/save/{id}", "/chapter/unsave/{id}", "/chapter/save/sp/{id}", "/profile/edit/{username}", "/review", "/review/{id}", "/review/delete/{id}", "/users/{searchParam}.json"
                 )
                 .authenticated()
         ;

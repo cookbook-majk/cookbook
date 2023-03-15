@@ -5,6 +5,7 @@
 <title>Search Results</title>
 <body style="background-color: var(--white);">
 <nav th:replace="partials :: navbar"></nav>
+
 <div id="banner-image">
     <div class="search-bar-container">
         <form action="#" method="get">
@@ -12,7 +13,7 @@
         </form>
     </div>
 </div>
-<div class="search-container">
+<div id="browse-body" class="search-container">
     <div id="profile-tabs" class="row mt-4 mb-4" role="tablist">
         <div class="col-6 pe-1">
             <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"

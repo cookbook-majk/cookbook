@@ -43,13 +43,10 @@
                             <button id="edit-profile-button" class="btn btn-danger ms-3">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button id="search-users-btn" class="btn btn-danger ms-3" data-bs-toggle="modal"
+                            <button id="search-users-btn" class="btn btn-danger ms-2" data-bs-toggle="modal"
                                     data-bs-target="#findUserModal">
                                 <i class="fa-solid fa-user-group"></i>
                             </button>
-<!--                            <button type="button" class="btn btn-primary">-->
-<!--                                Launch demo modal-->
-<!--                            </button>-->
                         </div>
                     </th:block>
                 </div>
@@ -108,7 +105,6 @@
                 <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
                     <th:block th:each="activity : ${user.getRecentActivities()}">
                         <th:block th:switch="${activity.getActivity_type()}">
-                            <!-- TODO: Fix card title spacing -->
                             <!-- Recipe Activity -->
                             <th:block th:case="1">
                                 <div th:replace="partials :: activity-card(
@@ -273,7 +269,6 @@
             <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
                 <button id="saveChangesBtn" type="submit" class="btn btn-danger btn-lg">Save your changes</button>
             </div>
-            <div class="d-flex justify-content-center mb-4"></div>
         </form>
     </div>
 </div>
