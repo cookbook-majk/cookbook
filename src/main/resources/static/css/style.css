@@ -562,6 +562,9 @@ body::-webkit-scrollbar {
 .dev-links i {
     font-size: 25px;
 }
+.dev-links a {
+    text-decoration: none;
+}
 .dev-links .fa-github {
     color: #1a1e22;
 }
@@ -570,6 +573,19 @@ body::-webkit-scrollbar {
 }
 .dev-links .fa-copyright {
     color: #8bc34b;
+}
+.tech-icon {
+    width: 125px;
+    height: 125px;
+    padding: 15px;
+}
+.carousel-inner {
+    border-radius: 15px;
+}
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
 }
 /* ACTIVITY CARD */
 .activity-card {

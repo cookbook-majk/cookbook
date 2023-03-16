@@ -10,6 +10,7 @@
     <div id="dev-team" class="row mt-4">
         <h1 class="header">Meet Our Team</h1>
         <hr class="mb-5">
+        <!-- Kaylee Morris -->
         <div class="col-6 col-lg-3 text-center">
             <img th:src="@{images/kaylee-headshot.jpeg}" src="" class="circle-img img-fluid" alt="Kaylee Morris">
             <h3>Kaylee Morris</h3>
@@ -26,6 +27,7 @@
                 </a>
             </div>
         </div>
+        <!-- Matias Silva -->
         <div class="col-6 col-lg-3 text-center">
             <img th:src="@{images/matias-headshot.jpeg}" src="" class="circle-img img-fluid" alt="Matias Silva">
             <h3>Matias Silva</h3>
@@ -42,6 +44,7 @@
                 </a>
             </div>
         </div>
+        <!-- Joshua Mullins -->
         <div class="col-6 col-lg-3 mt-4 mt-lg-0 text-center">
             <img th:src="@{images/joshua-headshot.jpeg}" src="" class="circle-img img-fluid" alt="Joshua Mullins">
             <h3>Joshua Mullins</h3>
@@ -58,7 +61,8 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-lg-3 mt-4 mt-lg-0 text-center">
+        <!-- Andre Salinas -->
+        <div class="col-6 col-lg-3 mt-4 mb-4 mt-lg-0 text-center">
             <img th:src="@{images/andre-headshot.jpeg}" src="" class="circle-img img-fluid" alt="Andre Salinas">
             <h3>Andre Salinas</h3>
             <h5>Backend Developer</h5>
@@ -75,11 +79,74 @@
             </div>
         </div>
     </div>
-<!--    <div id="dev-process" class="row mt-4">-->
-<!--        <h1 class="header">Development Process</h1>-->
-<!--        <hr class="mb-5">-->
-<!--    </div>-->
-
+    <div id="tech-stack" class="row mt-4">
+        <h1 class="header">Technology Stack</h1>
+        <hr>
+        <div class="d-flex flex-row flex-wrap justify-content-center mt-4 mb-4">
+            <a href="https://www.figma.com/">
+                <img src="https://camo.githubusercontent.com/ed93c2b000a76ceaad1503e7eb9356591b885227e82a36a005b9d3498b303ba5/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6669676d612f6669676d612d69636f6e2e737667" alt="figma" class="tech-icon"/>
+            </a>
+            <a href="https://www.w3.org/html/">
+                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" class="tech-icon"/>
+            </a>
+            <a href="https://www.w3schools.com/css/">
+                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" class="tech-icon"/>
+            </a>
+            <a href="https://getbootstrap.com">
+                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" class="tech-icon">
+            </a>
+            <a href="https://spring.io/">
+                <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" class="tech-icon"/>
+            </a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" class="tech-icon"/>
+            </a>
+            <a href="https://www.java.com/">
+                <img src="https://profilinator.rishav.dev/skills-assets/java-original-wordmark.svg" alt="Java" class="tech-icon">
+            </a>
+            <a href="https://www.mysql.com/">
+                <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" class="tech-icon"/>
+            </a>
+            <a href="https://spoonacular.com/">
+                <img src="https://spoonacular.com/images/spoonacular-logo-b.svg" alt="spoonacular" class="tech-icon"/>
+            </a>
+            <a href="https://www.filestack.com/">
+                <img src="https://avatars.githubusercontent.com/u/15999235?s=200&v=4" alt="filestack" class="tech-icon"/>
+            </a>
+        </div>
+    </div>
+    <div id="dev-process" class="row mt-4 mb-4">
+        <h1 class="header">Development Process</h1>
+        <hr>
+        <div class="mt-4 mb-4 d-flex justify-content-center">
+            <div id="carouselButtons" class="carousel slide w-lg-75 w-100" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselButtons" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselButtons" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselButtons" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="" th:src="@{images/wireframe.png}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="" th:src="@{images/trello.png}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="" th:src="@{images/database.png}" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselButtons" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselButtons" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="partials :: script"></div>
