@@ -676,9 +676,8 @@ body::-webkit-scrollbar {
     text-decoration-color: #1163bd;
 }
 /*Following/ Followers Button*/
-#followers-btn, #following-btn, #recipe-btn{
+#followers-btn, #following-btn, #recipe-btn-profile{
     /*Testing links not being blue*/
-    -webkit-tap-highlight-color: transparent;
     border-style: none;
     background-color: var(--white);
 }
