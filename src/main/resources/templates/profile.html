@@ -55,20 +55,22 @@
                     User bio
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
-                    <li class="nav-item">
+                    <li>
                         <button type="button" id="followers-btn" data-bs-toggle="modal"
                                 data-bs-target="#followersListModal">
                             <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
                         </button>
                     </li>
-                    <li class="nav-item">
+                    <li>
                         <button type="button" id="following-btn" data-bs-toggle="modal"
                                 data-bs-target="#followingListModal">
                             <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
                         </button>
                     </li>
-                    <li class="nav-item">
-                        <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
+                    <li>
+                        <button type="button" id="recipes-btn">
+                            <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -300,7 +302,8 @@
                                  src="/images/flank-steak.webp"/>
                             <div class="card-body d-flex row">
                                 <span>
-                                <h3 class="card-title h5 h4-sm search-user-firstname" th:text="${follower.getUser().getFirstName()} + ' ' + ${follower.getUser().getLastName()}">First name, Last Name</h3>
+                                <h3 class="card-title h5 h4-sm search-user-firstname"
+                                    th:text="${follower.getUser().getFirstName()} + ' ' + ${follower.getUser().getLastName()}">First name, Last Name</h3>
                                 </span>
                                 <p class="card-text" th:text="'@' + ${follower.getUser().getUsername()}">@username</p>
                             </div>
@@ -395,7 +398,7 @@
         fetch(`/users/${$('#searchUserInput').val()}.json`)
             .then(response => response.json()).then((data) => {
             console.log(data);
-            data.forEach(function(user){
+            data.forEach(function (user) {
                 $(`#foundUsersContainer`).append(`
                 <a href="/profile/${user.username}" class="user-anchor">
                     <div class="card flex-row user-search-card" style="width: 100%; height: 100px;">

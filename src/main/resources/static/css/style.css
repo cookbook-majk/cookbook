@@ -655,7 +655,7 @@ body::-webkit-scrollbar {
     text-decoration-color: #1163bd;
 }
 /*Following/ Followers Button*/
-#followers-btn, #following-btn{
+#followers-btn, #following-btn, #recipes-btn{
     border-style: none;
     background-color: var(--white);
 }

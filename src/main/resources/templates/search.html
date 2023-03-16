@@ -78,7 +78,7 @@
                             lastname = ${user.getLastName()},
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipe.getReviews().size})">
+                            saves = ${recipeDao.findRecipeBySpoonacularId(recipe.getId()) != null ? recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle()) : 0})">
                         </div>
                     </th:block>
                 </div>

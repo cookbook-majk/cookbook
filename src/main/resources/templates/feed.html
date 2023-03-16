@@ -42,7 +42,7 @@
                                     image = ${activity.getRecipe().getImage()},
                                     rating = ${recipeDao.getRatingAverageByRecipe(activity.getRecipe())},
                                     title = ${activity.getRecipe().getTitle()},
-                                    text = ${activity.getRecipe().getCustom_recipe().getSummary() == null} ?
+                                    text = ${activity.getRecipe().getCustom_recipe() == null} ?
                                         '' : ${activity.getRecipe().getCustom_recipe().getSummary()},
                                     username = ${activity.getUser().getUsername()},
                                     userimg = ${activity.getUser().getProfilePicture()},
@@ -56,7 +56,7 @@
                     <div th:replace="partials :: activity-card(
                                     link = '/profile/' + ${activity.getTarget_user().getUsername()},
                                     image = ${activity.getTarget_user().getProfilePicture()},
-                                    rating = 1,
+                                    rating = 6,
                                     title = ${activity.getTarget_user().getFirstName()} + ' ' + ${activity.getTarget_user().getLastName()},
                                     text = ${activity.getTarget_user().getUserBio() == null} ?
                                         '' : ${activity.getTarget_user().getUserBio()},

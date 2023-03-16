@@ -141,7 +141,7 @@ public class RecipeDaoService {
     public SearchResults getCategorySearchResultsSpoonacular(String searchParam) throws IOException, InterruptedException {
         String updatedSearchParam = searchParam.replaceAll("-", "%20");
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=%20&type=" + updatedSearchParam + "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&ignorePantry=true&sortDirection=asc&number=5"))
+                .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=%20&type=" + updatedSearchParam + "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&ignorePantry=true&sortDirection=asc&number=12"))
                 .header("X-RapidAPI-Key", PropertiesReader.getProperty("SPOONACULAR_API_KEY"))
                 .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
