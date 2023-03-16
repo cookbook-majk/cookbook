@@ -209,13 +209,20 @@
             </div>
             <div class="col-9">
                 <div class="card-body d-flex flex-column justify-content-between">
-                    <div class="star-rating" th:data="${rating}">
-                        <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
-                        <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
-                        <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
-                        <i th:style="${rating > 3}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
-                        <i th:style="${rating > 4}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
-                    </div>
+                    <th:block th:if="${rating != 6}">
+                        <div class="star-rating" th:data="${rating}">
+                            <i th:style="${rating > 0}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                            <i th:style="${rating > 1}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                            <i th:style="${rating > 2}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                            <i th:style="${rating > 3}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                            <i th:style="${rating > 4}? 'color: var(--lightred);'" class="fa-solid fa-star"></i>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${rating == 6}">
+                        <div class="star-rating d-none">
+
+                        </div>
+                    </th:block>
                     <h5 class="card-title mt-2" th:text="${title}">Recipe Title</h5>
                     <div class="activity-description">
                         <!-- TODO: Toggle Read More / Show Less button -->
