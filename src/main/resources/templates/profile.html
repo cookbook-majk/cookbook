@@ -160,7 +160,7 @@
                             <!-- Review Activity -->
                             <th:block th:case="4">
                                 <div th:replace="partials :: activity-card(
-                                    link = '/recipe/' + ${activity.getReview().getRecipe_id()},
+                                    link = '/recipe/' + ${activity.getReview().getRecipe_id().getId()},
                                     image = ${activity.getReview().getRecipe_id().getImage()},
                                     rating = ${activity.getReview().getRating()},
                                     title = ${activity.getReview().getTitle()},
@@ -238,7 +238,7 @@
 
 <!-- Edit Profile Modal -->
 <div id="edit-profile-modal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="z-index: 2">
         <span class="close">&times;</span>
         <h2 class="editYourProfile">Edit your profile!</h2>
         <form id="edit-profile-form" th:action="'/profile/edit/' + ${user.getUsername()}" th:method="post"
@@ -285,7 +285,7 @@
 <!-- Followers Modal -->
 <!-- TODO: Formatting -->
 <div id="followersListModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="followers-modal-title">Followers</h2>
@@ -315,7 +315,7 @@
 <!-- Following Modal -->
 <!-- TODO: Formatting -->
 <div id="followingListModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="following-modal-title">Following</h2>
@@ -349,7 +349,7 @@
 
 <!-- FIND USERS MODAL -->
 <div id="findUserModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%;">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="following-modal-title">Find Friends</h2>

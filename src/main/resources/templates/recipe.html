@@ -25,16 +25,16 @@
                     <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${loggedInUser.getUsername()}"> <!-- Check for Cookbook vs Spoonacular id -->
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
                             <!-- Link via Spoonacular -->
-                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">
-                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'fa-solid' : 'fa-regular'}" class="fa-bookmark"></i>
-                            </a>
+<!--                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">-->
+                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}" class="fa-bookmark saveRecipeSp" th:data-id="${recipe.getSpoonacularId()}"></i>
+<!--                            </a>-->
                         </th:block>
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
                             <!-- Link via Cookbook -->
-                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">
+<!--                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">-->
 <!--                                <i class="fa-regular fa-bookmark"></i>-->
-                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'fa-solid' : 'fa-regular'}" class="fa-bookmark"></i>
-                            </a>
+                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}" class="fa-bookmark" th:data-id="${recipe.getId()}"></i>
+<!--                            </a>-->
                         </th:block>
                     </th:block>
                 </th:block>
