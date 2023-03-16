@@ -656,6 +656,8 @@ body::-webkit-scrollbar {
 }
 /*Following/ Followers Button*/
 #followers-btn, #following-btn{
+    /*Testing links not being blue*/
+    -webkit-tap-highlight-color: transparent;
     border-style: none;
     background-color: var(--white);
 }
