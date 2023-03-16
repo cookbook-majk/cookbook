@@ -9,8 +9,13 @@
 
 <div id="banner-image">
     <div class="search-bar-container">
-        <form action="#" method="get">
-            <input type="search" id="searchHTML" name="searchHTML" placeholder="Search Recipes...">
+        <form th:action="@{/search}" th:method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search recipes..." aria-label="Search recipes..." aria-describedby="search-addon">
+                <button class="btn btn-danger" type="submit" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </form>
     </div>
 </div>
