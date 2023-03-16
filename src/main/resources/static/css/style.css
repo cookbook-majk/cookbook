@@ -251,6 +251,7 @@ body::-webkit-scrollbar {
 }
 .recipe-card-user {
     position: absolute;
+    z-index: 2;
     top: 160px;
     left: 10px;
 }
@@ -270,6 +271,7 @@ body::-webkit-scrollbar {
 .recipe-card-user img {
     border-radius: 50%;
     height: 35px;
+    z-index: 2;
 }
 .recipe-card .card-body {
     height: 175px;
@@ -278,6 +280,9 @@ body::-webkit-scrollbar {
 }
 .recipe-card .card-title {
     font-weight: 600;
+}
+#followersListModal, #edit-profile-modal, #followingListModal, #findUserModal {
+    z-index: 5;
 }
 .card-foot {
     color: black;
@@ -671,7 +676,7 @@ body::-webkit-scrollbar {
     text-decoration-color: #1163bd;
 }
 /*Following/ Followers Button*/
-#followers-btn, #following-btn, #recipes-btn{
+#followers-btn, #following-btn, #recipe-btn{
     /*Testing links not being blue*/
     -webkit-tap-highlight-color: transparent;
     border-style: none;
