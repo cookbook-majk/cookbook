@@ -653,17 +653,31 @@ body::-webkit-scrollbar {
     background-color: transparent;
 }
 /* Search User Card */
+.user-search-card{
+    border-radius: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
 .card-img-left{
-    border-radius: 50%;
+    border-radius: 19px;
     max-width: 100px;
     max-height: 100px;
 }
-.search-user-firstname, .search-user-lastname{
+.search-user-firstname, .search-user-username{
     display: inline-flex;
+    color: black;
+}
+.user-anchor{
+    text-decoration: none;
+}
+.user-anchor:hover{
+    text-decoration: underline;
+    text-decoration-color: #1163bd;
 }
 /*Following/ Followers Button*/
 #followers-btn, #following-btn{
     border-style: none;
+    background-color: var(--white);
 }
 #following-btn:hover, #followers-btn:hover{
     background-color: var(--lightgrey);
