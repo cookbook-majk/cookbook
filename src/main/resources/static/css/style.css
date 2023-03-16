@@ -653,9 +653,8 @@ body::-webkit-scrollbar {
     background-color: transparent;
 }
 /* Search User Card */
-.user-search-card{
+.user-search-card, .user-card{
     border-radius: 20px;
-    border-width: 3px;
     margin-top: 7px;
     margin-bottom: 7px;
 }
@@ -664,14 +663,14 @@ body::-webkit-scrollbar {
     max-width: 100px;
     max-height: 100px;
 }
-.search-user-firstname, .search-user-username{
+.search-user-firstname, .search-user-username, .user-card{
     display: inline-flex;
     color: black;
 }
-.user-anchor{
+.user-anchor, .user-card-anchor{
     text-decoration: none;
 }
-.user-anchor:hover{
+.user-anchor:hover, .user-card-anchor:hover{
     text-decoration: underline;
     text-decoration-color: #1163bd;
 }
