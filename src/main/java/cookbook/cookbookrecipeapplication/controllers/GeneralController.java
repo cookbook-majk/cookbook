@@ -71,7 +71,12 @@ public class GeneralController {
         List<Recipe> cookbookRecipes = new ArrayList<>();
 
         List<Recipe> recipesByTitle = recipeDao.searchRecipesByTitle(search);
-        cookbookRecipes.addAll(recipesByTitle);
+
+        for (Recipe recipe : recipesByTitle) {
+            if (recipe.getSpoonacularId() == 0) {
+                cookbookRecipes.add(recipe);
+            }
+        }
 
         List<CustomRecipe> customRecipesBySummary = recipeDao.findCustomRecipesBySummary(search);
         for (CustomRecipe customRecipe : customRecipesBySummary){

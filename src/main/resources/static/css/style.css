@@ -39,12 +39,6 @@ body::-webkit-scrollbar {
     letter-spacing: 1px;
     padding: 0;
 }
-#nav-links {
-    width: 230px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 #nav-links>a>i {
     scale: 200%;
 }
@@ -80,10 +74,6 @@ body::-webkit-scrollbar {
 .offcanvas-body h4 {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-}
-#search-addon {
-    background: none;
-    scale: 150%;
 }
 /* HOMEPAGE */
 #call-to-action>div {
@@ -475,17 +465,7 @@ body::-webkit-scrollbar {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-#searchHTML {
     width: 550px;
-    height: 40px;
-    border-color: 1px solid var(--grey);
-    box-sizing: border-box;
-    border-radius: 7px;
-}
-#searchHTML:focus {
-    background-color: var(--lightgrey);
-    outline: none;
 }
 .search-container {
     padding-left: 25px;

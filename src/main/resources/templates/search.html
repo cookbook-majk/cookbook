@@ -8,8 +8,13 @@
 
 <div id="banner-image">
     <div class="search-bar-container">
-        <form action="#" method="get">
-            <input type="search" id="searchHTML" name="searchHTML" placeholder="Search Recipes...">
+        <form th:action="@{/search}" th:method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search recipes..." aria-label="Search recipes..." aria-describedby="search-addon">
+                <button class="btn btn-danger" type="submit" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </form>
     </div>
 </div>
@@ -35,7 +40,7 @@
                 <br>
                 <h1 class="header"><span th:text="${cookbookRecipes.size()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
                 <!-- Content Here -->
-                <div class="d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-wrap flex-row justify-content-start">
                     <th:block th:each="recipe : ${cookbookRecipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
@@ -59,7 +64,7 @@
                 <br>
                 <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
                 <!-- Content Here -->
-                <div class="d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-wrap flex-row justify-content-start">
                     <th:block th:each="recipe : ${searchResults.getResults()}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},

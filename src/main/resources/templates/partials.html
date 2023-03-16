@@ -22,28 +22,22 @@
 <nav th:fragment="navbar">
     <nav class="navbar fixed-top">
         <div class="container-fluid">
-            <div class="d-flex">
+            <div class="col d-flex">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-                <form th:action="@{/search}" th:method="get" class="input-group rounded ms-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" name="search"
-                           aria-label="Search" aria-describedby="search-addon"/>
-                    <button type="submit" class="input-group-text border-0" id="search-addon"><i
-                            class="fas fa-search"></i></button>
-                </form>
             </div>
-            <a class="navbar-brand title" href="/home" style="margin-left: -55px;">cook<span style="color: var(--red);">book</span></a>
-            <div class="d-flex align-items-center" id="nav-links">
-                <a class="nav-link" aria-current="page" href="/feed"><i class="fa-solid fa-utensils"></i></a>
-                <a class="nav-link" href="/browse"><i class="fa-solid fa-book-open"></i></a>
+            <a class="col navbar-brand title text-center" href="/home">cook<span style="color: var(--red);">book</span></a>
+            <div class="col d-flex align-items-center justify-content-end" id="nav-links">
+                <a class="nav-link" aria-current="page" href="/feed"><i class="fa-solid fa-utensils me-4"></i></a>
+                <a class="nav-link" href="/browse"><i class="fa-solid fa-book-open ms-2 me-4"></i></a>
                 <th:block sec:authorize="!isAuthenticated()">
                     <a class="btn btn-danger" href="/login" style="height: 45px; width: 100px;">Log In</a>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="post">
-                        <button class="btn btn-danger" style="height: 45px; width: 100px;">Log Out</button>
+                        <button class="btn btn-danger ms-3" style="height: 45px; width: 100px;">Log Out</button>
                     </form>
                 </th:block>
             </div>
