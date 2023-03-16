@@ -102,7 +102,7 @@
                 <h1 class="header">Recent Activity</h1>
                 <hr>
                 <!-- Activity Cards -->
-                <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-between">
+                <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-end">
                     <span th:if="${user.getRecentActivities().size()} == 0">
                         <h4 class="text-center mb-3">No recent activity.</h4>
                     </span>
@@ -182,7 +182,7 @@
                 <h1 class="header">User Recipes</h1>
                 <hr>
                 <!-- User Recipe Cards -->
-                <div id="recipe-content" class="d-flex flex-wrap flex-row-reverse justify-content-between">
+                <div id="recipe-content" class="d-flex flex-wrap flex-row-reverse justify-content-end">
                     <span th:if="${recipes.size()} == 0">
                         <h4 class="text-center mb-3">No recipes created just yet!</h4>
                     </span>
@@ -209,7 +209,7 @@
                 <h1 class="header">Saved Recipes</h1>
                 <hr>
                 <!-- Saved Recipe Cards -->
-                <div id="saved-content" class="d-flex flex-wrap flex-row-reverse justify-content-between">
+                <div id="saved-content" class="d-flex flex-wrap flex-row-reverse justify-content-end">
                     <span th:if="${savedRecipes.size()} == 0">
                         <h4 class="text-center mb-3">No recipes saved just yet!</h4>
                     </span>
