@@ -68,7 +68,7 @@
                         </div>
                     </li>
                     <li>
-                        <div id="recipe-btn">
+                        <div>
                             <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
                         </div>
                     </li>
@@ -193,7 +193,7 @@
                             id = ${recipe.getRecipe().getId()},
                             saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getRecipe().getImage()},
-                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
+                            rating = ${recipeDao.getRatingAverageByRecipe(recipe.getRecipe())},
                             title = ${recipe.getRecipe().getTitle()},
                             username = ${user.getUsername()},
                             userimg = ${user.getProfilePicture()},
