@@ -50,6 +50,13 @@
                             <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" id="password2Reg" onblur="return validatePassword2();">
                         </div>
                     </div>
+                    <div id="message d-flex flex-column">
+                        <div><small>Password must contain the following:</small></div>
+                        <div><small id="letter" class="invalid">A <b>lowercase</b> letter</small></div>
+                        <div><small id="capital" class="invalid"> A <b>capital (uppercase)</b> letter </small></div>
+                        <div><small id="number" class="invalid"> A <b>number</b></small></div>
+                        <div><small id="length" class="invalid"> Minimum <b>8 characters</b> </small></div>
+                    </div>
                     <div class="d-flex justify-content-center mx-4 mb-2 mb-lg-4">
                         <button type="submit" class="btn btn-danger btn-lg">Register</button>
                     </div>
@@ -59,13 +66,6 @@
                         </span>
                     </div>
                 </form>
-                <div id="message">
-                    <h6>Password must contain the following:</h6>
-                    <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                    <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                    <p id="number" class="invalid">A <b>number</b></p>
-                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-                </div>
             </div>
             <div id="liveAlertPlaceholder">
 
