@@ -655,6 +655,7 @@ body::-webkit-scrollbar {
 /* Search User Card */
 .user-search-card{
     border-radius: 20px;
+    border-width: 3px;
     margin-top: 7px;
     margin-bottom: 7px;
 }
