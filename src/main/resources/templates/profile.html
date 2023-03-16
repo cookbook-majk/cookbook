@@ -56,21 +56,21 @@
                 </p>
                 <ul id="user-stats" class="nav justify-content-between">
                     <li>
-                        <button type="button" id="followers-btn" data-bs-toggle="modal"
+                        <div id="followers-btn" data-bs-toggle="modal"
                                 data-bs-target="#followersListModal">
                             <span id="num-followers" th:text="${user.getFollowing().size()}">100</span> Followers
-                        </button>
+                        </div>
                     </li>
                     <li>
-                        <button type="button" id="following-btn" data-bs-toggle="modal"
+                        <div id="following-btn" data-bs-toggle="modal"
                                 data-bs-target="#followingListModal">
                             <span id="num-following" th:text="${user.getUserFollows().size()}">100</span> Following
-                        </button>
+                        </div>
                     </li>
                     <li>
-                        <button type="button" id="recipes-btn">
+                        <div id="recipe-btn">
                             <span id="num-recipes" th:text="${user.getCustom_recipes().size()}">34</span> Recipes
-                        </button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -287,7 +287,7 @@
 <!-- Followers Modal -->
 <!-- TODO: Formatting -->
 <div id="followersListModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
+    <div class="modal-dialog" style="max-width: 550px; height: 100%; z-index: 3">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="followers-modal-title">Followers</h2>
@@ -318,7 +318,7 @@
 <!-- Following Modal -->
 <!-- TODO: Formatting -->
 <div id="followingListModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 3">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="following-modal-title">Following</h2>
@@ -352,7 +352,7 @@
 
 <!-- FIND USERS MODAL -->
 <div id="findUserModal" class="modal">
-    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 2">
+    <div class="modal-dialog" style="max-width: 550px; max-height: 85%; z-index: 3">
         <div class="modal-content">
             <span class="close" data-bs-dismiss="modal">&times;</span>
             <h2 class="following-modal-title">Find Friends</h2>
