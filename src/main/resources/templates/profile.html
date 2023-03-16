@@ -99,15 +99,14 @@
         </div>
         <!-- Profile Body Section -->
         <div class="row tab-content">
-
             <div id="user-activity" class="tab-pane fade" role="tabpanel" aria-labelledby="activity-btn" tabindex="0">
                 <h1 class="header">Recent Activity</h1>
                 <hr>
+                <th:block th:if="${user.getRecentActivities().size()} == 0">
+                    <h4 class="text-center mb-3">No recent activity.</h4>
+                </th:block>
                 <!-- Activity Cards -->
                 <div id="activity-content" class="d-flex flex-wrap flex-column-reverse justify-content-end">
-                    <span th:if="${user.getRecentActivities().size()} == 0">
-                        <h4 class="text-center mb-3">No recent activity.</h4>
-                    </span>
                     <th:block th:each="activity : ${user.getRecentActivities()}">
                         <th:block th:switch="${activity.getActivity_type()}">
                             <!-- Recipe Activity -->
@@ -183,11 +182,12 @@
                  tabindex="0">
                 <h1 class="header">User Recipes</h1>
                 <hr>
+                <th:block th:if="${recipes.size()} == 0">
+                    <h4 class="text-center mb-3">No recipes created just yet!</h4>
+                </th:block>
                 <!-- User Recipe Cards -->
                 <div id="recipe-content" class="d-flex flex-wrap flex-row-reverse justify-content-end">
-                    <span th:if="${recipes.size()} == 0">
-                        <h4 class="text-center mb-3">No recipes created just yet!</h4>
-                    </span>
+
                     <th:block th:each="recipe : ${recipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getRecipe().getId()},
@@ -210,11 +210,11 @@
             <div id="user-chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <h1 class="header">Saved Recipes</h1>
                 <hr>
+                <th:block th:if="${savedRecipes.size()} == 0">
+                        <h4 class="text-center mb-3">No recipes saved just yet!</h4>
+                </th:block>
                 <!-- Saved Recipe Cards -->
                 <div id="saved-content" class="d-flex flex-wrap flex-row-reverse justify-content-end">
-                    <span th:if="${savedRecipes.size()} == 0">
-                        <h4 class="text-center mb-3">No recipes saved just yet!</h4>
-                    </span>
                     <th:block th:each="recipe : ${savedRecipes}">
                         <div th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
