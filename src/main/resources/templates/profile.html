@@ -148,7 +148,7 @@
                                 <div th:replace="partials :: activity-card(
                                     link = '/profile/' + ${activity.getTarget_user().getUsername()},
                                     image = ${activity.getTarget_user().getProfilePicture()},
-                                    rating = 1,
+                                    rating = 6,
                                     title = ${activity.getTarget_user().getFirstName()} + ' ' + ${activity.getTarget_user().getLastName()},
                                     text = ${activity.getTarget_user().getUserBio() == null} ?
                                         '' : ${activity.getTarget_user().getUserBio()},
