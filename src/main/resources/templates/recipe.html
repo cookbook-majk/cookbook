@@ -11,30 +11,37 @@
     <!-- Recipe Banner w/ User & Bookmark -->
     <div id="recipe-banner">
         <div id="recipe-page-cover">
-            <img th:src="${recipe.image}" src="/images/flank-steak.webp" alt="recipe cover image" id="recipe-cover-image">
+            <img th:src="${recipe.image}" src="/images/flank-steak.webp" alt="recipe cover image"
+                 id="recipe-cover-image">
         </div>
         <div id="recipe-cover-buttons">
             <div id="recipe-page-save" class="d-flex justify-content-end">
                 <th:block sec:authorize="isAuthenticated()">
                     <!-- Check for user ownership -->
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} == ${loggedInUser.getUsername()}"> <!-- Populate the edit & delete buttons -->
+                    <th:block
+                            th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} == ${loggedInUser.getUsername()}">
+                        <!-- Populate the edit & delete buttons -->
                         <a th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
                     </th:block>
-                    <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${loggedInUser.getUsername()}"> <!-- Check for Cookbook vs Spoonacular id -->
+                    <th:block
+                            th:if="${recipe.getCustom_recipe().getCreator_id().getUsername()} != ${loggedInUser.getUsername()}">
+                        <!-- Check for Cookbook vs Spoonacular id -->
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
                             <!-- Link via Spoonacular -->
-<!--                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">-->
-                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}" class="fa-bookmark saveRecipeSp" th:data-id="${recipe.getSpoonacularId()}"></i>
-<!--                            </a>-->
+                            <!--                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">-->
+                            <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}"
+                               class="fa-bookmark saveRecipeSp" th:data-id="${recipe.getSpoonacularId()}"></i>
+                            <!--                            </a>-->
                         </th:block>
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
                             <!-- Link via Cookbook -->
-<!--                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">-->
-<!--                                <i class="fa-regular fa-bookmark"></i>-->
-                                <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}" class="fa-bookmark" th:data-id="${recipe.getId()}"></i>
-<!--                            </a>-->
+                            <!--                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">-->
+                            <!--                                <i class="fa-regular fa-bookmark"></i>-->
+                            <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}"
+                               class="fa-bookmark" th:data-id="${recipe.getId()}"></i>
+                            <!--                            </a>-->
                         </th:block>
                     </th:block>
                 </th:block>
@@ -44,8 +51,10 @@
             </div>
             <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
                 <a th:href="'/profile/' + ${recipe.getCustom_recipe().getCreator_id().getUsername()}" href="#">
-                    <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}" src="/images/pizzaman.jpg" alt="user profile image">
-                    <span class="ms-2" th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()} + ' ' + ${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Name</span>
+                    <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}"
+                         src="/images/pizzaman.jpg" alt="user profile image">
+                    <span class="ms-2"
+                          th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()} + ' ' + ${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Name</span>
                 </a>
             </div>
         </div>
@@ -65,8 +74,10 @@
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
                     <div class="col d-flex justify-content-end align-content-center">
-                        <a href="#"><i class="fa-solid fa-comment"></i> <span th:text="${recipe.getReviews().size()}">#</span></a>
-                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span th:text="${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())}">#</span></a>
+                        <a href="#"><i class="fa-solid fa-comment"></i> <span
+                                th:text="${recipe.getReviews().size()}">#</span></a>
+                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span
+                                th:text="${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())}">#</span></a>
                     </div>
                 </div>
             </div>
@@ -114,7 +125,13 @@
                         <!-- TODO: Round whole ingredient amounts -->
                         <!-- TODO: Sentence-case -->
                         <!-- TODO: Remove nulls -->
-                        <span th:text="${ingredient.amount}"></span> <span th:text="${ingredient.unit}"></span> <span th:text="${ingredient.name}"></span>
+                        <th:block th:if="${ingredient.unit != 'null'}">
+                            <span th:text="${ingredient.amount}"></span> <span th:text="${ingredient.unit}"></span>
+                            <span th:text="${ingredient.name}"></span>
+                        </th:block>
+                        <th:block th:if="${ingredient.unit == 'null'}">
+                            <span th:text="${(ingredient.amount)}"></span> <span th:text="${ingredient.name}"></span>
+                        </th:block>
                     </li>
                 </ul>
             </div>
@@ -136,7 +153,10 @@
                     <div class="flex-grow-1 mb-0">
                         <h1 class="header d-inline">Reviews</h1>
                     </div>
-                    <button id="create-review-btn" type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#create-review" aria-expanded="false" aria-controls="create-review"><i class="fa-solid fa-pen-to-square me-1"></i>  Review</button>
+                    <button id="create-review-btn" type="button" class="btn btn-danger" data-bs-toggle="collapse"
+                            data-bs-target="#create-review" aria-expanded="false" aria-controls="create-review"><i
+                            class="fa-solid fa-pen-to-square me-1"></i> Review
+                    </button>
                 </div>
                 <hr>
                 <!-- Create Review Form -->
@@ -149,23 +169,29 @@
                                     <input th:name="recipe" th:value="${recipe.getId()}" type="hidden">
                                     <div class="col-3 d-flex align-items-center me-auto">
                                         <div class="rating d-flex justify-content-end">
-                                            <input id="star5" th:name="rating" name="star" type="radio" value="5" class="radio-btn hide" />
-                                            <label for="star5" ><i class="fa-solid fa-star"></i></label>
-                                            <input id="star4" th:name="rating" name="star" type="radio" value="4" class="radio-btn hide" />
-                                            <label for="star4" ><i class="fa-solid fa-star"></i></label>
-                                            <input id="star3" th:name="rating" name="star" type="radio" value="3" class="radio-btn hide" />
-                                            <label for="star3" ><i class="fa-solid fa-star"></i></label>
-                                            <input id="star2" th:name="rating" name="star" type="radio" value="2" class="radio-btn hide" />
-                                            <label for="star2" ><i class="fa-solid fa-star"></i></label>
-                                            <input id="star1" th:name="rating" name="star" type="radio" value="1" class="radio-btn hide" checked />
-                                            <label for="star1" ><i class="fa-solid fa-star" ></i></label>
+                                            <input id="star5" th:name="rating" name="star" type="radio" value="5"
+                                                   class="radio-btn hide"/>
+                                            <label for="star5"><i class="fa-solid fa-star"></i></label>
+                                            <input id="star4" th:name="rating" name="star" type="radio" value="4"
+                                                   class="radio-btn hide"/>
+                                            <label for="star4"><i class="fa-solid fa-star"></i></label>
+                                            <input id="star3" th:name="rating" name="star" type="radio" value="3"
+                                                   class="radio-btn hide"/>
+                                            <label for="star3"><i class="fa-solid fa-star"></i></label>
+                                            <input id="star2" th:name="rating" name="star" type="radio" value="2"
+                                                   class="radio-btn hide"/>
+                                            <label for="star2"><i class="fa-solid fa-star"></i></label>
+                                            <input id="star1" th:name="rating" name="star" type="radio" value="1"
+                                                   class="radio-btn hide" checked/>
+                                            <label for="star1"><i class="fa-solid fa-star"></i></label>
                                             <div class="clear"></div>
                                         </div>
                                     </div>
                                     <div class="review-info col-9 d-flex justify-content-end align-items-center">
                                         <input th:name="user" th:value="${loggedInUser.getId()}" type="hidden">
                                         <a href="#" class="d-flex align-items-center">
-                                            <img th:src="${loggedInUser.getProfilePicture()}" src="/images/pizzaman.jpg" class="me-2" alt="user profile image">
+                                            <img th:src="${loggedInUser.getProfilePicture()}" src="/images/pizzaman.jpg"
+                                                 class="me-2" alt="user profile image">
                                             <span th:text="${loggedInUser.getFirstName()} + ' ' + ${loggedInUser.getLastName()}"></span>
                                         </a>
                                         <div class="d-flex align-items-center ms-2">
@@ -176,11 +202,14 @@
                                 </div>
                                 <div class="card-body p-4 pt-3">
                                     <div class="form-floating mb-2">
-                                        <input type="text" th:name="title" class="form-control" id="create-review-title" placeholder="Review Title">
+                                        <input type="text" th:name="title" class="form-control" id="create-review-title"
+                                               placeholder="Review Title">
                                         <label for="create-review-title">Review Title</label>
                                     </div>
                                     <div class="form-floating mb-2">
-                                        <textarea th:name="description" class="form-control" id="create-review-description" placeholder="Review Description" rows="5" style="height: 150px;"></textarea>
+                                        <textarea th:name="description" class="form-control"
+                                                  id="create-review-description" placeholder="Review Description"
+                                                  rows="5" style="height: 150px;"></textarea>
                                         <label for="create-review-description">Review Description</label>
                                     </div>
                                     <button type="submit" class="btn btn-danger">Submit Review</button>
@@ -191,10 +220,12 @@
                     <th:block sec:authorize="!isAuthenticated()">
                         <div class="row justify-content-center d-flex flex-row">
                             <h4 class="text-center mb-3">Please log in to leave a review.</h4>
-                            <a class="btn btn-danger justify-content-center" href="/login" style="height: 45px; width: 100px;">Log In</a>
+                            <a class="btn btn-danger justify-content-center" href="/login"
+                               style="height: 45px; width: 100px;">Log In</a>
                         </div>
                         <div class="d-flex justify-content-center mb-4">
-                            <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a></p>
+                            <p>Don't have an account? <a href="/register" style="color: var(--red);">Register Here</a>
+                            </p>
                         </div>
                     </th:block>
                 </div>
@@ -263,14 +294,14 @@
 <script>
     function validateRevTitleLength(title) {
         const titleLength = title.length;
-        return titleLength >= 1 && titleLength <= 50 ;
+        return titleLength >= 1 && titleLength <= 50;
     }
 </script>
 <!-- Review Comment Validation -->
 <script>
     function validateRevCommentLength(comment) {
         const commentLength = comment.length;
-        return commentLength >= 1 && commentLength <= 300 ;
+        return commentLength >= 1 && commentLength <= 300;
     }
 </script>
 </body>
