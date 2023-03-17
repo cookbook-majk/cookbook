@@ -18,8 +18,8 @@
         </form>
     </div>
 </div>
-<div id="browse-body" class="search-container">
-    <div id="profile-tabs" class="row mt-4 mb-4" role="tablist">
+<div id="browse-body" class="search-container pt-4" style="background-color: var(--white); height: 100%;">
+    <div id="profile-tabs" class="row mb-4" role="tablist">
         <div class="col-6 pe-1">
             <button type="button" id="recipes-btn" class="btn btn-lg btn-secondary w-100 active" role="tab"
                     data-bs-toggle="pill" data-bs-target="#recipes" aria-controls="recipes"
@@ -33,16 +33,19 @@
             </button>
         </div>
         <!-- SearchBar Content -->
-        <div class="row tab-content">
+        <div class="tab-content">
             <!-- Recipes -->
             <div id="recipes" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recipes-btn"
                  tabindex="0">
                 <br>
-                <h1 class="header"><span th:text="${cookbookRecipes.size()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
+                <h1 class="header">
+                    <span th:text="${cookbookRecipes.size()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...
+                </h1>
+                <hr>
                 <!-- Content Here -->
-                <div class="d-flex flex-wrap flex-row justify-content-start">
+                <div class="d-flex flex-wrap flex-row justify-content-lg-start justify-content-md-between m-md-2">
                     <th:block th:each="recipe : ${cookbookRecipes}">
-                        <div th:replace="partials :: recipe-card(
+                        <th:block th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getImage()},
@@ -55,18 +58,21 @@
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
-                        </div>
+                        </th:block>
                     </th:block>
                 </div>
             </div>
             <!-- Chapters -->
             <div id="chapters" class="tab-pane fade" role="tabpanel" aria-labelledby="chapters-btn" tabindex="0">
                 <br>
-                <h1 class="header"><span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...</h1>
+                <h1 class="header">
+                    <span th:text="${searchResults.getTotalResults()}">10</span> recipes found for "<span th:text="${searchTerm}">Gator</span>"...
+                </h1>
+                <hr>
                 <!-- Content Here -->
-                <div class="d-flex flex-wrap flex-row justify-content-start">
+                <div class="d-flex flex-wrap flex-row justify-content-lg-start justify-content-md-between m-md-2">
                     <th:block th:each="recipe : ${searchResults.getResults()}">
-                        <div th:replace="partials :: recipe-card(
+                        <th:block th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
                             saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getImage()},
@@ -79,7 +85,7 @@
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
                             saves = ${recipeDao.findRecipeBySpoonacularId(recipe.getId()) != null ? recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle()) : 0})">
-                        </div>
+                        </th:block>
                     </th:block>
                 </div>
             </div>
@@ -88,11 +94,6 @@
 </div>
 
 <div th:replace="partials :: script"></div>
-<script th:inline="javascript">
-
-
-
-
-</script>
+<script th:inline="javascript"></script>
 </body>
 </html>
