@@ -124,13 +124,18 @@
                     <li>
                         <!-- TODO: Round whole ingredient amounts -->
                         <!-- TODO: Sentence-case -->
-                        <!-- TODO: Remove nulls -->
                         <th:block th:if="${ingredient.unit != 'null'}">
-                            <span th:text="${ingredient.amount}"></span> <span th:text="${ingredient.unit}"></span>
+                            <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
+                            #numbers.formatInteger(ingredient.amount, 1) :
+                            #numbers.formatDecimal(ingredient.amount, 0, 2)}"></span>
+                            <span th:text="${ingredient.unit}"></span>
                             <span th:text="${ingredient.name}"></span>
                         </th:block>
                         <th:block th:if="${ingredient.unit == 'null'}">
-                            <span th:text="${(ingredient.amount)}"></span> <span th:text="${ingredient.name}"></span>
+                            <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
+                            #numbers.formatInteger(ingredient.amount, 1) :
+                            ingredient.amount}"></span>
+                            <span th:text="${ingredient.name}"></span>
                         </th:block>
                     </li>
                 </ul>
@@ -303,6 +308,13 @@
         const commentLength = comment.length;
         return commentLength >= 1 && commentLength <= 300;
     }
+
+    $('.amount').text((i, t) => t.replace('.25', ' 1/4'));
+    $('.amount').text((i, t) => t.replace('.33', ' 1/3'));
+    $('.amount').text((i, t) => t.replace('.50', ' 1/2'));
+    $('.amount').text((i, t) => t.replace('.75', ' 3/4'));
+
+
 </script>
 </body>
 </html>

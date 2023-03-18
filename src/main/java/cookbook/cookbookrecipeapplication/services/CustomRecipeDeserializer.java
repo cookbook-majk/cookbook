@@ -40,9 +40,9 @@ public class CustomRecipeDeserializer extends StdDeserializer<CustomRecipe> {
         JsonNode ingredientsNode = node.get("extendedIngredients");
         ingredientsNode.forEach(recipeNode -> {
             Ingredient ingredient = new Ingredient(
-                    recipeNode.get("name").asText(),
+                    recipeNode.get("originalName").asText(),
                     recipeNode.get("unit").asText(),
-                    recipeNode.get("amount").asLong()
+                    recipeNode.get("amount").asDouble()
             );
             ingredients.add(ingredient);
         });
