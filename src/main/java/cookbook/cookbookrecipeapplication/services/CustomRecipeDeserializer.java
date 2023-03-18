@@ -36,6 +36,10 @@ public class CustomRecipeDeserializer extends StdDeserializer<CustomRecipe> {
         String servings = servingsNode.asText();
         customRecipe.setServings(Integer.parseInt(servings));
 
+        JsonNode summaryNode = node.get("summary");
+        String summary = summaryNode.asText();
+        customRecipe.setSummary(summary);
+
         List<Ingredient> ingredients = new ArrayList<>();
         JsonNode ingredientsNode = node.get("extendedIngredients");
         ingredientsNode.forEach(recipeNode -> {

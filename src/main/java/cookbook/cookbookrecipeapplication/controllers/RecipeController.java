@@ -117,29 +117,56 @@ public class RecipeController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "description") String comment,
             @RequestParam(name = "recipe") long recipe,
+            @RequestParam(name = "spoonacularId") long spoonacularId,
             @RequestParam(name = "user") long user,
             @RequestParam(name = "rating") int rating
-    ) {
+    ) throws IOException, InterruptedException {
 
-        Review review = new Review(
-                new Date(),
-                comment,
-                rating,
-                userDao.findUserById(user),
-                recipeDao.findRecipeById(recipe),
-                title
-        );
-
-        RecentActivity recentActivity = new RecentActivity(
-                4,
-                new Date(),
-                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-                review
-        );
-
-        recipeDao.saveReview(review);
-        userDao.saveRecentActivity(recentActivity);
-        return "redirect:/recipe/" + recipe;
+        // Checks if spoonacular recipe
+        if (spoonacularId != 0){
+            // Checks if spoonacular recipe already exists in database
+            if (recipeDao.findRecipeBySpoonacularId(spoonacularId) == null) {
+            // Creates the recipe object
+            Recipe newRecipe = recipeDao.getRecipeSpoonacular(spoonacularId);
+            newRecipe.setCreatedAt(new Date());
+            recipeDao.saveRecipe(newRecipe);
+            }
+            Review review = new Review(
+                    new Date(),
+                    comment,
+                    rating,
+                    userDao.findUserById(user),
+                    recipeDao.findRecipeBySpoonacularId(spoonacularId),
+                    title
+            );
+            RecentActivity recentActivity = new RecentActivity(
+                    4,
+                    new Date(),
+                    userDao.findUserById(user),
+                    review
+            );
+            recipeDao.saveReview(review);
+            userDao.saveRecentActivity(recentActivity);
+            return "redirect:/recipe/sp/" + spoonacularId;
+        } else {
+            Review review = new Review(
+                    new Date(),
+                    comment,
+                    rating,
+                    userDao.findUserById(user),
+                    recipeDao.findRecipeById(recipe),
+                    title
+            );
+            RecentActivity recentActivity = new RecentActivity(
+                    4,
+                    new Date(),
+                    userDao.findUserById(user),
+                    review
+            );
+            recipeDao.saveReview(review);
+            userDao.saveRecentActivity(recentActivity);
+            return "redirect:/recipe/" + recipe;
+        }
     }
 
     // View Spoonacular Recipe
@@ -148,6 +175,11 @@ public class RecipeController {
         model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null) {
             model.addAttribute("loggedInUser", userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        }
+        if (recipeDao.findRecipeBySpoonacularId(spoonacularId) == null){
+            model.addAttribute("rating", 0);
+        } else {
+        model.addAttribute("rating", recipeDao.getRatingAverageByRecipe(recipeDao.findRecipeBySpoonacularId(spoonacularId)));
         }
         model.addAttribute("review", new Review());
         model.addAttribute("recipeDao", recipeDao);
