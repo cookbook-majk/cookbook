@@ -30,18 +30,13 @@
                         <!-- Check for Cookbook vs Spoonacular id -->
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() == 'Spoonacular'}">
                             <!-- Link via Spoonacular -->
-                            <!--                            <a th:href="@{'/chapter/save/sp/' + ${recipe.getSpoonacularId()}}">-->
                             <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipeDao.findRecipeBySpoonacularId(recipe.getSpoonacularId()))? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}"
                                class="fa-bookmark saveRecipeSp" th:data-id="${recipe.getSpoonacularId()}"></i>
-                            <!--                            </a>-->
                         </th:block>
                         <th:block th:if="${recipe.getCustom_recipe().getCreator_id().getUsername() != 'Spoonacular'}">
                             <!-- Link via Cookbook -->
-                            <!--                            <a th:href="@{'/chapter/save/' + ${recipe.getId()}}">-->
-                            <!--                                <i class="fa-regular fa-bookmark"></i>-->
                             <i th:classappend="${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'}"
                                class="fa-bookmark" th:data-id="${recipe.getId()}"></i>
-                            <!--                            </a>-->
                         </th:block>
                     </th:block>
                 </th:block>
@@ -76,8 +71,14 @@
                     <div class="col d-flex justify-content-end align-content-center">
                         <a href="#"><i class="fa-solid fa-comment"></i> <span
                                 th:text="${recipe.getReviews().size()}">#</span></a>
+                        <th:block th:if="${recipe.getSpoonacularId() == 0}">
                         <a href="#"><i class="fa-solid fa-bookmark"></i> <span
-                                th:text="${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())}">#</span></a>
+                                th:text="${recipeDao.getNumberOfSavesByRecipeId(recipe.getId)}">#</span></a>
+                        </th:block>
+                        <th:block th:if="${recipe.getSpoonacularId() != 0}">
+                            <a href="#"><i class="fa-solid fa-bookmark"></i> <span
+                                    th:text="${recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())}">#</span></a>
+                        </th:block>
                     </div>
                 </div>
             </div>
@@ -85,7 +86,7 @@
             <!-- Collapsable description -->
             <div id="recipe-description">
                 <!-- TODO: Toggle Read More / Show Less button -->
-                <p th:text="${recipe.getCustom_recipe().summary}">
+                <p th:utext="${recipe.getCustom_recipe().summary}">
                     Recipe Description
                 </p>
                 <p class="read-more"><a href="#" class="button">Read More</a></p>
@@ -172,6 +173,7 @@
                             <div class="review-card card w-100 mb-3">
                                 <div class="review-details card-header d-flex p-3">
                                     <input th:name="recipe" th:value="${recipe.getId()}" type="hidden">
+                                    <input th:name="spoonacularId" th:value="${recipe.getSpoonacularId()}" type="hidden">
                                     <div class="col-3 d-flex align-items-center me-auto">
                                         <div class="rating d-flex justify-content-end">
                                             <input id="star5" th:name="rating" name="star" type="radio" value="5"

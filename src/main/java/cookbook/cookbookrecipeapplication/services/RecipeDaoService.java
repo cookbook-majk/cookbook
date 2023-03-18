@@ -88,12 +88,12 @@ public class RecipeDaoService {
         module.addDeserializer(Recipe.class, new RecipeDeserializer());
         mapper.registerModule(module);
         Recipe recipe = mapper.readValue(response.body(), Recipe.class);
-        recipe.setReviews(new ArrayList<>());
-        recipe.setCustom_recipe(customRecipe);
-
-        for (Instruction instruction : recipe.getCustom_recipe().getInstructions()){
-            System.out.println(instruction.getOrder_num() + " " + instruction.getContent());
+        if (findRecipeBySpoonacularId(recipe.getSpoonacularId()) == null){
+            recipe.setReviews(new ArrayList<>());
+        } else {
+            recipe.setReviews(findRecipeBySpoonacularId(recipe.getSpoonacularId()).getReviews());
         }
+        recipe.setCustom_recipe(customRecipe);
 
         return recipe;
     }
@@ -211,6 +211,13 @@ public class RecipeDaoService {
     }
     public long getNumberOfSavesByRecipeId(long recipeId){
         return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
+    }
+    public long getNumberOfSavesBySpoonacularId(long spoonacularId){
+        if (recipeDao.findBySpoonacularId(spoonacularId) == null){
+            return 0;
+        } else {
+        return chapterDao.getChaptersBySavedRecipes(Optional.ofNullable(recipeDao.findBySpoonacularId(spoonacularId))).size();
+        }
     }
     public long getNumberOfSavesByRecipeTitle(String recipeTitle){
         return chapterDao.getChaptersBySavedRecipes(Optional.ofNullable(recipeDao.findByTitle(recipeTitle))).size();

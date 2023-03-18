@@ -161,7 +161,9 @@
                             <!-- Review Activity -->
                             <th:block th:case="4">
                                 <div th:replace="partials :: activity-card(
-                                    link = '/recipe/' + ${activity.getReview().getRecipe_id().getId()},
+                                    link = ${activity.getReview().getRecipe_id().getSpoonacularId() == 0} ?
+                                        '/recipe/' + ${activity.getReview().getRecipe_id().getId()} :
+                                        '/recipe/sp/' + ${activity.getReview().getRecipe_id().getSpoonacularId()},
                                     image = ${activity.getReview().getRecipe_id().getImage()},
                                     rating = ${activity.getReview().getRating()},
                                     title = ${activity.getReview().getTitle()},
@@ -228,8 +230,10 @@
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+                            saves = ${recipe.getSpoonacularId() != 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
                         </div>
+                        <!--saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">-->
+
                     </th:block>
                 </div>
             </div>

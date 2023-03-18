@@ -144,4 +144,6 @@ public class Recipe implements Serializable {
     public void setChapters(Set<Chapter> chapters) {
         this.chapters = chapters;
     }
+
+
 }
