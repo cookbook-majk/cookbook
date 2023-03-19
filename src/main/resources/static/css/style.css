@@ -372,7 +372,7 @@ body::-webkit-scrollbar {
     text-decoration: none;
     padding: 5px;
 }
-#ingredients, #recipe {
+.tab-content#ingredients, .tab-content#recipe {
     font-size: 22px;
 }
 #create-review-btn {
@@ -525,7 +525,7 @@ body::-webkit-scrollbar {
 .firstName, .lastName, .bio {
     font-weight: bold;
 }
-/* BROWSE PAGE */
+/* PAGE */
 #browse-body {
     position: relative;
     background-color: var(--white);
