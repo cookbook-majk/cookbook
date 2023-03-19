@@ -230,7 +230,7 @@
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipe.getSpoonacularId() != 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
+                            saves = ${recipe.getSpoonacularId() == 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
                         </div>
                         <!--saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">-->
 

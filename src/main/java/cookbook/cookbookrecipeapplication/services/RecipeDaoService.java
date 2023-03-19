@@ -213,10 +213,10 @@ public class RecipeDaoService {
         return chapterDao.getChaptersBySavedRecipes(recipeDao.findById(recipeId)).size();
     }
     public long getNumberOfSavesBySpoonacularId(long spoonacularId){
-        if (recipeDao.findBySpoonacularId(spoonacularId) == null){
+        if (findRecipeBySpoonacularId(spoonacularId) == null){
             return 0;
         } else {
-        return chapterDao.getChaptersBySavedRecipes(Optional.ofNullable(recipeDao.findBySpoonacularId(spoonacularId))).size();
+        return chapterDao.getChaptersBySavedRecipes(Optional.ofNullable(findRecipeBySpoonacularId(spoonacularId))).size();
         }
     }
     public long getNumberOfSavesByRecipeTitle(String recipeTitle){
@@ -267,10 +267,6 @@ public class RecipeDaoService {
         return dishTypeDao.getDishTypeByType(name);
     }
 
-    public Recipe findRecipeByTitle(String title){
-        return recipeDao.findByTitle(title);
-    }
-
     public int getRatingAverageByRecipe(Recipe recipe){
         if (recipe.getReviews().size() != 0) {
             List<Review> reviews = recipe.getReviews();
@@ -282,6 +278,32 @@ public class RecipeDaoService {
             return (total / reviews.size());
         } else {
             return 0;
+        }
+    }
+
+    public int getRatingAverageBySpoonacularId(long spoonacularId){
+        if (findRecipeBySpoonacularId(spoonacularId) == null){
+            return 0;
+        } else {
+            if (findRecipeBySpoonacularId(spoonacularId).getReviews().size() != 0) {
+                List<Review> reviews = findRecipeBySpoonacularId(spoonacularId).getReviews();
+                int total = 0;
+                for (Review review : reviews) {
+                    int rating = review.getRating();
+                    total += rating;
+                }
+                return (total / reviews.size());
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    public long getNumberOfReviewsBySpoonacularId(long spoonacularId){
+        if (findRecipeBySpoonacularId(spoonacularId) == null){
+            return 0;
+        } else {
+            return findAllReviewsByRecipeId(findRecipeBySpoonacularId(spoonacularId).getId()).size();
         }
     }
 

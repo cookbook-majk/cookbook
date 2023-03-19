@@ -18,13 +18,15 @@ public class UserDaoService {
     private final ChapterRepository chapterDao;
     private final FollowerRepository followerDao;
     private final RecentActivityRepository recentActivityDao;
+    private final RecipeDaoService recipeDao;
 
-    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao, FollowerRepository followerDao, RecentActivityRepository recentActivityDao) {
+    public UserDaoService(UserRepository userDao, PasswordEncoder passwordEncoder, ChapterRepository chapterDao, FollowerRepository followerDao, RecentActivityRepository recentActivityDao, RecipeDaoService recipeDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.chapterDao = chapterDao;
         this.followerDao = followerDao;
         this.recentActivityDao = recentActivityDao;
+        this.recipeDao = recipeDao;
     }
 
     public void registerUser(User user) {
@@ -108,6 +110,18 @@ public class UserDaoService {
     public boolean checkIfSaved(User user, Recipe recipe){
         if (user != null) {
             return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+        }
+        return false;
+    }
+
+    public boolean checkIfSavedBySpoonacularId(User user, long spoonacularId){
+        if (user != null) {
+            if (recipeDao.findRecipeBySpoonacularId(spoonacularId) != null){
+                Recipe recipe = recipeDao.findRecipeBySpoonacularId(spoonacularId);
+                return chapterDao.findByUserId(user.getId()).getSavedRecipes().contains(recipe);
+            } else {
+                return false;
+            }
         }
         return false;
     }
