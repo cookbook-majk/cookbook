@@ -68,7 +68,9 @@
                     <h1 class="header">Ingredients</h1>
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
-                    <button type="button" id="add-ing-btn" class="btn btn-sm btn-danger justify-self-end">Add Ingredient</button>
+                    <button type="button" id="add-ing-btn" class="btn btn-sm btn-danger justify-self-end">
+                        Add Ingredient
+                    </button>
                 </div>
                 <hr>
                 <div class="row">
@@ -82,14 +84,14 @@
                         <h5>Unit</h5>
                     </div>
                 </div>
-                <ol th:object="${ingredients}">
-                    <li id="ingredient-field">
+                <ol th:object="${ingredients}" id="ingredients" data-num="3">
+                    <li id="ing-1">
                         <div class="row g-3 mb-1">
                             <div class="col-7">
                                 <input type="text" th:field="*{ingredients[0].name}" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
                             <div id="unit-select" class="col-sm">
                                 <select th:field="*{ingredients[0].unit}" class="form-select" aria-label="Unit">
@@ -114,13 +116,13 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li id="ing-2">
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
                                 <input type="text" th:field="*{ingredients[1].name}" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
                             <div class="col-sm">
                                 <select th:field="*{ingredients[1].unit}" class="form-select" aria-label="Unit">
@@ -145,13 +147,13 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li id="ing-3">
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
                                 <input type="text" th:field="*{ingredients[2].name}" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name">
                             </div>
                             <div class="col-sm">
-                                <input type="number" step="0.25" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
                             </div>
                             <div class="col-sm">
                                 <select th:field="*{ingredients[2].unit}" class="form-select" aria-label="Unit">
@@ -176,7 +178,6 @@
                             </div>
                         </div>
                     </li>
-                <!--<li class="ingredient-field"></li>-->
                 </ol>
             </div>
             </th:block>
@@ -187,29 +188,28 @@
                     <h1 class="header">Instructions</h1>
                 </div>
                 <div class="col d-flex justify-content-end align-items-center">
-                    <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Step</button>
+                    <button type="button" id="add-ins-btn" class="btn btn-sm btn-danger justify-self-end">
+                        Add Step
+                    </button>
                 </div>
                 <hr>
-                <ol th:object="${instructions}">
-                    <li>
-                        <div class="form-floating mb-1">
+                <ol th:object="${instructions}" id="instructions" data-num="3">
+                    <li id="ins-1">
+                        <div class="mb-1">
                             <input type="hidden" value="1" th:field="*{instructions[0].order_num}">
-                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3"></textarea>
-                            <label for="create-recipe-step-1">Step One</label>
+                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
                         </div>
                     </li>
-                    <li>
-                        <div class="form-floating mb-1">
+                    <li id="ins-2">
+                        <div class="mb-1">
                             <input type="hidden" value="2" th:field="*{instructions[1].order_num}">
-                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3"></textarea>
-                            <label for="create-recipe-step-2">Step Two</label>
+                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="2"></textarea>
                         </div>
                     </li>
-                    <li>
-                        <div class="form-floating mb-1">
+                    <li id="ins-3">
+                        <div class="mb-1">
                             <input type="hidden" value="3" th:field="*{instructions[2].order_num}">
-                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3"></textarea>
-                            <label for="create-recipe-step-3">Step Three</label>
+                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="2"></textarea>
                         </div>
                     </li>
                 </ol>
@@ -271,9 +271,104 @@
         $(".unit-select").html($("#unit-select").html());
     });
 
-    $("#add-ing-btn").click(function(){
-        $(".ingredient-field").html($("#ingredient-field").html());
-    });
+
+    // Add Ingredient Functionality
+     function addIngredient(num) {
+         let html = '';
+
+         if (num < 10) {
+             num++;
+
+             html += `
+                <li id="ing-${num}">
+                        <div class="row g-3 mb-1">
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" th:field="*{ingredients[${num - 1}].name}" value="" required>
+                            </div>
+                            <div class="col-sm">
+                                <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" th:field="*{ingredients[${num - 1}].amount}" value="0.0" required>
+                            </div>
+                            <div class="col-sm">
+                                <select class="form-select" aria-label="Unit" th:field="*{ingredients[${num - 1}].unit}">
+                                    <option value="">--</option>
+                                    <option value="tbsp">tbsp</option>
+                                    <option value="tsp">tsp</option>
+                                    <option value="cup(s)">cup(s)</option>
+                                    <option value="quart(s)">quart(s)</option>
+                                    <option value="pint(s)">pint(s)</option>
+                                    <option value="gallon(s)">gallon(s)</option>
+                                    <option value="oz">oz</option>
+                                    <option value="floz">fl oz</option>
+                                    <option value="pound(s)">pound(s)</option>
+                                    <option value="milliliter(s)">milliliter(s)</option>
+                                    <option value="liter(s)">liter(s)</option>
+                                    <option value="gram(s)">gram(s)</option>
+                                    <option value="kilogram(s)">kilogram(s)</option>
+                                    <option value="whole">whole</option>
+                                    <option value="pinch">pinch(es)</option>
+                                    <option value="serving(s)">serving(s)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>`;
+
+             $(`#ing-${num - 1}`).after(html);
+         }
+
+         $(`#ingredients`).attr('data-num', num);
+
+     }
+
+     $('#add-ing-btn').click((event) => {
+         let total = $('#ingredients').attr('data-num');
+         addIngredient(total);
+     });
+
+     // Add Instruction Functionality
+     function addInstruction(num) {
+         let html = '';
+
+         if (num < 10) {
+             num++;
+
+             html += `
+                <li id="ins-${num}">
+                        <div class="mb-1">
+                            <input type="hidden" value="1" th:field="*{instructions[${num - 1}].order_num}">
+                            <textarea th:field="*{instructions[${num - 1}].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
+                        </div>
+                </li>`;
+
+             $(`#ins-${num - 1}`).after(html);
+         }
+
+         $(`#instructions`).attr('data-num', num);
+
+     }
+
+     $('#add-ins-btn').click((event) => {
+         let total = $('#instructions').attr('data-num');
+         addInstruction(total);
+     });
+
+         // $('.delete-field').unbind().click((event) => {
+         //     let id = $(event.currentTarget).parent().attr('id');
+         //     let parentId = $(`#${id}`).parent().attr('id');
+         //     deleteField(id, parentId);
+         // });
+
+     // function deleteField(id, parentId) {
+     //
+     //     let num = $(`#${parentId}`).data('num');
+     //     $(`#${parentId}`).data('num', num - 1);
+     //     $(`#${id}`).remove();
+     //
+     //     for (let i = 1; i < num; i++) {
+     //         let newId = parentId + "-" + (i + 1);
+     //         $(`#${parentId + "-" + i}`).next().attr('id', newId);
+     //         $(`#${newId}`).children('.number-list').text(i + 1);
+     //     }
+     // }
 
 </script>
 <!-- Recipe Title Validation -->
