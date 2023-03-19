@@ -57,8 +57,7 @@
                             lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                             reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
-                        </th:block>
+                            saves = ${recipe.getSpoonacularId() == 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">                        </th:block>
                     </th:block>
                 </div>
             </div>
@@ -74,17 +73,17 @@
                     <th:block th:each="recipe : ${searchResults.getResults()}">
                         <th:block th:replace="partials :: recipe-card(
                             id = ${recipe.getId()},
-                            saved = ${userDao.checkIfSaved(loggedInUser, recipe)? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
+                            saved = ${userDao.checkIfSavedBySpoonacularId(loggedInUser, recipe.getSpoonacularId())? 'unsaveRecipe fa-solid' : 'saveRecipe fa-regular'},
                             image = ${recipe.getImage()},
-                            rating = ${recipeDao.getRatingAverageByRecipe(recipe)},
+                            rating = ${recipeDao.getRatingAverageBySpoonacularId(recipe.getSpoonacularId())},
                             title = ${recipe.getTitle()},
                             username = ${user.getUsername},
                             userimg = ${user.getProfilePicture()},
                             firstname = ${user.getFirstName()},
                             lastname = ${user.getLastName()},
                             date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
-                            reviews = ${recipe.getReviews().size},
-                            saves = ${recipeDao.findRecipeBySpoonacularId(recipe.getId()) != null ? recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle()) : 0})">
+                            reviews = ${recipe.getSpoonacularId() == 0? recipe.getReviews().size : recipeDao.getNumberOfReviewsBySpoonacularId(recipe.getSpoonacularId())},
+                            saves = ${recipe.getSpoonacularId() == 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
                         </th:block>
                     </th:block>
                 </div>

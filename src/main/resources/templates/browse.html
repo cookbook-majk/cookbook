@@ -11,7 +11,8 @@
     <div class="search-bar-container">
         <form th:action="@{/search}" th:method="get">
             <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search recipes..." aria-label="Search recipes..." aria-describedby="search-addon">
+                <input type="text" class="form-control" name="search" placeholder="Search recipes..."
+                       aria-label="Search recipes..." aria-describedby="search-addon">
                 <button class="btn btn-danger" type="submit" id="search-addon">
                     <i class="fas fa-search"></i>
                 </button>
@@ -88,7 +89,7 @@
                                     lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
                                     date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                                     reviews = ${recipe.getReviews().size},
-                                    saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+                                    saves = ${recipe.getSpoonacularId() == 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
                     </div>
                 </th:block>
             </div>
@@ -112,7 +113,7 @@
                                     lastname = ${recipe.getCustom_recipe().getCreator_id().getLastName()},
                                     date = ${#dates.format(recipe.getCreatedAt(), 'MMM dd, yyyy')},
                                     reviews = ${recipe.getReviews().size},
-                                    saves = ${recipeDao.getNumberOfSavesByRecipeTitle(recipe.getTitle())})">
+                                    saves = ${recipe.getSpoonacularId() == 0? recipeDao.getNumberOfSavesByRecipeId(recipe.getId()) : recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())})">
                     </div>
                 </th:block>
             </div>
