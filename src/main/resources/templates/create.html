@@ -283,13 +283,13 @@
                 <li id="ing-${num}">
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" th:field="*{ingredients[${num - 1}].name}" value="" required>
+                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" name="ingredients[${num - 1}].name" value="" required>
                             </div>
                             <div class="col-sm">
-                                <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" th:field="*{ingredients[${num - 1}].amount}" value="0.0" required>
+                                <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" name="ingredients[${num - 1}].amount" value="0.0" required>
                             </div>
                             <div class="col-sm">
-                                <select class="form-select" aria-label="Unit" th:field="*{ingredients[${num - 1}].unit}">
+                                <select class="form-select" aria-label="Unit" name="ingredients[${num - 1}].unit">
                                     <option value="">--</option>
                                     <option value="tbsp">tbsp</option>
                                     <option value="tsp">tsp</option>
@@ -334,8 +334,8 @@
              html += `
                 <li id="ins-${num}">
                         <div class="mb-1">
-                            <input type="hidden" value="1" th:field="*{instructions[${num - 1}].order_num}">
-                            <textarea th:field="*{instructions[${num - 1}].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
+                            <input type="hidden" value="1" name="instructions[${num - 1}].order_num">
+                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
                         </div>
                 </li>`;
 
