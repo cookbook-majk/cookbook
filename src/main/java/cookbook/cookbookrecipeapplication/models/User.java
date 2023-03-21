@@ -94,6 +94,12 @@ public class User {
         password = copy.password;
     }
 
+    public User(String username, String userBio, String profilePicture) {
+        this.username = username;
+        this.userBio = userBio;
+        this.profilePicture = profilePicture;
+    }
+
     // Getters and Setters
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }

@@ -79,7 +79,7 @@ public class RecipeDaoService {
         mapper.registerModule(module);
         CustomRecipe customRecipe = mapper.readValue(response.body(), CustomRecipe.class);
         // Adds spoonacular as creator of recipe
-        customRecipe.setCreator_id(userDao.findByUsername("Spoonacular"));
+//        customRecipe.setCreator_id(userDao.findByUsername("Spoonacular"));
 
         // Deserializes data into recipe object and adds it into custom recipe object
         ObjectMapper mapper2 = new ObjectMapper();
@@ -94,6 +94,15 @@ public class RecipeDaoService {
             recipe.setReviews(findRecipeBySpoonacularId(recipe.getSpoonacularId()).getReviews());
         }
         recipe.setCustom_recipe(customRecipe);
+
+        // Deserializes data into user object and adds it into recipe object
+        ObjectMapper mapper3 = new ObjectMapper();
+        SimpleModule module3 =
+                new SimpleModule("UserDeserializer", new Version(1, 0, 0, null, null, null));
+        module.addDeserializer(User.class, new UserDeserializer());
+        mapper.registerModule(module);
+        User user = mapper.readValue(response.body(), User.class);
+        customRecipe.setCreator_id(user);
 
         return recipe;
     }
