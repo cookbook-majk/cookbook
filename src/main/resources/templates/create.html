@@ -197,19 +197,19 @@
                     <li id="ins-1">
                         <div class="mb-1">
                             <input type="hidden" value="1" th:field="*{instructions[0].order_num}">
-                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2" maxlength="500" required></textarea>
+                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" rows="2" maxlength="500" required></textarea>
                         </div>
                     </li>
                     <li id="ins-2">
                         <div class="mb-1">
                             <input type="hidden" value="2" th:field="*{instructions[1].order_num}">
-                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="2" maxlength="500" required></textarea>
+                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" rows="2" maxlength="500" required></textarea>
                         </div>
                     </li>
                     <li id="ins-3">
                         <div class="mb-1">
                             <input type="hidden" value="3" th:field="*{instructions[2].order_num}">
-                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="2" maxlength="500" required></textarea>
+                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" rows="2" maxlength="050" required></textarea>
                         </div>
                     </li>
                 </ol>
@@ -334,8 +334,8 @@
              html += `
                 <li id="ins-${num}">
                         <div class="mb-1">
-                            <input type="hidden" value="1" name="instructions[${num - 1}].order_num">
-                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2" maxlength="500" required></textarea>
+                            <input type="hidden" value="" name="instructions[${num - 1}].order_num">
+                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" rows="2" maxlength="500" required></textarea>
                         </div>
                 </li>`;
 
