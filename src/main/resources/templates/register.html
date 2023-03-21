@@ -14,7 +14,7 @@
                 <form th:action="@{/register}" th:method="post" th:object="${user}" id="registrationForm" class="mx-1 mx-md-4 ">
                     <div class="row mb-4">
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name" aria-label="First name" id="firstnameReg" onblur="return validateFirstnameLength();">
+                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First name" aria-label="First name" id="firstnameReg" maxlength="25" onblur="return validateFirstnameLength();">
                         </div>
                         <div class="col">
                             <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name" aria-label="Last name" id="lastnameReg" onblur="return validateLastnameLength();">
@@ -27,7 +27,7 @@
                                 <div class="input-group-text">
                                     <i class="fas fa-user fa-lg fa-fw"></i>
                                 </div>
-                                <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username" onblur="return validateUsername();">
+                                <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username" maxlength="25" onblur="return validateUsername();">
                             </div>
                         </div>
                     </div>
@@ -38,16 +38,16 @@
                                 <div class="input-group-text">
                                     <i class="fas fa-envelope fa-lg fa-fw"></i>
                                 </div>
-                                <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email" onblur="return validateEmailFormat();">
+                                <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email" maxlength="100" onblur="return validateEmailFormat();">
                             </div>
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col">
-                            <input type="password" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password" id="password1Reg" onblur="return validatePassword1();">
+                            <input type="password" class="form-control" th:field="*{password}" name="password" placeholder="Password" aria-label="Password" id="password1Reg" maxlength="100" onblur="return validatePassword1();">
                         </div>
                         <div class="col">
-                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" id="password2Reg" onblur="return validatePassword2();">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" id="password2Reg" maxlength="100" onblur="return validatePassword2();">
                         </div>
                     </div>
                     <div id="message d-flex flex-column">

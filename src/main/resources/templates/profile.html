@@ -264,19 +264,19 @@
                             <label class="firstName" for="first-name">First Name:</label>
                             <input type="text" th:value="${user.getFirstName()}" id="first-name" class="form-control"
                                    th:name="firstName"
-                                   placeholder="First name" aria-label="First name">
+                                   placeholder="First name" aria-label="First name" maxlength="25">
                         </div>
                         <div class="col-md-12">
                             <label class="lastName" for="last-name">Last Name:</label>
                             <input type="text" th:value="${user.getLastName()}" id="last-name" class="form-control"
                                    th:name="lastName"
-                                   placeholder="Last name" aria-label="Last name">
+                                   placeholder="Last name" aria-label="Last name" maxlength="25">
                         </div>
                         <div class="col-md-12">
                             <label class="bio" for="bio">Bio:</label>
                             <textarea id="bio" class="form-control" th:name="userBio" name="bio"
                                       placeholder="Tell us about yourself!" aria-label="Bio"
-                                      th:text="${user.getUserBio()}"></textarea>
+                                      th:text="${user.getUserBio()}" maxlength="250"></textarea>
                         </div>
                     </div>
                 </div>

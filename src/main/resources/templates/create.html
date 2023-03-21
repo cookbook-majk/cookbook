@@ -15,23 +15,23 @@
                 <hr>
                 <div class="col-md-8 col-12">
                     <div class="form-floating mb-2">
-                        <input type="text" th:name="title" class="form-control" id="create-recipe-title" placeholder="Recipe Title">
+                        <input type="text" th:name="title" class="form-control" id="create-recipe-title" placeholder="Recipe Title" maxlength="100" required>
                         <label for="create-recipe-title">Recipe Title</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <textarea th:name="description" class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;"></textarea>
+                        <textarea th:name="description" class="form-control" id="create-recipe-description" placeholder="Recipe Description" rows="5" style="height: 150px;" maxlength="2500" required></textarea>
                         <label for="create-recipe-description">Recipe Description</label>
                     </div>
                     <div class="row">
                         <div class="col-4 pe-1">
                             <div class="form-floating mb-2">
-                                <input th:name="time" type="number" class="form-control" id="create-recipe-time" placeholder="Prep Time">
+                                <input th:name="time" type="number" class="form-control" id="create-recipe-time" placeholder="Prep Time" required>
                                 <label for="create-recipe-time">Prep Time (minutes)</label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-floating mb-2">
-                                <input th:name="servings" type="number" class="form-control" id="create-recipe-servings" placeholder="Servings">
+                                <input th:name="servings" type="number" class="form-control" id="create-recipe-servings" placeholder="Servings" required>
                                 <label for="create-recipe-servings">Servings</label>
                             </div>
                         </div>
@@ -88,10 +88,10 @@
                     <li id="ing-1">
                         <div class="row g-3 mb-1">
                             <div class="col-7">
-                                <input type="text" th:field="*{ingredients[0].name}" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[0].name}" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name" maxlength="250" required>
                             </div>
                             <div class="col-sm">
-                                <input type="number" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" maxlength="3">
                             </div>
                             <div id="unit-select" class="col-sm">
                                 <select th:field="*{ingredients[0].unit}" class="form-select" aria-label="Unit">
@@ -119,10 +119,10 @@
                     <li id="ing-2">
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" th:field="*{ingredients[1].name}" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[1].name}" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name" maxlength="250" required>
                             </div>
                             <div class="col-sm">
-                                <input type="number" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" maxlength="3" required>
                             </div>
                             <div class="col-sm">
                                 <select th:field="*{ingredients[1].unit}" class="form-select" aria-label="Unit">
@@ -150,10 +150,10 @@
                     <li id="ing-3">
                         <div class="row g-3 mb-1">
                             <div class="col-sm-7">
-                                <input type="text" th:field="*{ingredients[2].name}" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name">
+                                <input type="text" th:field="*{ingredients[2].name}" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" maxlength="250" required>
                             </div>
                             <div class="col-sm">
-                                <input type="number" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity">
+                                <input type="number" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" maxlength="3 required>
                             </div>
                             <div class="col-sm">
                                 <select th:field="*{ingredients[2].unit}" class="form-select" aria-label="Unit">
@@ -197,19 +197,19 @@
                     <li id="ins-1">
                         <div class="mb-1">
                             <input type="hidden" value="1" th:field="*{instructions[0].order_num}">
-                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
+                            <textarea th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2" maxlength="250" required></textarea>
                         </div>
                     </li>
                     <li id="ins-2">
                         <div class="mb-1">
                             <input type="hidden" value="2" th:field="*{instructions[1].order_num}">
-                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="2"></textarea>
+                            <textarea th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="2" maxlength="250" required></textarea>
                         </div>
                     </li>
                     <li id="ins-3">
                         <div class="mb-1">
                             <input type="hidden" value="3" th:field="*{instructions[2].order_num}">
-                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="2"></textarea>
+                            <textarea th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="2" maxlength="250" required></textarea>
                         </div>
                     </li>
                 </ol>
@@ -335,7 +335,7 @@
                 <li id="ins-${num}">
                         <div class="mb-1">
                             <input type="hidden" value="1" name="instructions[${num - 1}].order_num">
-                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2"></textarea>
+                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2" required></textarea>
                         </div>
                 </li>`;
 
