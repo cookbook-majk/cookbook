@@ -76,7 +76,9 @@
             <h1 class="header">Ingredients</h1>
           </div>
           <div class="col d-flex justify-content-end align-items-center">
-            <button type="button" id="add-ing-btn" class="btn btn-sm btn-danger justify-self-end">Add Ingredient</button>
+            <button type="button" id="add-ing-btn" class="btn btn-sm btn-danger justify-self-end">
+              Add Ingredient
+            </button>
           </div>
           <hr>
           <div class="row">
@@ -90,101 +92,40 @@
               <h5>Unit</h5>
             </div>
           </div>
-          <ol th:object="${ingredients}">
-            <li id="ingredient-field">
-              <div class="row g-3 mb-1">
-                <div class="col-7">
-                  <input type="text" th:field="*{ingredients[0].name}" class="form-control" id="create-recipe-ingredient" placeholder="e.g. flour, sifted" aria-label="Ingredient Name" required>
+          <ol th:object="${ingredients}" id="ingredients" th:attr="data-num=${recipe.getIngredients().size()}">
+            <th:block th:each="ingredient, iter : ${ingredients.getIngredients()}">
+              <li th:id="'ing-' + ${iter.index + 1}">
+                <div class="row g-3 mb-1">
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" th:name="'ingredients[' + ${iter.index} + '].name'" th:value="${ingredient.name}" required>
+                  </div>
+                  <div class="col-sm">
+                    <input type="number" step="0.1" class="form-control" placeholder="Quantity" aria-label="Quantity" th:name="'ingredients[' + ${iter.index} + '].amount'" th:value="${ingredient.amount}" required>
+                  </div>
+                  <div class="col-sm">
+                    <select class="form-select" aria-label="Unit" th:name="'ingredients[' + ${iter.index} + '].unit'" th:value="${ingredient.unit}">
+                      <option value="" th:selected="${ingredient.unit == null}">--</option>
+                      <option value="tbsp" th:selected="${ingredient.unit == 'tbsp'}">tbsp</option>
+                      <option value="tsp" th:selected="${ingredient.unit == 'tsp'}">tsp</option>
+                      <option value="cup(s)" th:selected="${ingredient.unit == 'cup(s)'}">cup(s)</option>
+                      <option value="quart(s)" th:selected="${ingredient.unit == 'quart(s)'}">quart(s)</option>
+                      <option value="pint(s)" th:selected="${ingredient.unit == 'pint(s)'}">pint(s)</option>
+                      <option value="gallon(s)" th:selected="${ingredient.unit == 'gallon(s)'}">gallon(s)</option>
+                      <option value="oz" th:selected="${ingredient.unit == 'oz'}">oz</option>
+                      <option value="floz" th:selected="${ingredient.unit == 'floz'}">fl oz</option>
+                      <option value="pound(s)" th:selected="${ingredient.unit == 'pound(s)'}">pound(s)</option>
+                      <option value="milliliter(s)" th:selected="${ingredient.unit == 'milliliter(s)'}">milliliter(s)</option>
+                      <option value="liter(s)" th:selected="${ingredient.unit == 'liter(s)'}">liter(s)</option>
+                      <option value="gram(s)" th:selected="${ingredient.unit == 'gram(s)'}">gram(s)</option>
+                      <option value="kilogram(s)" th:selected="${ingredient.unit == 'kilogram(s)'}">kilogram(s)</option>
+                      <option value="whole" th:selected="${ingredient.unit == 'whole'}">whole</option>
+                      <option value="pinch" th:selected="${ingredient.unit == 'pinch(es)'}">pinch(es)</option>
+                      <option value="serving(s)" th:selected="${ingredient.unit == 'serving(s)'}">serving(s)</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-sm">
-                  <input type="number" step="0.25" th:field="*{ingredients[0].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" required>
-                </div>
-                <div id="unit-select" class="col-sm">
-                  <select th:field="*{ingredients[0].unit}" class="form-select" aria-label="Unit">
-                    <option value="" selected>--</option>
-                    <option value="tbsp">tbsp</option>
-                    <option value="tsp">tsp</option>
-                    <option value="cup(s)">cup(s)</option>
-                    <option value="quart(s)">quart(s)</option>
-                    <option value="pint(s)">pint(s)</option>
-                    <option value="gallon(s)">gallon(s)</option>
-                    <option value="oz">oz</option>
-                    <option value="floz">fl oz</option>
-                    <option value="pound(s)">pound(s)</option>
-                    <option value="milliliter(s)">milliliter(s)</option>
-                    <option value="liter(s)">liter(s)</option>
-                    <option value="gram(s)">gram(s)</option>
-                    <option value="kilogram(s)">kilogram(s)</option>
-                    <option value="whole">whole</option>
-                    <option value="pinch">pinch(es)</option>
-                    <option value="serving(s)">serving(s)</option>
-                  </select>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="row g-3 mb-1">
-                <div class="col-sm-7">
-                  <input type="text" th:field="*{ingredients[1].name}" class="form-control" placeholder="e.g. butter, softened" aria-label="Ingredient Name" required>
-                </div>
-                <div class="col-sm">
-                  <input type="number" step="0.25" th:field="*{ingredients[1].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" required>
-                </div>
-                <div class="col-sm">
-                  <select th:field="*{ingredients[1].unit}" class="form-select" aria-label="Unit">
-                    <option value="" selected>--</option>
-                    <option value="tbsp">tbsp</option>
-                    <option value="tsp">tsp</option>
-                    <option value="cup(s)">cup(s)</option>
-                    <option value="quart(s)">quart(s)</option>
-                    <option value="pint(s)">pint(s)</option>
-                    <option value="gallon(s)">gallon(s)</option>
-                    <option value="oz">oz</option>
-                    <option value="floz">fl oz</option>
-                    <option value="pound(s)">pound(s)</option>
-                    <option value="milliliter(s)">milliliter(s)</option>
-                    <option value="liter(s)">liter(s)</option>
-                    <option value="gram(s)">gram(s)</option>
-                    <option value="kilogram(s)">kilogram(s)</option>
-                    <option value="whole">whole</option>
-                    <option value="pinch">pinch(es)</option>
-                    <option value="serving(s)">serving(s)</option>
-                  </select>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="row g-3 mb-1">
-                <div class="col-sm-7">
-                  <input type="text" th:field="*{ingredients[2].name}" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" required>
-                </div>
-                <div class="col-sm">
-                  <input type="number" step="0.25" th:field="*{ingredients[2].amount}" class="form-control" placeholder="Quantity" aria-label="Quantity" required>
-                </div>
-                <div class="col-sm">
-                  <select th:field="*{ingredients[2].unit}" class="form-select" aria-label="Unit">
-                    <option value="" selected>--</option>
-                    <option value="tbsp">tbsp</option>
-                    <option value="tsp">tsp</option>
-                    <option value="cup(s)">cup(s)</option>
-                    <option value="quart(s)">quart(s)</option>
-                    <option value="pint(s)">pint(s)</option>
-                    <option value="gallon(s)">gallon(s)</option>
-                    <option value="oz">oz</option>
-                    <option value="floz">fl oz</option>
-                    <option value="pound(s)">pound(s)</option>
-                    <option value="milliliter(s)">milliliter(s)</option>
-                    <option value="liter(s)">liter(s)</option>
-                    <option value="gram(s)">gram(s)</option>
-                    <option value="kilogram(s)">kilogram(s)</option>
-                    <option value="whole">whole</option>
-                    <option value="pinch">pinch(es)</option>
-                    <option value="serving(s)">serving(s)</option>
-                  </select>
-                </div>
-              </div>
-            </li>
-            <!--<li class="ingredient-field"></li>-->
+              </li>
+            </th:block>
           </ol>
         </div>
       </th:block>
@@ -195,31 +136,20 @@
             <h1 class="header">Instructions</h1>
           </div>
           <div class="col d-flex justify-content-end align-items-center">
-            <button type="button" class="btn btn-sm btn-danger justify-self-end">Add Step</button>
+            <button type="button" id="add-ins-btn" class="btn btn-sm btn-danger justify-self-end">
+              Add Step
+            </button>
           </div>
           <hr>
-          <ol th:object="${instructions}">
-            <li>
-              <div class="form-floating mb-1">
-                <input type="hidden" value="1" th:field="*{instructions[0].order_num}">
-                <textarea maxlength="250" th:field="*{instructions[0].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="3" required></textarea>
-                <label for="create-recipe-step-1">Step One</label>
-              </div>
-            </li>
-            <li>
-              <div class="form-floating mb-1">
-                <input type="hidden" value="2" th:field="*{instructions[1].order_num}">
-                <textarea maxlength="250" th:field="*{instructions[1].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-2" rows="3" required></textarea>
-                <label for="create-recipe-step-2">Step Two</label>
-              </div>
-            </li>
-            <li>
-              <div class="form-floating mb-1">
-                <input type="hidden" value="3" th:field="*{instructions[2].order_num}">
-                <textarea maxlength="250" th:field="*{instructions[2].content}" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-3" rows="3" required></textarea>
-                <label for="create-recipe-step-3">Step Three</label>
-              </div>
-            </li>
+          <ol th:object="${instructions}" id="instructions" th:attr="data-num=${recipe.getInstructions().size()}">
+            <th:block th:each="instruction, iter : ${instructions.getInstructions()}">
+              <li th:id="'ins-' + ${iter.index + 1}">
+                <div class="mb-1">
+                  <input type="hidden" value="" th:name="'instructions[' + ${iter.index} + '].order_num'" th:value="${instruction.order_num}">
+                  <textarea maxlength="500" th:name="'instructions[' + ${iter.index} + '].content'" th:value="${instruction.content}" th:text="${instruction.content}" class="form-control" placeholder="Recipe Instructions" rows="2" required></textarea>
+                </div>
+              </li>
+            </th:block>
           </ol>
         </div>
       </th:block>
@@ -248,13 +178,83 @@
     client.picker(options).open();
   });
 
-  // Populates more fields
-  $(document).ready(function(){
-    $(".unit-select").html($("#unit-select").html());
+  // Add Ingredient Functionality
+  function addIngredient(num) {
+    let html = '';
+
+    if (num < 10) {
+      num++;
+
+      html += `
+                <li id="ing-${num}">
+                        <div class="row g-3 mb-1">
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" placeholder="e.g. eggs, beat" aria-label="Ingredient Name" name="ingredients[${num - 1}].name" value="" required>
+                            </div>
+                            <div class="col-sm">
+                                <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" name="ingredients[${num - 1}].amount" value="0.0" required>
+                            </div>
+                            <div class="col-sm">
+                                <select class="form-select" aria-label="Unit" name="ingredients[${num - 1}].unit">
+                                    <option value="">--</option>
+                                    <option value="tbsp">tbsp</option>
+                                    <option value="tsp">tsp</option>
+                                    <option value="cup(s)">cup(s)</option>
+                                    <option value="quart(s)">quart(s)</option>
+                                    <option value="pint(s)">pint(s)</option>
+                                    <option value="gallon(s)">gallon(s)</option>
+                                    <option value="oz">oz</option>
+                                    <option value="floz">fl oz</option>
+                                    <option value="pound(s)">pound(s)</option>
+                                    <option value="milliliter(s)">milliliter(s)</option>
+                                    <option value="liter(s)">liter(s)</option>
+                                    <option value="gram(s)">gram(s)</option>
+                                    <option value="kilogram(s)">kilogram(s)</option>
+                                    <option value="whole">whole</option>
+                                    <option value="pinch">pinch(es)</option>
+                                    <option value="serving(s)">serving(s)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>`;
+
+      $(`#ing-${num - 1}`).after(html);
+    }
+
+    $(`#ingredients`).attr('data-num', num);
+
+  }
+
+  $('#add-ing-btn').click((event) => {
+    let total = $('#ingredients').attr('data-num');
+    addIngredient(total);
   });
 
-  $("#add-ing-btn").click(function(){
-    $(".ingredient-field").html($("#ingredient-field").html());
+  // Add Instruction Functionality
+  function addInstruction(num) {
+    let html = '';
+
+    if (num < 10) {
+      num++;
+
+      html += `
+                <li id="ins-${num}">
+                        <div class="mb-1">
+                            <input type="hidden" value="1" name="instructions[${num - 1}].order_num">
+                            <textarea name="instructions[${num - 1}].content" class="form-control" placeholder="Recipe Instructions" id="create-recipe-step-1" rows="2" required></textarea>
+                        </div>
+                </li>`;
+
+      $(`#ins-${num - 1}`).after(html);
+    }
+
+    $(`#instructions`).attr('data-num', num);
+
+  }
+
+  $('#add-ins-btn').click((event) => {
+    let total = $('#instructions').attr('data-num');
+    addInstruction(total);
   });
 
 </script>
