@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials :: head"></head>
+<title th:text="${recipe.getTitle()} + ' Kitchen Mode'">Recipe Page</title>
+
+<body style="background-color: var(--white);">
+
+<div class="container">
+    <h1 class="header mt-4 text-center fs-1" th:text="${recipe.getTitle()}">Recipe Name</h1>
+    <div class="row">
+        <div class="col-5">
+            <ul class="list-unstyled" th:each="ingredient : ${recipe.getCustom_recipe().ingredients}">
+                <li>
+                    <input class="form-check-input mt-0" type="radio">
+                    <th:block th:if="${ingredient.unit != 'null'}">
+                            <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
+                            #numbers.formatInteger(ingredient.amount, 1) :
+                            #numbers.formatDecimal(ingredient.amount, 0, 2)}"></span>
+                        <span th:text="${ingredient.unit}"></span>
+                        <span th:text="${ingredient.name}"></span>
+                    </th:block>
+                    <th:block th:if="${ingredient.unit == 'null'}">
+                            <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
+                            #numbers.formatInteger(ingredient.amount, 1) :
+                            ingredient.amount}"></span>
+                        <span th:text="${ingredient.name}"></span>
+                    </th:block>
+                </li>
+            </ul>
+        </div>
+        <div class="col-7">
+            <ol>
+                <li th:each="instruction : ${recipe.getCustom_recipe().instructions}">
+                    <span th:text="${instruction.content}"></span>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div th:replace="partials :: script"></div>
+</body>
+</html>

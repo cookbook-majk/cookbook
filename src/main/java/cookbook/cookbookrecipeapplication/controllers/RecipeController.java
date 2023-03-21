@@ -272,6 +272,16 @@ public class RecipeController {
         return "redirect:/recipe/" + recipe.getId();
     }
 
+    // Kitchen Mode
+    @GetMapping("/recipe/{recipeId}/km")
+    public String kitchenMode(@PathVariable long recipeId, Model model){
+        model.addAttribute("recipe", recipeDao.findRecipeById(recipeId));
+        return "/kitchen-mode";
+    }
 
-
+    @GetMapping("/recipe/sp/{spoonacularId}/km")
+    public String kitchenModeSpoonacular(@PathVariable long spoonacularId, Model model) throws IOException, InterruptedException {
+        model.addAttribute("recipe", recipeDao.getRecipeAndCustomRecipeBySpoonacularId(spoonacularId));
+        return "/kitchen-mode";
+    }
 }
