@@ -377,12 +377,10 @@
 </div>
 
 <div th:replace="partials :: script"></div>
-<!-- File Stack -->
-<!-- TODO: Can Filestack be moved to the Script partial? -->
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <!-- TODO: Consolidate JS -->
 <script th:inline="javascript">
 
+    // Opens filestack image uploader
     const client = filestack.init([[${filestack}]]);
     const options = {
         onFileUploadFinished(file) {
@@ -391,11 +389,11 @@
             $('#userImage').attr('src', file.url).removeData('th:src')
         }
     }
-
     $(`#img-upload`).click(function () {
         client.picker(options).open();
     });
 
+    // Created fetch request for users and populates users modal
     $('#searchUserButton').click(function (e) {
         e.preventDefault();
         $(`#foundUsersContainer`).html('');
@@ -428,7 +426,7 @@
     const closeButton = document.getElementsByClassName('close')[0];
     const closeButton2 = document.getElementsByClassName('close')[1];
     const closeButton3 = document.getElementsByClassName('close')[2];
-    const editProfileForm = document.getElementById('edit-profile-form');
+    // const editProfileForm = document.getElementById('edit-profile-form');
     const saveChanges = document.getElementById("saveChangesBtn");
 
     editProfileButton.addEventListener('click', () => {
