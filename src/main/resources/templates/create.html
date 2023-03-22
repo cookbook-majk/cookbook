@@ -223,9 +223,8 @@
 </section>
 
 <div th:replace="partials :: script"></div>
-<!-- Filestack JS -->
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script th:inline="javascript">
+
 
      const client = filestack.init([[${filestack}]]);
      const options = {
