@@ -271,34 +271,41 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
             integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!--    <script src="../static/js/script.js"></script>-->
     <script>
 
-        $('.saveRecipe').click(function (e) {
-            console.log("save");
+        // Checks if recipe is saved already or not, then submits fetch to either save or unsave then changes associated classes
+        $('.save-recipe').click(function (e) {
             e.preventDefault();
-            if ($(this).hasClass("saveRecipeSp")) {
-                fetch(`/chapter/save/sp/` + $(this).data("id"));
-                $(this).removeClass('saveRecipe').addClass('unsaveRecipe').addClass('fa-solid').removeClass('fa-regular');
-            } else {
-                fetch(`/chapter/save/` + $(this).data("id"));
-                $(this).removeClass('saveRecipe').addClass('unsaveRecipe').addClass('fa-solid').removeClass('fa-regular');
+            console.log("registered function");
+            if ($(this).hasClass("saveRecipe")){
+                console.log("registered saveRecipe");
+                if ($(this).hasClass("saveRecipeSp")) {
+                    fetch(`/chapter/save/sp/` + $(this).data("id"));
+                    $(this).removeClass('saveRecipe').addClass('unsaveRecipe').addClass('fa-solid').removeClass('fa-regular');
+                    console.log("saved spoonacular recipe");
+                } else {
+                    fetch(`/chapter/save/` + $(this).data("id"));
+                    $(this).removeClass('saveRecipe').addClass('unsaveRecipe').addClass('fa-solid').removeClass('fa-regular');
+                    console.log("saved custom recipe");
+                }
+            } else if ($(this).hasClass("unsaveRecipe")){
+                console.log("registered unsaveRecipe");
+                if ($(this).hasClass("saveRecipeSp")) {
+                    fetch(`/chapter/unsave/sp/` + $(this).data("id"));
+                    $(this).addClass('saveRecipe').removeClass('unsaveRecipe').removeClass('fa-solid').addClass('fa-regular');
+                    console.log("unsaved spoonacular recipe");
+                } else {
+                    fetch(`/chapter/unsave/` + $(this).data("id"));
+                    $(this).addClass('saveRecipe').removeClass('unsaveRecipe').removeClass('fa-solid').addClass('fa-regular');
+                    console.log("unsaved custom recipe");
+                }
             }
         })
 
-        $('.unsaveRecipe').click(function (e) {
-            console.log("unsave");
-            e.preventDefault();
-            if ($(this).hasClass("saveRecipeSp")) {
-                fetch(`/chapter/unsave/sp/` + $(this).data("id"));
-                $(this).addClass('saveRecipe').removeClass('unsaveRecipe').removeClass('fa-solid').addClass('fa-regular');
-            } else {
-                fetch(`/chapter/unsave/` + $(this).data("id"));
-                $(this).addClass('saveRecipe').removeClass('unsaveRecipe').removeClass('fa-solid').addClass('fa-regular');
-            }
-        })
 
     </script>
 </div>
