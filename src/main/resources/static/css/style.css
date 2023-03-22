@@ -701,6 +701,35 @@ body::-webkit-scrollbar {
 .modal-content{
     margin-top: 20%;
 }
+/* Kitchen Mode*/
+.km-header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 3em;
+}
+.km-item {
+    font-size: 1.25em;
+    margin: .75em;
+}
+.km-itemHeader {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    margin-bottom: .6em;
+}
+.fa-circle-check {
+    color: var(--red);
+}
+.scratched {
+    text-decoration: line-through;
+    color: var(--red);
+}
+.km-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: 38px;
+    letter-spacing: 1px;
+    padding: 0;
+}
 
 /* Andre's CSS for Form Validation */
 /*Proceed with caution*/

@@ -1,43 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials :: head"></head>
-<title th:text="${recipe.getTitle()} + ' Kitchen Mode'">Recipe Page</title>
+<title th:text="${recipe.getTitle()} + '- Kitchen Mode'">Recipe Page</title>
 
-<body style="background-color: var(--white);">
-
+<body class="pt-0" style="background-color: var(--white);">
+<div class="d-flex justify-content-end">
+    <a class="navbar-brand km-logo fs-5 p-3 pb-3" href="/home">cook<span
+            style="color: var(--red);">book</span></a>
+</div>
+<h1 class="km-header text-center mb-4" th:text="${recipe.getTitle()}">Recipe Name</h1>
 <div class="container">
-    <h1 class="header mt-4 text-center fs-1" th:text="${recipe.getTitle()}">Recipe Name</h1>
-    <div class="row">
+    <div class="row justify-content-between">
         <div class="col-5">
-            <ul class="list-unstyled" th:each="ingredient : ${recipe.getCustom_recipe().ingredients}">
-                <li>
-                    <input class="form-check-input mt-0" type="radio">
-                    <th:block th:if="${ingredient.unit != 'null'}">
+            <h2 class="text-center km-itemHeader">Ingredients</h2>
+            <th:block th:each="ingredient, iter : ${recipe.getCustom_recipe().ingredients}">
+                <span class="row d-flex">
+                    <div class="col-1 fs-4 ingredientRadio" th:id="'ingredient' + ${iter.index}">
+                        <i class="fa-regular fa-circle"></i>
+                    </div>
+                    <p class="km-item col-9 mt-0" th:for="'ingredient' + ${iter.index}">
+                        <th:block th:if="${ingredient.unit != 'null'}">
                             <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
                             #numbers.formatInteger(ingredient.amount, 1) :
                             #numbers.formatDecimal(ingredient.amount, 0, 2)}"></span>
-                        <span th:text="${ingredient.unit}"></span>
-                        <span th:text="${ingredient.name}"></span>
-                    </th:block>
-                    <th:block th:if="${ingredient.unit == 'null'}">
+                            <span th:text="${ingredient.unit}"></span>
+                            <span th:text="${ingredient.name}"></span>
+                        </th:block>
+                        <th:block th:if="${ingredient.unit == 'null'}">
                             <span class="amount" th:text="${ingredient.amount % 1 == 0 ?
                             #numbers.formatInteger(ingredient.amount, 1) :
                             ingredient.amount}"></span>
-                        <span th:text="${ingredient.name}"></span>
-                    </th:block>
-                </li>
-            </ul>
+                            <span th:text="${ingredient.name}"></span>
+                        </th:block>
+                    </p>
+                </span>
+            </th:block>
         </div>
         <div class="col-7">
-            <ol>
-                <li th:each="instruction : ${recipe.getCustom_recipe().instructions}">
-                    <span th:text="${instruction.content}"></span>
-                </li>
-            </ol>
+            <h2 class="text-center km-itemHeader">Instructions</h2>
+            <th:block th:each="instruction, iter : ${recipe.getCustom_recipe().instructions}">
+                <div class="row">
+                    <div class="col-1"><span class="badge bg-danger rounded-circle" th:text="${iter.index + 1}">1</span>
+                    </div>
+                    <p class="km-item col-10 mt-0 ms-1">
+                        <span th:text="${instruction.content}"></span>
+                    </p>
+                </div>
+            </th:block>
         </div>
     </div>
 </div>
 
 <div th:replace="partials :: script"></div>
+<script>
+
+    <!--  Allows radio buttons to be unchecked  -->
+    $("input:radio").on("click", function () {
+        let selector = $(this); //cache the selector
+        if (selector.is(".theone")) { //see if it has the selected class
+            selector.prop("checked", false).removeClass("theone");
+            return;
+        }
+        $("input:radio[name='" + selector.prop("name") + "'].theone").removeClass("theone");
+        selector.addClass("theone");
+    });
+
+    $('.ingredientRadio').click(function () {
+        if ($(this).children().first().hasClass('fa-circle')) {
+            $(this).children().first().removeClass('fa-circle').addClass('fa-circle-check');
+            $(this).next().addClass('scratched');
+        } else {
+            $(this).children().first().addClass('fa-circle').removeClass('fa-circle-check');
+            $(this).next().removeClass('scratched');
+        }
+    })
+
+</script>
 </body>
 </html>
