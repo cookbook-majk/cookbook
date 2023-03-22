@@ -44,7 +44,7 @@ body::-webkit-scrollbar {
 }
 .btn-danger {
     background-color: var(--red);
-    color: var(--white);
+    color: whitesmoke;
     font-size: 20px;
     font-weight: 500;
 }
