@@ -197,23 +197,30 @@ public class RecipeController {
     // Draft an Edit
     @GetMapping("/recipe/{id}/edit")
     public String editDraft(Model model, @PathVariable long id) {
-        model.addAttribute("recipe", recipeDao.findRecipeById(id).getCustom_recipe());
-        model.addAttribute("recipeDao", recipeDao);
-        model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
+        // Checks if logged in user id matches recipe creator id / if does returns edit page if not returns 403
+        if (userDao.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId() == recipeDao.findRecipeById(id).getCustom_recipe().getCreator_id().getId()) {
 
-        IngredientList ingredients = new IngredientList();
-        List<Ingredient> ingredientsList = new ArrayList<>();
-        ingredientsList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getIngredients());
-        ingredients.setIngredients(ingredientsList);
-        model.addAttribute("ingredients", ingredients);
+            model.addAttribute("recipe", recipeDao.findRecipeById(id).getCustom_recipe());
+            model.addAttribute("recipeDao", recipeDao);
+            model.addAttribute("filestack", PropertiesReader.getProperty("FILESTACK_API_KEY"));
 
-        InstructionList instructions = new InstructionList();
-        List<Instruction> instructionList = new ArrayList<>();
-        instructionList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getInstructions());
-        instructions.setInstructions(instructionList);
-        model.addAttribute("instructions", instructions);
+            IngredientList ingredients = new IngredientList();
+            List<Ingredient> ingredientsList = new ArrayList<>();
+            ingredientsList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getIngredients());
+            ingredients.setIngredients(ingredientsList);
+            model.addAttribute("ingredients", ingredients);
 
-        return "/edit";
+            InstructionList instructions = new InstructionList();
+            List<Instruction> instructionList = new ArrayList<>();
+            instructionList.addAll(recipeDao.findRecipeById(id).getCustom_recipe().getInstructions());
+            instructions.setInstructions(instructionList);
+            model.addAttribute("instructions", instructions);
+
+            return "/edit";
+
+        } else {
+            return "/error/403";
+        }
     }
 
     // Edit a Recipe

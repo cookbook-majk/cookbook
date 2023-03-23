@@ -45,14 +45,14 @@
                 </th:block>
             </div>
             <th:block th:if="${recipe.getSpoonacularId() == 0}">
-            <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
-                <a th:href="'/profile/' + ${recipe.getCustom_recipe().getCreator_id().getUsername()}" href="#">
-                    <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}"
-                         src="/images/pizzaman.jpg" alt="user profile image">
-                    <span class="ms-2"
-                          th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()} + ' ' + ${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Name</span>
-                </a>
-            </div>
+                <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
+                    <a th:href="'/profile/' + ${recipe.getCustom_recipe().getCreator_id().getUsername()}" href="#">
+                        <img th:src="${recipe.getCustom_recipe().getCreator_id().getProfilePicture()}"
+                             src="/images/pizzaman.jpg" alt="user profile image">
+                        <span class="ms-2"
+                              th:text="${recipe.getCustom_recipe().getCreator_id().getFirstName()} + ' ' + ${recipe.getCustom_recipe().getCreator_id().getLastName()}">User Name</span>
+                    </a>
+                </div>
             </th:block>
             <th:block th:if="${recipe.getSpoonacularId() != 0}">
                 <div id="recipe-page-user" class="d-flex justify-content-start align-items-end">
@@ -80,21 +80,24 @@
                     </div>
                 </div>
                 <div id="recipe-stats" class="col flex-grow-1 d-flex">
-                    <div class="col d-flex justify-content-end align-content-center">
+                    <div class="col d-flex justify-content-end align-content-center align-items-center">
                         <a href="#"><i class="fa-solid fa-comment"></i> <span
                                 th:text="${recipe.getReviews().size()}">#</span></a>
                         <th:block th:if="${recipe.getSpoonacularId() == 0}">
-                        <a href="#"><i class="fa-solid fa-bookmark"></i> <span
-                                th:text="${recipeDao.getNumberOfSavesByRecipeId(recipe.getId)}">#</span></a>
+                            <a href="#"><i class="fa-solid fa-bookmark"></i> <span
+                                    th:text="${recipeDao.getNumberOfSavesByRecipeId(recipe.getId)}">#</span></a>
                         </th:block>
                         <th:block th:if="${recipe.getSpoonacularId() != 0}">
                             <a href="#"><i class="fa-solid fa-bookmark"></i> <span
                                     th:text="${recipeDao.getNumberOfSavesBySpoonacularId(recipe.getSpoonacularId())}">#</span></a>
                         </th:block>
+                        <a target="_blank" th:href="'/recipe/' + *{recipe.getId()} + '/km'"><img src="/images/kitchen-mode.png" class="kitchenModeBtn" alt="Kitchen Mode"></a>
                     </div>
                 </div>
             </div>
-            <h5 th:text="${recipe.title}">Recipe Title</h5>
+            <div class="d-flex align-items-center">
+                <h5 th:text="${recipe.title}">Recipe Title</h5>
+            </div>
             <!-- Collapsable description -->
             <div id="recipe-description">
                 <!-- TODO: Toggle Read More / Show Less button -->
@@ -185,7 +188,8 @@
                             <div class="review-card card w-100 mb-3">
                                 <div class="review-details card-header d-flex p-3">
                                     <input th:name="recipe" th:value="${recipe.getId()}" type="hidden">
-                                    <input th:name="spoonacularId" th:value="${recipe.getSpoonacularId()}" type="hidden">
+                                    <input th:name="spoonacularId" th:value="${recipe.getSpoonacularId()}"
+                                           type="hidden">
                                     <div class="col-3 d-flex align-items-center me-auto">
                                         <div class="rating d-flex justify-content-end">
                                             <input id="star5" th:name="rating" name="star" type="radio" value="5"
