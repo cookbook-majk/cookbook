@@ -13,7 +13,6 @@
     --pink: #fdbbc0;
     --lightred: #fb4f5a;
     --red: #ef2037;
-
 }
 html {
     font-family: 'Inter', sans-serif;
@@ -729,6 +728,11 @@ body::-webkit-scrollbar {
     font-size: 38px;
     letter-spacing: 1px;
     padding: 0;
+}
+.kitchenModeBtn {
+    color: var(--red);
+    height: 30px;
+    width: 30px;
 }
 
 /* Andre's CSS for Form Validation */

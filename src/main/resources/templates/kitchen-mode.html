@@ -4,8 +4,8 @@
 <title th:text="${recipe.getTitle()} + '- Kitchen Mode'">Recipe Page</title>
 
 <body class="pt-0" style="background-color: var(--white);">
-<div class="d-flex justify-content-end">
-    <a class="navbar-brand km-logo fs-5 p-3 pb-3" href="/home">cook<span
+<div class="d-flex justify-content-start">
+    <a class="navbar-brand km-logo fs-5 p-3 pb-1" href="/home">cook<span
             style="color: var(--red);">book</span></a>
 </div>
 <h1 class="km-header text-center mb-4" th:text="${recipe.getTitle()}">Recipe Name</h1>
