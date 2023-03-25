@@ -731,8 +731,8 @@ body::-webkit-scrollbar {
 }
 .kitchenModeBtn {
     color: var(--red);
-    height: 30px;
-    width: 30px;
+    height: 32px;
+    width: 32px;
 }
 
 /* Andre's CSS for Form Validation */
